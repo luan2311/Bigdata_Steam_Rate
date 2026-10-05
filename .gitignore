@@ -1,0 +1,49 @@
+# Python and local environments
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+build/
+dist/
+
+# Credentials and machine-specific settings
+.env
+.env.*
+!.env.example
+!.env.*.example
+kaggle.json
+*.pem
+*.key
+
+# Local datasets; preserve directory skeleton and documentation
+/data/**
+!/data/**/
+!/data/**/.gitkeep
+!/data/README.md
+
+# Generated models and dashboard snapshots
+/artifacts/models/**
+!/artifacts/models/**/
+!/artifacts/models/**/.gitkeep
+/artifacts/snapshots/**
+!/artifacts/snapshots/**/
+!/artifacts/snapshots/**/.gitkeep
+
+# Runtime volumes and logs
+/infra/docker/volumes/
+/logs/
+*.log
+/spark-warehouse/
+/metastore_db/
+
+# Temporary editor/office files
+.DS_Store
+Thumbs.db
+~$*
+*.tmp
