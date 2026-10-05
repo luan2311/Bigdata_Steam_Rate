@@ -2,23 +2,24 @@
 
 ## 1. Phạm vi và chiều phụ thuộc
 
-Giữ một codebase Python với bốn lớp; chưa cần microservice, event bus hoặc repository cho từng bảng. NiFi, HDFS và Spark là thành phần thực thi ngoài lõi nghiệp vụ.
+Giữ một codebase Python với bốn lớp; chưa cần microservice, event bus hoặc repository phức tạp cho từng bảng. NiFi, HDFS và Spark là thành phần thực thi ngoài lõi nghiệp vụ.
 
 ```mermaid
 flowchart TD
-    P[Presentation: CLI và dashboard] --> A[Application: use cases, DTO, ports]
+    P[Presentation: CLI và Dashboard] --> A[Application: use cases, DTO, ports]
+    P -.->|khởi tạo qua| B[Bootstrap: composition root]
     I[Infrastructure: ingestion, storage, Spark, MLlib] --> A
     A --> D[Domain: entities và policies]
     I --> D
-    B[Bootstrap: composition root] --> A
+    B --> A
     B --> I
 ```
 
-Mũi tên biểu diễn phụ thuộc mã nguồn. Dữ liệu lúc chạy vẫn đi qua NiFi → HDFS → Spark → snapshot/dashboard. Entry point trong `presentation` được gọi `bootstrap` để tạo ứng dụng; đây là điểm ghép duy nhất, không phải lý do để mọi trang UI import adapter.
+Mũi tên biểu diễn phụ thuộc mã nguồn. Dữ liệu lúc chạy vẫn đi qua NiFi → HDFS → Spark → snapshot/dashboard. Entry point trong `presentation` được gọi `bootstrap` để tạo ứng dụng; đây là điểm ghép duy nhất, không phải lý do để mọi trang UI import trực tiếp adapter.
 
-## 2. Trách nhiệm và giới hạn từng lớp
+## 2. Trách nhiệm và giới hạn từng lớp (Nhóm 2 sinh viên)
 
-| Vị trí trong `src/steam_reviews/` | Đặt gì ở đây | Không đặt ở đây | Người chính |
+| Vị trí trong `src/steam_reviews/` | Đặt gì ở đây | Không đặt ở đây | Phụ trách |
 |---|---|---|---|
 | `domain/entities/` | Khái niệm đánh giá, dataset, run và định danh thuần Python khi cần | DataFrame, SparkSession, client HDFS | TV2 |
 | `domain/policies/` | Chính sách nhãn hợp lệ, cách tính tỷ lệ, ngưỡng xếp hạng, quy tắc split/dedup | Đọc file, truy vấn SQL trực tiếp, gọi NiFi | TV2 |
@@ -30,14 +31,14 @@ Mũi tên biểu diễn phụ thuộc mã nguồn. Dữ liệu lúc chạy vẫn
 | `infrastructure/spark/` | DataFrame/SQL để chuẩn hóa, dedup, aggregate theo policy đã chốt | UI hoặc logic điều hướng trang | TV2 |
 | `infrastructure/ml/` | Feature pipeline MLlib, fit/predict/evaluate, lưu/nạp model | Chọn kết quả thuận lợi bằng test set | TV2 |
 | `presentation/cli/` | Parse tham số, gọi bootstrap/use case, in kết quả và exit code | ETL/huấn luyện viết trực tiếp trong entry point | TV2 + TV1 |
-| `presentation/dashboard/` | Trang, biểu đồ, filter, chuyển DTO nhỏ sang dữ liệu hiển thị | Đọc raw HDFS hoặc khởi chạy training khi đổi bộ lọc | TV3 |
-| `bootstrap/` | Đọc cấu hình môi trường, tạo adapter, inject vào use case | Quy tắc nhãn, tính KPI, giao diện | TV1 + TV2 |
+| `presentation/dashboard/` | Trang Streamlit, biểu đồ Plotly, filter, hiển thị dữ liệu từ DTO | Đọc raw HDFS hoặc khởi chạy training khi đổi bộ lọc | TV1 |
+| `bootstrap/` | Đọc cấu hình môi trường, tạo adapter, inject vào use case | Quy tắc nhãn, tính KPI, giao diện chi tiết | TV1 + TV2 |
 
 Luật import: `domain` chỉ dùng thư viện chuẩn; `application` dùng thư viện chuẩn + domain; `infrastructure` được import application/domain và thư viện công nghệ; `presentation` dùng application cùng thư viện UI/CLI; `bootstrap` được biết các lớp để ghép chúng. Không import presentation từ infrastructure hoặc từ lớp bên trong.
 
 ## 3. Hợp đồng và use case sẽ triển khai
 
-Các tên dưới đây là **hướng dẫn đặt mã**, chưa phải class/function đã tồn tại. Chốt chữ ký sau khi kiểm tra dataset D2.
+Các tên dưới đây là **hướng dẫn đặt mã**, chưa phải class/function đã tồn tại. Chốt chữ ký sau khi kiểm tra dataset.
 
 | Use case dự kiến | Port cần dùng | Adapter thực thi | Kết quả nhỏ trả về |
 |---|---|---|---|
@@ -56,13 +57,13 @@ Các chính sách phải có một nguồn định nghĩa rõ. Khi chuyển chí
 ## 4. Những thành phần ngoài package Python
 
 - `nifi/flows/`: flow JSON nhập/xuất qua NiFi; `nifi/parameters/`: mẫu tham số an toàn. TV1 chịu trách nhiệm vận hành, retry, back pressure, commit batch.
-- `infra/`: Compose/Dockerfile và cấu hình cụm; chỉ tạo file thực thi khi có cấu hình đã kiểm tra. Bộ khung chưa có file Compose giả.
-- `schemas/`: hợp đồng vật lý source/silver/gold; quy tắc nghiệp vụ thuần nằm trong domain. Mọi lớp phối hợp theo schema version, run_id và manifest.
+- `infra/`: Compose/Dockerfile và cấu hình cụm; chỉ tạo file thực thi khi có cấu hình đã kiểm tra.
+- `schemas/`: hợp đồng vật lý source/silver/gold; quy tắc nghiệp vụ thuần nằm trong domain. Mọi lớp phối hợp theo schema version, run_id và manifest (TV2 chủ trì, TV1 review).
 - `scripts/`: wrapper submit job/export/benchmark; gọi CLI hoặc công cụ hạ tầng, không sao chép nghiệp vụ vào script.
-- `data/`: tệp cục bộ. Bronze/silver/gold chính trên HDFS theo `Plan.md`, không đồng nhất thư mục cục bộ với HDFS.
+- `data/`: tệp cục bộ. Bronze/silver/gold chính trên HDFS theo [Plan.md mục 3.5](../Plan.md#35-môi-trường-cụm-và-bố-cục-hdfs), không đồng nhất thư mục cục bộ với HDFS.
 - `artifacts/`: đầu ra thực nghiệm và tham chiếu; `docs/evidence/`: ảnh/log đã chọn lọc chứng minh tiêu chí; không lưu log runtime vô hạn.
 
-## 5. Phân chia kiểm thử khi bắt đầu triển khai
+## 5. Phân chia kiểm thử khi triển khai
 
 | Thư mục | Nội dung cần kiểm tra | Điều kiện |
 |---|---|---|
@@ -71,4 +72,4 @@ Các chính sách phải có một nguồn định nghĩa rõ. Khi chuyển chí
 | `tests/e2e/` | Pipeline smoke, retry/replay, dashboard so với gold | Cụm và artifact mẫu sẵn sàng |
 | `tests/fixtures/` | CSV đa dòng, dấu nháy, Unicode, nhãn sai, ID/text trùng và kết quả mong đợi | Dữ liệu nhỏ, có thể commit |
 
-Hiện chỉ tạo nơi đặt kiểm thử, chưa có test hoặc kết quả kiểm thử chức năng. Khi review mã, đối chiếu quy tắc import, không đưa DataFrame vào port và không tải dữ liệu lớn lên driver.
+Khi review mã, đối chiếu quy tắc import, không đưa DataFrame vào port và không tải dữ liệu lớn lên driver.

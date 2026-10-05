@@ -1,6 +1,6 @@
 # Cấu hình triển khai — TV1
 
-- `docker/`: Dockerfile, Compose và cấu hình volume/network khi triển khai ở D1–D2.
+- `docker/`: Dockerfile, Compose và cấu hình volume/network khi triển khai ở Tuần 4–5 (NiFi 2.x, HDFS, Spark — xem [Plan.md mục 3.5](../Plan.md#35-môi-trường-cụm-và-bố-cục-hdfs)).
 - `hadoop/`: cấu hình NameNode/DataNode và HDFS.
 - `spark/`: cấu hình master/worker, submit và event log.
 
