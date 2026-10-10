@@ -1,6 +1,6 @@
 # Phân tích dữ liệu đánh giá trò chơi trên Steam
 
-Bộ khung đồ án môn học **Nhập môn Big Data** dành cho **nhóm 2 sinh viên (TV1, TV2)**, thực hiện theo kế hoạch 10 tuần.  
+Bộ khung đồ án môn học **Nhập môn Big Data** dành cho **nhóm 3 sinh viên (TV1, TV2, TV3)**, thực hiện theo kế hoạch 10 tuần.  
 Luồng dữ liệu tổng thể: **Kaggle Dataset → Apache NiFi → HDFS → Apache Spark (ETL & MLlib) → Streamlit Dashboard**.
 
 **Trạng thái:** Đã thiết lập cấu trúc mã nguồn theo Clean Architecture, package Python và các tài liệu kế hoạch/phân công. Các thư mục đang giữ bằng `.gitkeep` và sẵn sàng triển khai.
@@ -16,18 +16,19 @@ Luồng dữ liệu tổng thể: **Kaggle Dataset → Apache NiFi → HDFS → 
 ## 1. Căn cứ và Tài liệu làm việc
 
 - [Plan.md](Plan.md): Kế hoạch chi tiết 10 tuần, ma trận rubric 6 tiêu chí (CLO1–CLO5), 2 mốc nộp bài (GĐ1: 30%, GĐ2: 70%) và tiêu chuẩn nghiệm thu.
-- [Checklist.md](Checklist.md): Danh mục công việc chi tiết theo từng tuần cho 2 thành viên (TV1 và TV2).
+- [Checklist.md](Checklist.md): Danh mục công việc chi tiết theo từng tuần cho 3 thành viên (TV1, TV2 và TV3).
 - [Kiến trúc Clean Architecture](docs/architecture.md): Ranh giới các lớp, chiều phụ thuộc và quy tắc import mã nguồn.
 - [Nhật ký đóng góp](docs/contributions.md): Mẫu theo dõi tiến độ hàng ngày, tổng hợp tuần và xác nhận tỷ lệ đóng góp của từng thành viên.
 
 ---
 
-## 2. Phân công vai trò (Nhóm 2 sinh viên)
+## 2. Phân công vai trò (Nhóm 3 sinh viên)
 
 | Thành viên | Vai trò chính | Trách nhiệm & Sản phẩm bàn giao |
 |---|---|---|
 | **TV1** | **Kỹ sư Hạ tầng dữ liệu & Trực quan hóa** (Data Platform & App Engineer) | • Hạ tầng cụm phân tán (`infra/docker/`, `infra/hadoop/`, `infra/spark/`).<br>• Luồng thu thập & ingestion (`nifi/flows/`, `nifi/parameters/`, WebHDFS).<br>• Xây dựng Dashboard trực quan hóa (`src/steam_reviews/presentation/dashboard/`).<br>• Điều phối chung, hồ sơ báo cáo Word & Slide (`report/`). |
 | **TV2** | **Kỹ sư Xử lý dữ liệu lớn & ML** (Big Data Processing & ML Engineer) | • Hợp đồng dữ liệu & quy tắc (`schemas/`, `src/steam_reviews/domain/`).<br>• Xử lý phân tán Spark ETL: Clean, Dedup, Gold (`src/steam_reviews/infrastructure/spark/`).<br>• Xây dựng và đánh giá mô hình phân loại Spark MLlib (`src/steam_reviews/infrastructure/ml/`).<br>• Phân tích lỗi, benchmark, kiểm soát độ đo & chất lượng dữ liệu. |
+| **TV3** | **Kỹ sư Chất lượng dữ liệu & Báo cáo** (Data Quality & Documentation Engineer) | • Xây dựng fixture kiểm thử & test đối soát số liệu (`tests/fixtures/`, `tests/`).<br>• Đối soát số liệu Gold Layer và Dashboard (ít nhất 3 tổ hợp filter).<br>• Soạn thảo báo cáo Word: Cơ sở lý thuyết Big Data, Kết luận & Định hướng, Tài liệu tham khảo, Phụ lục. |
 
 ---
 
@@ -92,7 +93,7 @@ Bigdata/
 │   ├── slides/                   # Slide thuyết trình (Giai đoạn 1 & Cuối kỳ)
 │   └── demo/                     # Kịch bản demo và video dự phòng
 ├── Plan.md                       # Kế hoạch chi tiết 10 tuần
-├── Checklist.md                  # Checklist công việc của 2 thành viên
+├── Checklist.md                  # Checklist công việc của 3 thành viên
 └── README.md
 ```
 
