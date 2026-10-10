@@ -171,7 +171,6 @@ Kế hoạch bám sát đề cương học phần, chia thành 5 chặng công v
   - Xác định bài toán nghiệp vụ, 5 câu hỏi phân tích và các độ đo đánh giá.
   - Cùng TV1 hoàn thiện bản kế hoạch chi tiết 10 tuần.
 - **Công việc TV3:**
-  - Nghiên cứu quy định đồ án, chuẩn mực báo cáo 10 mục và rubric đánh giá.
   - Xây dựng fixture kiểm thử CSV mẫu (multiline, unicode, dấu nháy kép) phục vụ kiểm tra parser.
   - Cùng TV1 & TV2 hoàn thiện bản kế hoạch chi tiết 10 tuần.
 - **Sản phẩm cần đạt:** Đề tài được phê duyệt; Bản kế hoạch làm việc chi tiết của nhóm (`Plan.md`, `Checklist.md`).

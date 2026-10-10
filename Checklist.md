@@ -87,7 +87,6 @@
 **Người review chéo:** TV1, TV2.
 
 ### Giai đoạn chuẩn bị (Tuần 1–3)
-- [ ] **TV3-W01 — Nghiên cứu quy định đồ án & Cấu trúc báo cáo:** Đọc kỹ rubric đánh giá, 10 mục báo cáo bắt buộc và yêu cầu chứng minh phân tán. **Đầu ra:** Bản tóm tắt quy định và checklist báo cáo chia sẻ cho cả nhóm.
 - [ ] **TV3-W02 — Xây dựng fixture kiểm thử cơ bản:** Tạo bộ file CSV mẫu phục vụ kiểm thử parser NiFi: hàng bình thường, hàng có xuống dòng trong trường, dấu nháy kép escape, ký tự Unicode, hàng thiếu cột, `review_id` trùng. **Đầu ra:** Thư mục `tests/fixtures/` có đầy đủ các case.
 - [ ] **TV3-W03 — Hoàn thiện kế hoạch chi tiết:** Cùng TV1 & TV2 chốt đề tài, phân công 3 thành viên và kế hoạch 10 tuần. **Đạt khi:** Bản kế hoạch được giáo viên chấp thuận.
 
