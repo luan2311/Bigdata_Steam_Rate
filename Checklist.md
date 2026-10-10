@@ -54,9 +54,9 @@
 **Người review chéo:** TV1, TV3.
 
 ### Giai đoạn chuẩn bị (Tuần 1–3)
-- [ ] **TV2-W01 — Khảo sát Dataset Steam Reviews:** Tải mẫu dữ liệu từ Kaggle, kiểm tra danh sách cột thực tế, xác định các trường dữ liệu quan trọng (`review_id`, `app_id`, `review`, `recommended`, `language`, `timestamp_created`, `author.playtime_at_review`). **Đầu ra:** Ghi chú khảo sát dữ liệu trong `docs/data/`.
-- [ ] **TV2-W02 — Xây dựng Data Dictionary & Hợp đồng dữ liệu v1:** Thiết lập từ điển dữ liệu, định nghĩa schema cho 3 tầng: `schemas/source/`, `schemas/silver/`, `schemas/gold/`. **Đạt khi:** Quy định rõ kiểu dữ liệu, ràng buộc nullable, đơn vị tính và logic từng bảng.
-- [ ] **TV2-W03 — Định hình bài toán & Nghiệp vụ Domain:** Viết các entities và policies thuần Python trong `src/steam_reviews/domain/` (chính sách phân loại nhãn, tiêu chuẩn làm sạch, cách tính tỷ lệ khuyến nghị an toàn mẫu số 0). **Đạt khi:** Tầng domain hoàn toàn độc lập với Spark và các framework ngoài.
+- [x] **TV2-W01 — Khảo sát Dataset Steam Reviews:** Tải mẫu dữ liệu từ Kaggle, kiểm tra danh sách cột thực tế, xác định các trường dữ liệu quan trọng (`review_id`, `app_id`, `review`, `recommended`, `language`, `timestamp_created`, `author.playtime_at_review`). **Đầu ra:** Ghi chú khảo sát dữ liệu trong `docs/data/`.
+- [x] **TV2-W02 — Xây dựng Data Dictionary & Hợp đồng dữ liệu v1:** Thiết lập từ điển dữ liệu, định nghĩa schema cho 3 tầng: `schemas/source/`, `schemas/silver/`, `schemas/gold/`. **Đạt khi:** Quy định rõ kiểu dữ liệu, ràng buộc nullable, đơn vị tính và logic từng bảng.
+- [x] **TV2-W03 — Định hình bài toán & Nghiệp vụ Domain:** Viết các entities và policies thuần Python trong `src/steam_reviews/domain/` (chính sách phân loại nhãn, tiêu chuẩn làm sạch, cách tính tỷ lệ khuyến nghị an toàn mẫu số 0). **Đạt khi:** Tầng domain hoàn toàn độc lập với Spark và các framework ngoài.
 
 ### Giai đoạn Lý thuyết & Thiết kế giải pháp (Tuần 4–5)
 - [ ] **TV2-W04 — Soạn thảo cơ sở lý thuyết Xử lý & Học máy:** Viết phần lý thuyết về kiến trúc xử lý phân tán Apache Spark (Driver, Executor, Catalyst Optimizer), xử lý văn bản (TF-IDF), phân loại Logistic Regression và các độ đo đánh giá (Macro-F1, Precision, Recall, PR-AUC). **Đầu ra:** Bản thảo mục Cơ sở lý thuyết xử lý dữ liệu và thuật toán trong báo cáo Word.

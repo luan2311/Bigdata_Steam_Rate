@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PlaytimeSummaryGoldSchema",
+  "description": "Bảng tổng hợp tương quan giữa thời lượng chơi và quyết định khuyến nghị",
+  "version": "1.0.0",
+  "type": "object",
+  "required": [
+    "playtime_bucket",
+    "bucket_order",
+    "total_reviews",
+    "recommended_count",
+    "recommendation_rate"
+  ],
+  "properties": {
+    "playtime_bucket": {
+      "type": "string",
+      "enum": ["<2h", "2-10h", "10-50h", "50-100h", ">100h", "unknown"],
+      "description": "Khoảng thời lượng chơi tại thời điểm đánh giá"
+    },
+    "bucket_order": { "type": "integer", "description": "Thứ tự sắp xếp hiển thị trên biểu đồ (1 đến 6)" },
+    "total_reviews": { "type": "integer", "minimum": 0, "description": "Số lượng đánh giá trong khoảng giờ chơi này" },
+    "recommended_count": { "type": "integer", "minimum": 0, "description": "Số lượng đánh giá tích cực" },
+    "recommendation_rate": { "type": ["number", "null"], "minimum": 0.0, "maximum": 1.0, "description": "Tỷ lệ khuyến nghị của nhóm giờ chơi này" }
+  }
+}

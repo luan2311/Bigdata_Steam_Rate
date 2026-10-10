@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "GameSummaryGoldSchema",
+  "description": "Bảng tổng hợp xếp hạng và thống kê theo tựa game",
+  "version": "1.0.0",
+  "type": "object",
+  "required": [
+    "app_id",
+    "app_name",
+    "total_reviews",
+    "recommended_count",
+    "not_recommended_count",
+    "recommendation_rate"
+  ],
+  "properties": {
+    "app_id": { "type": "integer", "description": "ID trò chơi trên Steam Store" },
+    "app_name": { "type": "string", "description": "Tên thương mại của trò chơi" },
+    "total_reviews": { "type": "integer", "minimum": 0, "description": "Tổng số đánh giá hợp lệ" },
+    "recommended_count": { "type": "integer", "minimum": 0, "description": "Số lượng đánh giá khuyến nghị (True)" },
+    "not_recommended_count": { "type": "integer", "minimum": 0, "description": "Số lượng đánh giá không khuyến nghị (False)" },
+    "recommendation_rate": { "type": ["number", "null"], "minimum": 0.0, "maximum": 1.0, "description": "Tỷ lệ khuyến nghị (recommended_count / total_reviews)" },
+    "avg_playtime_hours": { "type": ["number", "null"], "description": "Thời gian chơi trung bình (giờ)" },
+    "median_playtime_hours": { "type": ["number", "null"], "description": "Trung vị thời gian chơi (giờ)" }
+  }
+}

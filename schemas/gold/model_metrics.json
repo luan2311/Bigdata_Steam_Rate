@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ModelMetricsGoldSchema",
+  "description": "Bảng đối sánh độ đo hiệu năng giữa Majority Baseline và Spark MLlib Logistic Regression",
+  "version": "1.0.0",
+  "type": "object",
+  "required": [
+    "model_name",
+    "dataset_split",
+    "total_samples",
+    "accuracy",
+    "precision",
+    "recall",
+    "macro_f1",
+    "pr_auc",
+    "confusion_matrix",
+    "evaluated_at"
+  ],
+  "properties": {
+    "model_name": { "type": "string", "enum": ["Majority Baseline", "Spark MLlib Logistic Regression", "Spark MLlib Weighted Logistic Regression"], "description": "Tên định danh mô hình" },
+    "dataset_split": { "type": "string", "enum": ["validation", "test"], "description": "Tập dữ liệu dùng để đánh giá" },
+    "total_samples": { "type": "integer", "minimum": 0, "description": "Số lượng mẫu kiểm thử" },
+    "accuracy": { "type": "number", "minimum": 0.0, "maximum": 1.0, "description": "Độ chính xác tổng thể" },
+    "precision": { "type": "number", "minimum": 0.0, "maximum": 1.0, "description": "Độ chuẩn xác (Precision)" },
+    "recall": { "type": "number", "minimum": 0.0, "maximum": 1.0, "description": "Độ bao phủ (Recall)" },
+    "macro_f1": { "type": "number", "minimum": 0.0, "maximum": 1.0, "description": "Chỉ số Macro-F1 cân bằng giữa 2 lớp" },
+    "pr_auc": { "type": "number", "minimum": 0.0, "maximum": 1.0, "description": "Diện tích dưới đường cong Precision-Recall" },
+    "confusion_matrix": {
+      "type": "object",
+      "required": ["true_positives", "false_positives", "true_negatives", "false_negatives"],
+      "properties": {
+        "true_positives": { "type": "integer", "minimum": 0 },
+        "false_positives": { "type": "integer", "minimum": 0 },
+        "true_negatives": { "type": "integer", "minimum": 0 },
+        "false_negatives": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "evaluated_at": { "type": "string", "format": "date-time", "description": "Thời điểm tính toán kết quả" }
+  }
+}

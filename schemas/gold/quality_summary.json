@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "QualitySummaryGoldSchema",
+  "description": "Bảng tổng hợp chỉ số chất lượng dữ liệu và kiểm soát thất thoát dữ liệu",
+  "version": "1.0.0",
+  "type": "object",
+  "required": [
+    "run_id",
+    "dataset_version",
+    "total_records_read",
+    "invalid_structure_count",
+    "missing_id_count",
+    "duplicate_removed_count",
+    "valid_silver_records",
+    "processed_at"
+  ],
+  "properties": {
+    "run_id": { "type": "string", "description": "Mã lần chạy pipeline ETL" },
+    "dataset_version": { "type": "string", "description": "Phiên bản bộ dữ liệu" },
+    "total_records_read": { "type": "integer", "minimum": 0, "description": "Tổng số bản ghi đọc được từ Bronze" },
+    "invalid_structure_count": { "type": "integer", "minimum": 0, "description": "Số bản ghi lỗi cấu trúc chuyển vào Quarantine" },
+    "missing_id_count": { "type": "integer", "minimum": 0, "description": "Số bản ghi thiếu app_id hoặc review_id" },
+    "duplicate_removed_count": { "type": "integer", "minimum": 0, "description": "Số bản ghi trùng lặp bị loại bỏ" },
+    "valid_silver_records": { "type": "integer", "minimum": 0, "description": "Số bản ghi hợp lệ ghi vào Silver" },
+    "processed_at": { "type": "string", "format": "date-time", "description": "Thời điểm xử lý ETL hoàn tất (UTC)" }
+  }
+}
