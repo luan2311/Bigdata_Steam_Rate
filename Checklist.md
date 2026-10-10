@@ -22,9 +22,9 @@
 - [x] **TV1-W03 — Hoàn thiện kế hoạch chi tiết:** Cùng TV2 & TV3 chốt đề tài, phạm vi dữ liệu, 5 câu hỏi phân tích và kế hoạch 10 tuần. **Đạt khi:** Bản kế hoạch được giáo viên chấp thuận.
 
 ### Giai đoạn Lý thuyết & Thiết kế giải pháp (Tuần 4–5)
-- [ ] **TV1-W04 — Soạn thảo cơ sở lý thuyết hạ tầng:** Viết phần lý thuyết về hệ thống tệp phân tán Hadoop HDFS (NameNode, DataNode, Block, Replication) và cơ chế Ingestion của Apache NiFi vào báo cáo Word. **Đầu ra:** Bản thảo mục Cơ sở lý thuyết hạ tầng trong báo cáo Word.
-- [ ] **TV1-W05 — Dựng cụm phân tán bằng Docker Compose:** Tạo file cấu hình `infra/docker/docker-compose.yml` gồm: 1 NiFi, 1 HDFS NameNode + 2 DataNodes, 1 Spark Master + 2 Workers. **Đạt khi:** Khởi động thành công toàn bộ container, truy cập được Web UI của HDFS (:9870), Spark (:8080), NiFi (HTTPS :8443; không dùng :8080 vì trùng Spark).
-- [ ] **TV1-W06 — Xây dựng luồng NiFi Ingestion mẫu:** Thiết lập luồng tiếp nhận `ListFile → FetchFile → SplitRecord → InvokeHTTP (WebHDFS)`. **Đạt khi:** Đẩy thành công ~10.000 bản ghi mẫu vào HDFS `/steam/bronze/` mà không làm vỡ các dòng CSV có chứa ký tự xuống dòng hoặc Unicode; export template JSON vào `nifi/flows/`.
+- [x] **TV1-W04 — Soạn thảo cơ sở lý thuyết hạ tầng:** Viết phần lý thuyết về hệ thống tệp phân tán Hadoop HDFS (NameNode, DataNode, Block, Replication) và cơ chế Ingestion của Apache NiFi vào báo cáo Word. **Đầu ra:** Bản thảo mục Cơ sở lý thuyết hạ tầng trong báo cáo Word.
+- [x] **TV1-W05 — Dựng cụm phân tán bằng Docker Compose:** Tạo file cấu hình `infra/docker/docker-compose.yml` gồm: 1 NiFi, 1 HDFS NameNode + 2 DataNodes, 1 Spark Master + 2 Workers. **Đạt khi:** Khởi động thành công toàn bộ container, truy cập được Web UI của HDFS (:9870), Spark (:8080), NiFi (HTTPS :8443; không dùng :8080 vì trùng Spark).
+- [x] **TV1-W06 — Xây dựng luồng NiFi Ingestion mẫu:** Thiết lập luồng tiếp nhận `ListFile → FetchFile → SplitRecord → InvokeHTTP (WebHDFS)`. **Đạt khi:** Đẩy thành công ~10.000 bản ghi mẫu vào HDFS `/steam/bronze/` mà không làm vỡ các dòng CSV có chứa ký tự xuống dòng hoặc Unicode; export template JSON vào `nifi/flows/`.
 
 ### Giai đoạn 1: Baseline & Báo cáo tiến độ (Tuần 6–7) — Chiếm 30% điểm đồ án
 - [ ] **TV1-W07 — Hoàn thiện luồng Ingestion đáng tin cậy:** Bổ sung cơ chế chia lô (batching ~50.000 record/lô), xử lý lỗi cấu trúc qua Quarantine queue, giới hạn retry (tối đa 3 lần), chống nghẽn (back pressure) và tạo manifest kiểm soát lô. **Đạt khi:** Luồng chạy ổn định, có log chứng minh xử lý lỗi và provenance; export flow hoàn chỉnh.
