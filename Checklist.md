@@ -1,11 +1,12 @@
-# CHECKLIST CÔNG VIỆC — NHÓM 2 SINH VIÊN / 10 TUẦN
+# CHECKLIST CÔNG VIỆC — NHÓM 3 SINH VIÊN / 10 TUẦN
 ## ĐỀ TÀI: PHÂN TÍCH DỮ LIỆU ĐÁNH GIÁ TRÒ CHƠI TRÊN STEAM
 
 - **Căn cứ kế hoạch:** [Plan.md](Plan.md), quy định học phần Nhập môn Big Data, [kiến trúc mã nguồn](docs/architecture.md).
 - **Yêu cầu cố định:** luồng tiếp nhận dùng [Apache NiFi](https://nifi.apache.org/index.html); dữ liệu duy nhất là [Steam Reviews Dataset 2021 — najzeko (Kaggle)](https://www.kaggle.com/datasets/najzeko/steam-reviews-2021/data).
-- **Phân công nhóm 2 người:**
+- **Phân công nhóm 3 người:**
   - **TV1:** Kỹ sư Hạ tầng dữ liệu, NiFi Ingestion, HDFS Storage, Streamlit Dashboard UI và Điều phối hồ sơ.
   - **TV2:** Kỹ sư Hợp đồng dữ liệu, Spark Processing (Clean & Gold ETL), Spark MLlib (Baseline & Logistic Regression), Đánh giá & Đối soát.
+  - **TV3:** Kỹ sư Chất lượng dữ liệu, Fixture kiểm thử, Đối soát số liệu, Soạn thảo báo cáo (Cơ sở lý thuyết, Kết luận, Tài liệu tham khảo, Phụ lục).
 - **Quy tắc nghiệm thu:** Chỉ chuyển `[ ]` thành `[x]` khi đã có sản phẩm thực tế, có người review chéo xác nhận và được lưu vết trong `docs/contributions.md`.
 
 ---
@@ -13,12 +14,12 @@
 ## 1. TV1 — Hạ tầng phân tán, Thu thập dữ liệu (NiFi), Dashboard & Điều phối
 
 **Khu vực phụ trách chính:** `infra/`, `nifi/`, `src/steam_reviews/infrastructure/ingestion/`, `src/steam_reviews/infrastructure/storage/`, `src/steam_reviews/presentation/dashboard/`, `src/steam_reviews/bootstrap/`, `report/slides/`, `report/demo/`.  
-**Người review chéo:** TV2.
+**Người review chéo:** TV2, TV3.
 
 ### Giai đoạn chuẩn bị (Tuần 1–3)
-- [ ] **TV1-W01 — Thiết lập dự án & Quy ước nhóm:** Khởi tạo Git repo, cấu trúc thư mục Clean Architecture, thiết lập tài liệu làm việc, thống nhất phân công 2 thành viên. **Đạt khi:** Repo có đầy đủ khung thư mục, file cấu hình và tài liệu khởi tạo.
-- [ ] **TV1-W02 — Nghiên cứu công nghệ hạ tầng:** Khảo sát cài đặt Docker Compose cho cụm Big Data (Hadoop HDFS, Spark, NiFi), đánh giá dung lượng RAM/disk máy thực thi. **Đầu ra:** Ghi nhận cấu hình tài nguyên khả thi trong `docs/runbooks/`.
-- [ ] **TV1-W03 — Hoàn thiện kế hoạch chi tiết:** Cùng TV2 chốt đề tài, phạm vi dữ liệu, 5 câu hỏi phân tích và kế hoạch 10 tuần. **Đạt khi:** Bản kế hoạch được giáo viên chấp thuận.
+- [x] **TV1-W01 — Thiết lập dự án & Quy ước nhóm:** Khởi tạo Git repo, cấu trúc thư mục Clean Architecture, thiết lập tài liệu làm việc, thống nhất phân công 3 thành viên. **Đạt khi:** Repo có đầy đủ khung thư mục, file cấu hình và tài liệu khởi tạo.
+- [x] **TV1-W02 — Nghiên cứu công nghệ hạ tầng:** Khảo sát cài đặt Docker Compose cho cụm Big Data (Hadoop HDFS, Spark, NiFi), đánh giá dung lượng RAM/disk máy thực thi. **Đầu ra:** Ghi nhận cấu hình tài nguyên khả thi trong `docs/runbooks/`.
+- [x] **TV1-W03 — Hoàn thiện kế hoạch chi tiết:** Cùng TV2 & TV3 chốt đề tài, phạm vi dữ liệu, 5 câu hỏi phân tích và kế hoạch 10 tuần. **Đạt khi:** Bản kế hoạch được giáo viên chấp thuận.
 
 ### Giai đoạn Lý thuyết & Thiết kế giải pháp (Tuần 4–5)
 - [ ] **TV1-W04 — Soạn thảo cơ sở lý thuyết hạ tầng:** Viết phần lý thuyết về hệ thống tệp phân tán Hadoop HDFS (NameNode, DataNode, Block, Replication) và cơ chế Ingestion của Apache NiFi vào báo cáo Word. **Đầu ra:** Bản thảo mục Cơ sở lý thuyết hạ tầng trong báo cáo Word.
@@ -40,7 +41,7 @@
   - *Trang 4: Hiệu năng mô hình:* Trực quan hóa ma trận nhầm lẫn (Confusion Matrix), so sánh Baseline vs Logistic Regression, ví dụ dự đoán đã tính sẵn từ test set (nhập văn bản dự đoán trực tiếp chỉ là phần mở rộng, không khởi chạy Spark trong dashboard).  
   **Đạt khi:** Đạt tối thiểu 6 biểu đồ Plotly tương tác, có xử lý trạng thái rỗng (empty state) khi lọc dữ liệu.
 - [ ] **TV1-W13 — Đo đạc hiệu năng & Benchmark hạ tầng:** Đo thời gian xử lý Ingestion, throughput (bản ghi/giây), tiêu thụ RAM/CPU; benchmark so sánh hiệu năng chạy Spark với 1 worker vs 2 workers trên cùng cấu hình dữ liệu. **Đầu ra:** Bảng số liệu benchmark lưu tại `artifacts/metrics/`.
-- [ ] **TV1-W14 — Đóng gói hồ sơ & Nộp bài Giai đoạn 2:** Soạn thảo hướng dẫn cài đặt/vận hành chi tiết trong `README.md` và `docs/runbooks/`; hoàn thiện toàn bộ slide thuyết trình cuối kỳ (.pptx); rà soát kỹ thuật cùng TV2 và nộp đầy đủ trên Classroom trước hạn chót Tuần 9. **Đạt khi:** Nộp đủ Source Code, File Word, File PPT và lưu minh chứng nộp bài.
+- [ ] **TV1-W14 — Đóng gói hồ sơ & Nộp bài Giai đoạn 2:** Soạn thảo hướng dẫn cài đặt/vận hành chi tiết trong `README.md` và `docs/runbooks/`; hoàn thiện toàn bộ slide thuyết trình cuối kỳ (.pptx); rà soát kỹ thuật cùng TV2 & TV3 và nộp đầy đủ trên Classroom trước hạn chót Tuần 9. **Đạt khi:** Nộp đủ Source Code, File Word, File PPT và lưu minh chứng nộp bài.
 
 ### Tuần 10: Thuyết trình & Demo sản phẩm
 - [ ] **TV1-W15 — Diễn tập thuyết trình & Kịch bản Demo:** Chuẩn bị kịch bản demo (8–10 phút); thiết lập môi trường demo offline (snapshot dữ liệu dự phòng, video demo chất lượng cao phòng sự cố). **Đạt khi:** Trình bày tự tin phần hạ tầng, luồng thu thập và demo dashboard trực quan trước lớp.
@@ -50,7 +51,7 @@
 ## 2. TV2 — Hợp đồng dữ liệu, Spark Processing, Mô hình MLlib & Đánh giá
 
 **Khu vực phụ trách chính:** `schemas/`, `src/steam_reviews/domain/`, `src/steam_reviews/application/`, `src/steam_reviews/infrastructure/spark/`, `src/steam_reviews/infrastructure/ml/`, `src/steam_reviews/presentation/cli/`, `artifacts/metrics/`, `artifacts/models/`.  
-**Người review chéo:** TV1.
+**Người review chéo:** TV1, TV3.
 
 ### Giai đoạn chuẩn bị (Tuần 1–3)
 - [ ] **TV2-W01 — Khảo sát Dataset Steam Reviews:** Tải mẫu dữ liệu từ Kaggle, kiểm tra danh sách cột thực tế, xác định các trường dữ liệu quan trọng (`review_id`, `app_id`, `review`, `recommended`, `language`, `timestamp_created`, `author.playtime_at_review`). **Đầu ra:** Ghi chú khảo sát dữ liệu trong `docs/data/`.
@@ -66,36 +67,73 @@
 - [ ] **TV2-W07 — Xây dựng quy trình làm sạch & Dedup phân tán:** Xây dựng Spark job lọc các bản ghi vi phạm cấu trúc, deduplication toàn diện theo `review_id` (giữ bản ghi có `updated_at` mới nhất), ghi dữ liệu sạch sang HDFS Silver (`/steam/silver/`) dưới định dạng Parquet. **Đạt khi:** Có bảng thống kê đối soát số lượng trước và sau làm sạch/dedup.
 - [ ] **TV2-W08 — Xây dựng mô hình Baseline:** Lấy tập đánh giá tiếng Anh hợp lệ từ Silver; phân chia Train / Validation / Test (70/15/15) bằng hàm hash của nội dung văn bản (ngăn chặn rò rỉ dữ liệu). Xây dựng mô hình Baseline luôn dự đoán lớp đa số trên tập train. **Đầu ra:** Split manifest và kết quả độ đo baseline trên validation set.
 - [ ] **TV2-W09 — Đánh giá sơ bộ & Xác định hướng cải thiện:** Đánh giá điểm mạnh/yếu của baseline, phân tích hiện tượng mất cân bằng nhãn (imbalance) của dữ liệu đánh giá; vạch ra phương án xử lý trọng số lớp và trích xuất đặc trưng văn bản. **Đầu ra:** Báo cáo đánh giá sơ bộ đưa vào hồ sơ tiến độ.
-- [ ] **TV2-W10 — Soạn thảo nội dung Báo cáo tiến độ GĐ1:** Viết các mục Giới thiệu đề tài, Khảo sát dữ liệu, Quy trình tiền xử lý Spark và Kết quả baseline trong báo cáo Word. **Đạt khi:** Cùng TV1 hoàn thiện và nộp hồ sơ Giai đoạn 1 đúng hạn (Tuần 6–7).
+- [ ] **TV2-W10 — Soạn thảo nội dung Báo cáo tiến độ GĐ1:** Viết các mục Giới thiệu đề tài, Khảo sát dữ liệu, Quy trình tiền xử lý Spark và Kết quả baseline trong báo cáo Word. **Đạt khi:** Cùng TV1 & TV3 hoàn thiện và nộp hồ sơ Giai đoạn 1 đúng hạn (Tuần 6–7).
 
 ### Giai đoạn 2: Hoàn thiện ứng dụng, Đánh giá & Báo cáo hoàn chỉnh (Tuần 8–9) — Chiếm 70% điểm đồ án
 - [ ] **TV2-W11 — Hoàn thiện Pipeline Spark MLlib:** Xây dựng quy trình máy học phân tán: `RegexTokenizer → StopWordsRemover (giữ từ phủ định) → HashingTF → IDF → LogisticRegression`. Fit IDF và mô hình chỉ trên tập Train. Thử nghiệm có và không có trọng số lớp (`classWeightCol`). **Đạt khi:** Lưu model và pipeline hoàn chỉnh vào `artifacts/models/`.
 - [ ] **TV2-W12 — Tinh chỉnh tham số & Đánh giá khách quan:** Tinh chỉnh tham số (regParam, maxIter) trên validation set để chọn mô hình tốt nhất theo Macro-F1. Sau khi chốt mô hình, đánh giá lần duy nhất trên Test set; tính toán Precision, Recall, Macro-F1, PR-AUC và Confusion Matrix. **Đạt khi:** Bảng kết quả đối sánh chi tiết Baseline vs Logistic Regression được lưu trong `artifacts/metrics/`.
 - [ ] **TV2-W13 — Phân tích lỗi (Error Analysis) & Hạn chế:** Trích xuất và phân tích định tính ~30 trường hợp mô hình dự đoán sai (do ngôn ngữ mỉa mai, từ ngữ ngắn cụt ngủn, đánh giá tích cực nhưng nhãn không khuyến nghị hoặc ngược lại). Chỉ ra các hạn chế kỹ thuật của phương pháp Bag-of-Words. **Đầu ra:** Bản phân tích lỗi chi tiết đưa vào báo cáo Word.
 - [ ] **TV2-W14 — Tính toán các bảng tổng hợp Gold Layer:** Sử dụng Spark SQL tính toán 5 bảng tổng hợp (`quality_summary`, `game_summary`, `monthly_summary`, `language_summary`, `playtime_summary`), lưu dưới dạng Parquet trên HDFS Gold và xuất snapshot nhỏ cho Dashboard của TV1. **Đạt khi:** Số liệu đối soát chính xác 100% với các truy vấn độc lập.
-- [ ] **TV2-W15 — Rà soát báo cáo & Nộp bài Giai đoạn 2:** Soạn thảo mục Kết quả thực nghiệm, Đánh giá mô hình, Phân tích lỗi và Kết luận/Định hướng phát triển trong báo cáo Word; rà soát đảm bảo đủ 10 mục theo quy định; cùng TV1 nộp bài trên Classroom đúng hạn Tuần 9. **Đạt khi:** Hoàn thành toàn diện báo cáo Word và kiểm tra chéo toàn bộ kết quả.
+- [ ] **TV2-W15 — Rà soát báo cáo & Nộp bài Giai đoạn 2:** Soạn thảo mục Kết quả thực nghiệm, Đánh giá mô hình, Phân tích lỗi và Kết luận/Định hướng phát triển trong báo cáo Word; rà soát đảm bảo đủ 10 mục theo quy định; cùng TV1 & TV3 nộp bài trên Classroom đúng hạn Tuần 9. **Đạt khi:** Hoàn thành toàn diện báo cáo Word và kiểm tra chéo toàn bộ kết quả.
 
 ### Tuần 10: Thuyết trình & Demo sản phẩm
 - [ ] **TV2-W16 — Báo cáo kỹ thuật & Trả lời phản biện:** Trình bày phần xử lý dữ liệu Spark, thuật toán MLlib, kết quả đánh giá mô hình và phân tích lỗi trước lớp; chuẩn bị trả lời sâu các câu hỏi phản biện của giảng viên về mặt kỹ thuật, thuật toán và độ đo. **Đạt khi:** Buổi báo cáo thành công, phản biện xuất sắc.
 
 ---
 
-## 3. Ma trận bàn giao công việc giữa 2 thành viên
+## 3. TV3 — Chất lượng dữ liệu, Kiểm thử & Soạn thảo báo cáo
+
+**Khu vực phụ trách chính:** `tests/`, `data/fixtures/`, `docs/`, `artifacts/metrics/` (đối soát), `report/word/` (các mục Cơ sở lý thuyết, Kết luận, Tài liệu tham khảo, Phụ lục).  
+**Người review chéo:** TV1, TV2.
+
+### Giai đoạn chuẩn bị (Tuần 1–3)
+- [ ] **TV3-W01 — Nghiên cứu quy định đồ án & Cấu trúc báo cáo:** Đọc kỹ rubric đánh giá, 10 mục báo cáo bắt buộc và yêu cầu chứng minh phân tán. **Đầu ra:** Bản tóm tắt quy định và checklist báo cáo chia sẻ cho cả nhóm.
+- [ ] **TV3-W02 — Xây dựng fixture kiểm thử cơ bản:** Tạo bộ file CSV mẫu phục vụ kiểm thử parser NiFi: hàng bình thường, hàng có xuống dòng trong trường, dấu nháy kép escape, ký tự Unicode, hàng thiếu cột, `review_id` trùng. **Đầu ra:** Thư mục `tests/fixtures/` có đầy đủ các case.
+- [ ] **TV3-W03 — Hoàn thiện kế hoạch chi tiết:** Cùng TV1 & TV2 chốt đề tài, phân công 3 thành viên và kế hoạch 10 tuần. **Đạt khi:** Bản kế hoạch được giáo viên chấp thuận.
+
+### Giai đoạn Lý thuyết & Thiết kế giải pháp (Tuần 4–5)
+- [ ] **TV3-W04 — Soạn thảo cơ sở lý thuyết Big Data:** Viết mục Cơ sở lý thuyết về khái niệm dữ liệu lớn (Big Data), đặc trưng V, hệ sinh thái và các ứng dụng thực tế trong báo cáo Word. **Đầu ra:** Bản thảo mục Cơ sở lý thuyết Big Data.
+- [ ] **TV3-W05 — Thiết kế khung báo cáo Word 10 mục:** Tạo file Word mẫu với đầy đủ 10 mục theo đúng quy định, heading styles, numbering và placeholder nội dung. **Đạt khi:** File Word mẫu được TV1 & TV2 xác nhận đúng chuẩn.
+- [ ] **TV3-W06 — Mở rộng fixture & Viết test đối soát sơ bộ:** Bổ sung thêm các case kiểm thử nâng cao cho luồng NiFi và viết script đối soát số liệu cơ bản (đọc Parquet, so sánh tổng số dòng). **Đầu ra:** Script kiểm thử đối soát trong `tests/`.
+
+### Giai đoạn 1: Baseline & Báo cáo tiến độ (Tuần 6–7) — Chiếm 30% điểm đồ án
+- [ ] **TV3-W07 — Viết test đối soát ETL:** Xây dựng test script kiểm tra: `N_parseable = N_invalid_record + N_valid_pre_dedup`; `N_silver = N_valid_pre_dedup − N_duplicate_removed`; phát hiện lệch số liệu giữa Bronze và Silver. **Đạt khi:** Test chạy thành công trên dữ liệu mẫu, phát hiện đúng các case lỗi tạo sẵn.
+- [ ] **TV3-W08 — Soạn thảo mục Giới thiệu đề tài & Cơ sở lý thuyết GĐ1:** Hoàn thiện mục Giới thiệu đề tài (bối cảnh, mục tiêu, 5 câu hỏi phân tích) và mục Cơ sở lý thuyết Big Data trong báo cáo Word. **Đầu ra:** Bản thảo 2 mục nộp cho TV1 tổng hợp slide tiến độ.
+- [ ] **TV3-W09 — Hỗ trợ tổng hợp slide GĐ1:** Rà soát nội dung slide báo cáo tiến độ Giai đoạn 1 do TV1 chuẩn bị; kiểm tra tính chính xác số liệu và ngôn ngữ trình bày. **Đạt khi:** Slide được cả nhóm xác nhận trước khi nộp.
+- [ ] **TV3-W10 — Hỗ trợ nộp hồ sơ GĐ1:** Cùng TV1 & TV2 hoàn thiện và nộp hồ sơ Báo cáo tiến độ Giai đoạn 1 đúng hạn (Tuần 6–7).
+
+### Giai đoạn 2: Hoàn thiện ứng dụng, Đánh giá & Báo cáo hoàn chỉnh (Tuần 8–9) — Chiếm 70% điểm đồ án
+- [ ] **TV3-W11 — Đối soát toàn diện số liệu Gold & Dashboard:** Thực thi các truy vấn độc lập trên Parquet Gold, so sánh ít nhất 3 tổ hợp filter với Dashboard; ghi lại kết quả đối soát vào `artifacts/metrics/`. **Đạt khi:** Không có sai lệch số liệu giữa Dashboard và kết quả Spark SQL.
+- [ ] **TV3-W12 — Hỗ trợ Error Analysis:** Cùng TV2 phân tích định tính ~30 mẫu dự đoán sai; soạn bảng tổng hợp theo loại lỗi (mỉa mai, ngắn, tiếng lóng). **Đầu ra:** Bảng phân tích lỗi trong báo cáo Word.
+- [ ] **TV3-W13 — Soạn thảo mục Kết luận & Định hướng phát triển:** Viết mục Kết luận (tổng kết kết quả, đối chiếu mục tiêu, bài học kinh nghiệm) và mục Định hướng phát triển (mở rộng dữ liệu, cải thiện mô hình, scale-out). **Đầu ra:** Bản thảo 2 mục đã hoàn chỉnh.
+- [ ] **TV3-W14 — Soạn thảo Tài liệu tham khảo & Phụ lục:** Tổng hợp đầy đủ tài liệu tham khảo (format chuẩn APA/IEEE); viết Phụ lục hướng dẫn cài đặt và chạy hệ thống từ đầu. **Đầu ra:** Mục 9 (Tài liệu tham khảo) và Mục 10 (Phụ lục) trong báo cáo Word.
+- [ ] **TV3-W15 — Rà soát toàn bộ báo cáo Word 10 mục & Nộp bài GĐ2:** Kiểm tra báo cáo Word đảm bảo đúng thứ tự 10 mục bắt buộc, không lỗi chính tả, số liệu nhất quán giữa các mục; cùng TV1 & TV2 nộp bài trên Classroom đúng hạn Tuần 9. **Đạt khi:** Hồ sơ nộp đầy đủ và báo cáo đạt chuẩn trình bày.
+
+### Tuần 10: Thuyết trình & Demo sản phẩm
+- [ ] **TV3-W16 — Báo cáo phần Cơ sở lý thuyết & Trả lời phản biện:** Trình bày phần Cơ sở lý thuyết Big Data, Kết luận và Định hướng phát triển trước lớp; chuẩn bị trả lời các câu hỏi phản biện về lý thuyết và đánh giá chất lượng dữ liệu. **Đạt khi:** Buổi báo cáo thành công, trình bày rõ ràng phần được phân công.
+
+---
+
+## 4. Ma trận bàn giao công việc giữa 3 thành viên
 
 | Mốc thời gian | Người giao → Người nhận | Sản phẩm bàn giao cụ thể | Điều kiện bắt đầu của người nhận |
 |---|---|---|---|
 | **Cuối Tuần 3** | TV2 → TV1 | Danh sách trường dữ liệu, Schema v1, Data Dictionary | TV1 có căn cứ cấu hình `CSVReader` và định dạng lô trong NiFi. |
+| **Cuối Tuần 3** | TV3 → TV1 | Bộ fixture CSV kiểm thử đa dạng | TV1 có dữ liệu mẫu để kiểm tra luồng NiFi không bị vỡ parser. |
 | **Cuối Tuần 5** | TV1 → TV2 | Cụm container hoạt động, dữ liệu mẫu đã vào HDFS Bronze | TV2 có dữ liệu trên HDFS để viết và chạy thử Spark ETL. |
 | **Cuối Tuần 6** | TV2 → TV1 | Bảng dữ liệu Silver và kết quả mô hình Baseline sơ bộ | TV1 có số liệu và wireframe để hoàn thiện slide tiến độ GĐ1. |
-| **Cuối Tuần 7** | Cả hai | **NỘP BÁO CÁO TIẾN ĐỘ GIAI ĐOẠN 1 (30% điểm đồ án)** | Nộp đúng hạn quy định trên Classroom. |
+| **Cuối Tuần 6** | TV2 → TV3 | Snapshot Silver Parquet mẫu | TV3 có dữ liệu để viết và chạy test đối soát ETL. |
+| **Cuối Tuần 7** | Cả ba | **NỘP BÁO CÁO TIẾN ĐỘ GIAI ĐOẠN 1 (30% điểm đồ án)** | Nộp đúng hạn quy định trên Classroom. |
 | **Cuối Tuần 8** | TV2 → TV1 | Các bảng Gold summary và Metrics mô hình MLlib hoàn chỉnh | TV1 có số liệu thực tế để gắn vào các trang Dashboard Streamlit. |
+| **Cuối Tuần 8** | TV2 → TV3 | Snapshot Gold Parquet, kết quả mô hình | TV3 thực hiện đối soát số liệu Gold và Dashboard. |
 | **Giữa Tuần 9** | TV1 → TV2 | Ứng dụng Dashboard hoàn chỉnh, số liệu đo hiệu năng cụm | TV2 kiểm tra đối soát chéo số liệu hiển thị với kết quả Spark SQL. |
-| **Cuối Tuần 9** | Cả hai | **NỘP BÁO CÁO HOÀN CHỈNH GIAI ĐOẠN 2 (70% điểm đồ án)** | Nộp đủ Source Code, File Word, File PPT trên Classroom. |
-| **Tuần 10** | Cả hai | **THUYẾT TRÌNH & DEMO SẢN PHẨM TRƯỚC LỚP** | Demo mượt mà, slide rõ ràng, phản biện tốt. |
+| **Giữa Tuần 9** | TV3 → TV1+TV2 | Báo cáo đối soát số liệu, bản thảo Kết luận & TLTK & Phụ lục | TV1+TV2 tích hợp vào báo cáo Word hoàn chỉnh. |
+| **Cuối Tuần 9** | Cả ba | **NỘP BÁO CÁO HOÀN CHỈNH GIAI ĐOẠN 2 (70% điểm đồ án)** | Nộp đủ Source Code, File Word, File PPT trên Classroom. |
+| **Tuần 10** | Cả ba | **THUYẾT TRÌNH & DEMO SẢN PHẨM TRƯỚC LỚP** | Demo mượt mà, slide rõ ràng, phản biện tốt. |
 
 ---
 
-## 4. Danh mục nghiệm thu các mốc lớn (Milestones)
+## 5. Danh mục nghiệm thu các mốc lớn (Milestones)
 
 - [ ] **M1 (Tuần 3):** Hoàn thành kế hoạch chi tiết, đề tài được phê duyệt, thiết lập repo chuẩn Clean Architecture.
 - [ ] **M2 (Tuần 5):** Khởi chạy thành công cụm Docker (HDFS + Spark + NiFi), kiểm thử luồng Ingestion mẫu thông suốt.
