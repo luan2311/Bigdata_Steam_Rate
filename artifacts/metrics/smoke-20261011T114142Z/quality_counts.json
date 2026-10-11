@@ -1,0 +1,24 @@
+{
+  "source": {
+    "uri": "D:/HocKi1Nam4/Big_Data/BaoCaoCuoiKy/Bigdata_Steam_Rate/data/sample/smoke.csv",
+    "dataset_version": "v1",
+    "level": "smoke",
+    "sha256": "c7fc0a9556e85e5ccd0d2303f5bf38ba28e2a926e4c9e8abf57c614461058bb8"
+  },
+  "result": {
+    "run_id": "smoke-20261011T114142Z",
+    "silver_uri": "D:/HocKi1Nam4/Big_Data/BaoCaoCuoiKy/Bigdata_Steam_Rate/data/lake/silver/smoke-20261011T114142Z",
+    "quarantine_uri": "D:/HocKi1Nam4/Big_Data/BaoCaoCuoiKy/Bigdata_Steam_Rate/data/lake/quarantine/smoke-20261011T114142Z",
+    "counts": {
+      "rows_parsed": 10485,
+      "invalid_by_reason": {},
+      "valid_pre_dedup": 10485,
+      "duplicates_removed": 62,
+      "silver_rows": 10423,
+      "blank_text": 11,
+      "missing_created_at": 0,
+      "missing_playtime_at_review": 14
+    }
+  },
+  "errors": []
+}

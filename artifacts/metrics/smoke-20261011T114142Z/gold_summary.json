@@ -1,0 +1,12 @@
+{
+  "run_id": "smoke-20261011T114142Z",
+  "gold_uri": "D:/HocKi1Nam4/Big_Data/BaoCaoCuoiKy/Bigdata_Steam_Rate/data/lake/gold/smoke-20261011T114142Z",
+  "table_rows": {
+    "game_summary": 291,
+    "monthly_summary": 7128,
+    "language_summary": 28,
+    "playtime_summary": 3416,
+    "quality_summary": 8
+  },
+  "check_errors": []
+}

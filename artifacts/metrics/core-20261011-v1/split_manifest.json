@@ -1,0 +1,41 @@
+{
+  "policy": {
+    "seed": "steam2021-tv2",
+    "buckets": 10000,
+    "train_ratio": 0.7,
+    "validation_ratio": 0.15
+  },
+  "max_rows": 200000,
+  "summary": {
+    "splits_uri": "D:/HocKi1Nam4/Big_Data/BaoCaoCuoiKy/Bigdata_Steam_Rate/data/lake/ml_splits/core-20261011-v1",
+    "rows": {
+      "test": 32137,
+      "validation": 29202,
+      "train": 138661
+    },
+    "label_counts": {
+      "test": {
+        "0": 3315,
+        "1": 28822
+      },
+      "validation": {
+        "1": 26003,
+        "0": 3199
+      },
+      "train": {
+        "0": 15170,
+        "1": 123491
+      }
+    },
+    "excluded": {
+      "silver_rows": 1038071,
+      "non_english": 577159,
+      "english_blank_or_unlabeled": 830,
+      "capped_out": 260082
+    },
+    "leakage": {
+      "review_id_in_multiple_splits": 0,
+      "text_hash_in_multiple_splits": 0
+    }
+  }
+}

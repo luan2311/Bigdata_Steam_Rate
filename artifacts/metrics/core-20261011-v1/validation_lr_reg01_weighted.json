@@ -1,0 +1,35 @@
+{
+  "config": {
+    "name": "lr_reg01_weighted",
+    "num_features": 65536,
+    "max_iter": 30,
+    "reg_param": 0.1,
+    "class_weighting": true
+  },
+  "metrics": {
+    "model": "lr_reg01_weighted",
+    "split": "validation",
+    "rows": 29202,
+    "precision": {
+      "1": 0.9582451187955775,
+      "0": 0.5773809523809523
+    },
+    "recall": {
+      "1": 0.9399300080759913,
+      "0": 0.6670834635823695
+    },
+    "f1": {
+      "0": 0.6189992748368383,
+      "1": 0.948999204022598
+    },
+    "macro_f1": 0.7839992394297182,
+    "accuracy": 0.9100404081912198,
+    "pr_auc_positive": 0.9753685674980779,
+    "confusion": {
+      "tp": 24441,
+      "fp": 1065,
+      "tn": 2134,
+      "fn": 1562
+    }
+  }
+}

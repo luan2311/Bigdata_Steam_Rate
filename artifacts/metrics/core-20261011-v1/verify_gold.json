@@ -1,0 +1,40 @@
+{
+  "run_id": "core-20261011-v1",
+  "source": "data\\sample\\core.csv",
+  "silver_rows_expected": 1038071,
+  "method": "pandas recomputation from CSV, independent of Spark code",
+  "checks": [
+    {
+      "table": "game_summary",
+      "rows_expected": 315,
+      "rows_gold": 315,
+      "mismatched_rows": 0,
+      "rate_formula_ok": true,
+      "examples": []
+    },
+    {
+      "table": "language_summary",
+      "rows_expected": 28,
+      "rows_gold": 28,
+      "mismatched_rows": 0,
+      "rate_formula_ok": true,
+      "examples": []
+    },
+    {
+      "table": "monthly_summary",
+      "rows_expected": 109113,
+      "rows_gold": 109113,
+      "mismatched_rows": 0,
+      "rate_formula_ok": true,
+      "examples": []
+    },
+    {
+      "table": "playtime_summary",
+      "rows_expected": 22019,
+      "rows_gold": 22019,
+      "mismatched_rows": 0,
+      "rate_formula_ok": true,
+      "examples": []
+    }
+  ]
+}

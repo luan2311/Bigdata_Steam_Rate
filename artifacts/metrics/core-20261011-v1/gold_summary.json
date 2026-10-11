@@ -1,0 +1,12 @@
+{
+  "run_id": "core-20261011-v1",
+  "gold_uri": "D:/HocKi1Nam4/Big_Data/BaoCaoCuoiKy/Bigdata_Steam_Rate/data/lake/gold/core-20261011-v1",
+  "table_rows": {
+    "game_summary": 315,
+    "monthly_summary": 109113,
+    "language_summary": 28,
+    "playtime_summary": 22019,
+    "quality_summary": 8
+  },
+  "check_errors": []
+}

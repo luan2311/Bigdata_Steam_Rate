@@ -1,0 +1,24 @@
+{
+  "source": {
+    "uri": "D:/HocKi1Nam4/Big_Data/BaoCaoCuoiKy/Bigdata_Steam_Rate/data/sample/core.csv",
+    "dataset_version": "v1",
+    "level": "core",
+    "sha256": "cdb6e5a3d04a1c11af2a8a79da886616c2ad581625f66ef4a395614ce0cd5140"
+  },
+  "result": {
+    "run_id": "core-20261011-v1",
+    "silver_uri": "D:/HocKi1Nam4/Big_Data/BaoCaoCuoiKy/Bigdata_Steam_Rate/data/lake/silver/core-20261011-v1",
+    "quarantine_uri": "D:/HocKi1Nam4/Big_Data/BaoCaoCuoiKy/Bigdata_Steam_Rate/data/lake/quarantine/core-20261011-v1",
+    "counts": {
+      "rows_parsed": 1044450,
+      "invalid_by_reason": {},
+      "valid_pre_dedup": 1044450,
+      "duplicates_removed": 6379,
+      "silver_rows": 1038071,
+      "blank_text": 1616,
+      "missing_created_at": 0,
+      "missing_playtime_at_review": 1181
+    }
+  },
+  "errors": []
+}
