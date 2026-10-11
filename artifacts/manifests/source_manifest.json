@@ -1,0 +1,13 @@
+{
+  "source": "https://www.kaggle.com/datasets/najzeko/steam-reviews-2021",
+  "kaggle_handle": "najzeko/steam-reviews-2021",
+  "dataset_version": "v1",
+  "license": "GPL 2",
+  "file_name": "steam_reviews.csv",
+  "local_path": "data/landing/steam-reviews-2021/v1/steam_reviews.csv",
+  "size_bytes": 8171787229,
+  "expected_size_bytes": 8171787229,
+  "sha256": "0e6f8e9c791337cc19265deec0d6437f6ab84a840953d47f220acd8e0e882759",
+  "recorded_at_utc": "2026-10-11T11:29:32+00:00",
+  "tool": "kagglehub 1.0.2"
+}

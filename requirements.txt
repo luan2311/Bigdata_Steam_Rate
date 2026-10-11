@@ -1,0 +1,8 @@
+# Môi trường TV2 (local mode): Python 3.11, Java 17.
+# numpy/pandas/pyarrow được khóa ở bản tương thích PySpark 3.5.
+pyspark==3.5.3
+numpy==1.26.4
+pandas==2.2.3
+pyarrow==17.0.0
+kagglehub==1.0.2
+pytest==9.1.1

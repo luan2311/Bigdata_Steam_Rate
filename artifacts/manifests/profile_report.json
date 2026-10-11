@@ -1,0 +1,3267 @@
+{
+  "source_file": "data/landing/steam-reviews-2021/v1/steam_reviews.csv",
+  "profiled_at_utc": "2026-10-11T11:41:01+00:00",
+  "elapsed_seconds": 534.1,
+  "note": "Số liệu thô trước làm sạch/dedup; tỷ lệ tính trên dòng có nhãn 'True'.",
+  "columns": [
+    "app_id",
+    "app_name",
+    "review_id",
+    "language",
+    "review",
+    "timestamp_created",
+    "timestamp_updated",
+    "recommended",
+    "votes_helpful",
+    "votes_funny",
+    "weighted_vote_score",
+    "comment_count",
+    "steam_purchase",
+    "received_for_free",
+    "written_during_early_access",
+    "author.steamid",
+    "author.num_games_owned",
+    "author.num_reviews",
+    "author.playtime_forever",
+    "author.playtime_last_two_weeks",
+    "author.playtime_at_review",
+    "author.last_played"
+  ],
+  "rows_parsed": 21747371,
+  "bad_lines_skipped": 0,
+  "bad_line_examples": [],
+  "null_counts": {
+    "app_id": 0,
+    "app_name": 0,
+    "review_id": 0,
+    "language": 0,
+    "review": 33742,
+    "timestamp_created": 0,
+    "timestamp_updated": 0,
+    "recommended": 0,
+    "votes_helpful": 0,
+    "votes_funny": 0,
+    "weighted_vote_score": 0,
+    "comment_count": 0,
+    "steam_purchase": 0,
+    "received_for_free": 0,
+    "written_during_early_access": 0,
+    "author.steamid": 0,
+    "author.num_games_owned": 0,
+    "author.num_reviews": 0,
+    "author.playtime_forever": 2,
+    "author.playtime_last_two_weeks": 2,
+    "author.playtime_at_review": 25682,
+    "author.last_played": 2
+  },
+  "recommended_raw_values": {
+    "True": 19022610,
+    "False": 2724761
+  },
+  "review_id": {
+    "numeric_ids": 21747371,
+    "unique_ids": 21612444,
+    "ids_with_duplicates": 134927,
+    "duplicate_rows_to_remove": 134927,
+    "max_copies_of_one_id": 2,
+    "non_numeric_ids": 0
+  },
+  "review_text": {
+    "blank_or_null": 39963,
+    "length_chars_buckets": {
+      "0": 39963,
+      "[1,20)": 7521830,
+      "[20,100)": 7691914,
+      "[100,500)": 4855200,
+      "[500,2000)": 1399640,
+      "[2000,inf)": 238824
+    }
+  },
+  "timestamps": {
+    "timestamp_created": {
+      "min_raw": 1290197836.0,
+      "max_raw": 1611426287.0,
+      "min_utc": "2010-11-19T20:17:16+00:00",
+      "max_utc": "2021-01-23T18:24:47+00:00",
+      "non_numeric": 0
+    },
+    "timestamp_updated": {
+      "min_raw": 1290197836.0,
+      "max_raw": 2283382797.0,
+      "min_utc": "2010-11-19T20:17:16+00:00",
+      "max_utc": "2042-05-11T00:59:57+00:00",
+      "non_numeric": 0
+    }
+  },
+  "updated_before_created": 1,
+  "reviews_by_created_month_utc": {
+    "2010-11": 555,
+    "2010-12": 1818,
+    "2011-01": 824,
+    "2011-02": 577,
+    "2011-03": 591,
+    "2011-04": 1812,
+    "2011-05": 1586,
+    "2011-06": 1247,
+    "2011-07": 5058,
+    "2011-08": 1508,
+    "2011-09": 1033,
+    "2011-10": 1288,
+    "2011-11": 3098,
+    "2011-12": 12396,
+    "2012-01": 3507,
+    "2012-02": 1844,
+    "2012-03": 1761,
+    "2012-04": 1498,
+    "2012-05": 1875,
+    "2012-06": 1860,
+    "2012-07": 11716,
+    "2012-08": 3744,
+    "2012-09": 3939,
+    "2012-10": 3332,
+    "2012-11": 4458,
+    "2012-12": 8246,
+    "2013-01": 7214,
+    "2013-02": 4388,
+    "2013-03": 7623,
+    "2013-04": 7637,
+    "2013-05": 6227,
+    "2013-06": 7671,
+    "2013-07": 14981,
+    "2013-08": 8827,
+    "2013-09": 8855,
+    "2013-10": 9077,
+    "2013-11": 25514,
+    "2013-12": 90664,
+    "2014-01": 65658,
+    "2014-02": 50563,
+    "2014-03": 50754,
+    "2014-04": 37383,
+    "2014-05": 39078,
+    "2014-06": 123184,
+    "2014-07": 64862,
+    "2014-08": 43626,
+    "2014-09": 38145,
+    "2014-10": 45037,
+    "2014-11": 54414,
+    "2014-12": 81638,
+    "2015-01": 67708,
+    "2015-02": 51844,
+    "2015-03": 58336,
+    "2015-04": 79966,
+    "2015-05": 59940,
+    "2015-06": 101564,
+    "2015-07": 69764,
+    "2015-08": 66091,
+    "2015-09": 49323,
+    "2015-10": 80634,
+    "2015-11": 107394,
+    "2015-12": 125817,
+    "2016-01": 124341,
+    "2016-02": 116659,
+    "2016-03": 96894,
+    "2016-04": 93746,
+    "2016-05": 103196,
+    "2016-06": 117924,
+    "2016-07": 116111,
+    "2016-08": 141601,
+    "2016-09": 81360,
+    "2016-10": 96020,
+    "2016-11": 454154,
+    "2016-12": 149303,
+    "2017-01": 148083,
+    "2017-02": 139286,
+    "2017-03": 137795,
+    "2017-04": 136546,
+    "2017-05": 133859,
+    "2017-06": 262564,
+    "2017-07": 201615,
+    "2017-08": 164381,
+    "2017-09": 186881,
+    "2017-10": 277755,
+    "2017-11": 596474,
+    "2017-12": 298477,
+    "2018-01": 265952,
+    "2018-02": 243848,
+    "2018-03": 240135,
+    "2018-04": 175431,
+    "2018-05": 204159,
+    "2018-06": 246040,
+    "2018-07": 203410,
+    "2018-08": 225783,
+    "2018-09": 143452,
+    "2018-10": 135843,
+    "2018-11": 579610,
+    "2018-12": 226689,
+    "2019-01": 190219,
+    "2019-02": 162302,
+    "2019-03": 148973,
+    "2019-04": 122113,
+    "2019-05": 152612,
+    "2019-06": 517212,
+    "2019-07": 579643,
+    "2019-08": 128338,
+    "2019-09": 104747,
+    "2019-10": 194228,
+    "2019-11": 993108,
+    "2019-12": 848258,
+    "2020-01": 692743,
+    "2020-02": 567350,
+    "2020-03": 777619,
+    "2020-04": 661545,
+    "2020-05": 596537,
+    "2020-06": 555735,
+    "2020-07": 629240,
+    "2020-08": 485382,
+    "2020-09": 595259,
+    "2020-10": 639716,
+    "2020-11": 941891,
+    "2020-12": 739407,
+    "2021-01": 565245
+  },
+  "playtime_minutes": {
+    "author.playtime_at_review": {
+      "max": 3228103.0,
+      "negative": 0,
+      "non_numeric": 0,
+      "hour_buckets": {
+        "[0,2)": 1289926,
+        "[2,10)": 4411423,
+        "[10,50)": 7303313,
+        "[50,100)": 2805008,
+        "[100,inf)": 5912019
+      }
+    },
+    "author.playtime_forever": {
+      "max": 3744943.0,
+      "negative": 0,
+      "non_numeric": 0,
+      "hour_buckets": {
+        "[0,2)": 691146,
+        "[2,10)": 2271656,
+        "[10,50)": 6216092,
+        "[50,100)": 3237734,
+        "[100,inf)": 9330741
+      }
+    }
+  },
+  "languages": [
+    {
+      "language": "english",
+      "reviews": 9635437,
+      "recommended": 8584444,
+      "recommended_rate_raw": 0.8909
+    },
+    {
+      "language": "schinese",
+      "reviews": 3764967,
+      "recommended": 2902943,
+      "recommended_rate_raw": 0.771
+    },
+    {
+      "language": "russian",
+      "reviews": 2348900,
+      "recommended": 2095434,
+      "recommended_rate_raw": 0.8921
+    },
+    {
+      "language": "brazilian",
+      "reviews": 837524,
+      "recommended": 790634,
+      "recommended_rate_raw": 0.944
+    },
+    {
+      "language": "spanish",
+      "reviews": 813320,
+      "recommended": 754956,
+      "recommended_rate_raw": 0.9282
+    },
+    {
+      "language": "german",
+      "reviews": 752596,
+      "recommended": 666223,
+      "recommended_rate_raw": 0.8852
+    },
+    {
+      "language": "turkish",
+      "reviews": 635868,
+      "recommended": 573984,
+      "recommended_rate_raw": 0.9027
+    },
+    {
+      "language": "koreana",
+      "reviews": 613632,
+      "recommended": 516673,
+      "recommended_rate_raw": 0.842
+    },
+    {
+      "language": "french",
+      "reviews": 541751,
+      "recommended": 490391,
+      "recommended_rate_raw": 0.9052
+    },
+    {
+      "language": "polish",
+      "reviews": 495529,
+      "recommended": 468655,
+      "recommended_rate_raw": 0.9458
+    },
+    {
+      "language": "tchinese",
+      "reviews": 218203,
+      "recommended": 182088,
+      "recommended_rate_raw": 0.8345
+    },
+    {
+      "language": "czech",
+      "reviews": 133980,
+      "recommended": 124377,
+      "recommended_rate_raw": 0.9283
+    },
+    {
+      "language": "italian",
+      "reviews": 133307,
+      "recommended": 120023,
+      "recommended_rate_raw": 0.9004
+    },
+    {
+      "language": "thai",
+      "reviews": 127503,
+      "recommended": 116175,
+      "recommended_rate_raw": 0.9112
+    },
+    {
+      "language": "japanese",
+      "reviews": 81754,
+      "recommended": 65848,
+      "recommended_rate_raw": 0.8054
+    },
+    {
+      "language": "portuguese",
+      "reviews": 81386,
+      "recommended": 77026,
+      "recommended_rate_raw": 0.9464
+    },
+    {
+      "language": "swedish",
+      "reviews": 80226,
+      "recommended": 74453,
+      "recommended_rate_raw": 0.928
+    },
+    {
+      "language": "dutch",
+      "reviews": 77555,
+      "recommended": 71351,
+      "recommended_rate_raw": 0.92
+    },
+    {
+      "language": "hungarian",
+      "reviews": 71001,
+      "recommended": 65501,
+      "recommended_rate_raw": 0.9225
+    },
+    {
+      "language": "latam",
+      "reviews": 70103,
+      "recommended": 66350,
+      "recommended_rate_raw": 0.9465
+    },
+    {
+      "language": "danish",
+      "reviews": 55915,
+      "recommended": 51428,
+      "recommended_rate_raw": 0.9198
+    },
+    {
+      "language": "finnish",
+      "reviews": 54712,
+      "recommended": 50318,
+      "recommended_rate_raw": 0.9197
+    },
+    {
+      "language": "norwegian",
+      "reviews": 36797,
+      "recommended": 33761,
+      "recommended_rate_raw": 0.9175
+    },
+    {
+      "language": "romanian",
+      "reviews": 32730,
+      "recommended": 31245,
+      "recommended_rate_raw": 0.9546
+    },
+    {
+      "language": "ukrainian",
+      "reviews": 21169,
+      "recommended": 19584,
+      "recommended_rate_raw": 0.9251
+    },
+    {
+      "language": "greek",
+      "reviews": 14472,
+      "recommended": 13262,
+      "recommended_rate_raw": 0.9164
+    },
+    {
+      "language": "bulgarian",
+      "reviews": 10454,
+      "recommended": 9434,
+      "recommended_rate_raw": 0.9024
+    },
+    {
+      "language": "vietnamese",
+      "reviews": 6580,
+      "recommended": 6049,
+      "recommended_rate_raw": 0.9193
+    }
+  ],
+  "apps": [
+    {
+      "app_id": "578080",
+      "names": [
+        "PLAYERUNKNOWN'S BATTLEGROUNDS"
+      ],
+      "reviews": 1644255,
+      "recommended": 886417,
+      "recommended_rate_raw": 0.5391
+    },
+    {
+      "app_id": "271590",
+      "names": [
+        "Grand Theft Auto V"
+      ],
+      "reviews": 1019116,
+      "recommended": 831311,
+      "recommended_rate_raw": 0.8157
+    },
+    {
+      "app_id": "359550",
+      "names": [
+        "Tom Clancy's Rainbow Six Siege"
+      ],
+      "reviews": 841918,
+      "recommended": 742397,
+      "recommended_rate_raw": 0.8818
+    },
+    {
+      "app_id": "105600",
+      "names": [
+        "Terraria"
+      ],
+      "reviews": 672815,
+      "recommended": 658741,
+      "recommended_rate_raw": 0.9791
+    },
+    {
+      "app_id": "4000",
+      "names": [
+        "Garry's Mod"
+      ],
+      "reviews": 655524,
+      "recommended": 632558,
+      "recommended_rate_raw": 0.965
+    },
+    {
+      "app_id": "252490",
+      "names": [
+        "Rust"
+      ],
+      "reviews": 549074,
+      "recommended": 468892,
+      "recommended_rate_raw": 0.854
+    },
+    {
+      "app_id": "252950",
+      "names": [
+        "Rocket League"
+      ],
+      "reviews": 498565,
+      "recommended": 449464,
+      "recommended_rate_raw": 0.9015
+    },
+    {
+      "app_id": "218620",
+      "names": [
+        "PAYDAY 2"
+      ],
+      "reviews": 487747,
+      "recommended": 428136,
+      "recommended_rate_raw": 0.8778
+    },
+    {
+      "app_id": "945360",
+      "names": [
+        "Among Us"
+      ],
+      "reviews": 485293,
+      "recommended": 463287,
+      "recommended_rate_raw": 0.9547
+    },
+    {
+      "app_id": "292030",
+      "names": [
+        "The Witcher 3: Wild Hunt"
+      ],
+      "reviews": 469395,
+      "recommended": 460252,
+      "recommended_rate_raw": 0.9805
+    },
+    {
+      "app_id": "381210",
+      "names": [
+        "Dead by Daylight"
+      ],
+      "reviews": 418897,
+      "recommended": 345582,
+      "recommended_rate_raw": 0.825
+    },
+    {
+      "app_id": "346110",
+      "names": [
+        "ARK: Survival Evolved"
+      ],
+      "reviews": 400009,
+      "recommended": 315243,
+      "recommended_rate_raw": 0.7881
+    },
+    {
+      "app_id": "227300",
+      "names": [
+        "Euro Truck Simulator 2"
+      ],
+      "reviews": 387553,
+      "recommended": 377866,
+      "recommended_rate_raw": 0.975
+    },
+    {
+      "app_id": "413150",
+      "names": [
+        "Stardew Valley"
+      ],
+      "reviews": 315717,
+      "recommended": 308852,
+      "recommended_rate_raw": 0.9783
+    },
+    {
+      "app_id": "72850",
+      "names": [
+        "The Elder Scrolls V: Skyrim"
+      ],
+      "reviews": 294966,
+      "recommended": 279455,
+      "recommended_rate_raw": 0.9474
+    },
+    {
+      "app_id": "431960",
+      "names": [
+        "Wallpaper Engine"
+      ],
+      "reviews": 292790,
+      "recommended": 287425,
+      "recommended_rate_raw": 0.9817
+    },
+    {
+      "app_id": "582010",
+      "names": [
+        "Monster Hunter: World"
+      ],
+      "reviews": 290946,
+      "recommended": 245396,
+      "recommended_rate_raw": 0.8434
+    },
+    {
+      "app_id": "367520",
+      "names": [
+        "Hollow Knight"
+      ],
+      "reviews": 269854,
+      "recommended": 261280,
+      "recommended_rate_raw": 0.9682
+    },
+    {
+      "app_id": "242760",
+      "names": [
+        "The Forest"
+      ],
+      "reviews": 239734,
+      "recommended": 226711,
+      "recommended_rate_raw": 0.9457
+    },
+    {
+      "app_id": "322330",
+      "names": [
+        "Don't Starve Together"
+      ],
+      "reviews": 238636,
+      "recommended": 229881,
+      "recommended_rate_raw": 0.9633
+    },
+    {
+      "app_id": "374320",
+      "names": [
+        "DARK SOULS™ III"
+      ],
+      "reviews": 235422,
+      "recommended": 220614,
+      "recommended_rate_raw": 0.9371
+    },
+    {
+      "app_id": "620",
+      "names": [
+        "Portal 2"
+      ],
+      "reviews": 232329,
+      "recommended": 229470,
+      "recommended_rate_raw": 0.9877
+    },
+    {
+      "app_id": "377160",
+      "names": [
+        "Fallout 4"
+      ],
+      "reviews": 228957,
+      "recommended": 179212,
+      "recommended_rate_raw": 0.7827
+    },
+    {
+      "app_id": "739630",
+      "names": [
+        "Phasmophobia"
+      ],
+      "reviews": 219090,
+      "recommended": 213724,
+      "recommended_rate_raw": 0.9755
+    },
+    {
+      "app_id": "239140",
+      "names": [
+        "Dying Light"
+      ],
+      "reviews": 214431,
+      "recommended": 203547,
+      "recommended_rate_raw": 0.9492
+    },
+    {
+      "app_id": "107410",
+      "names": [
+        "Arma 3"
+      ],
+      "reviews": 182348,
+      "recommended": 164851,
+      "recommended_rate_raw": 0.904
+    },
+    {
+      "app_id": "275850",
+      "names": [
+        "No Man's Sky"
+      ],
+      "reviews": 182045,
+      "recommended": 125508,
+      "recommended_rate_raw": 0.6894
+    },
+    {
+      "app_id": "203160",
+      "names": [
+        "Tomb Raider"
+      ],
+      "reviews": 181054,
+      "recommended": 174333,
+      "recommended_rate_raw": 0.9629
+    },
+    {
+      "app_id": "8930",
+      "names": [
+        "Sid Meier's Civilization V"
+      ],
+      "reviews": 171404,
+      "recommended": 164797,
+      "recommended_rate_raw": 0.9615
+    },
+    {
+      "app_id": "264710",
+      "names": [
+        "Subnautica"
+      ],
+      "reviews": 152414,
+      "recommended": 146075,
+      "recommended_rate_raw": 0.9584
+    },
+    {
+      "app_id": "698780",
+      "names": [
+        "Doki Doki Literature Club"
+      ],
+      "reviews": 148837,
+      "recommended": 144123,
+      "recommended_rate_raw": 0.9683
+    },
+    {
+      "app_id": "255710",
+      "names": [
+        "Cities: Skylines"
+      ],
+      "reviews": 147028,
+      "recommended": 136499,
+      "recommended_rate_raw": 0.9284
+    },
+    {
+      "app_id": "391540",
+      "names": [
+        "Undertale"
+      ],
+      "reviews": 144351,
+      "recommended": 139116,
+      "recommended_rate_raw": 0.9637
+    },
+    {
+      "app_id": "289070",
+      "names": [
+        "Sid Meier's Civilization VI"
+      ],
+      "reviews": 143789,
+      "recommended": 119046,
+      "recommended_rate_raw": 0.8279
+    },
+    {
+      "app_id": "489830",
+      "names": [
+        "The Elder Scrolls V: Skyrim Special Edition"
+      ],
+      "reviews": 142509,
+      "recommended": 126559,
+      "recommended_rate_raw": 0.8881
+    },
+    {
+      "app_id": "379720",
+      "names": [
+        "DOOM"
+      ],
+      "reviews": 139973,
+      "recommended": 132997,
+      "recommended_rate_raw": 0.9502
+    },
+    {
+      "app_id": "250900",
+      "names": [
+        "The Binding of Isaac: Rebirth"
+      ],
+      "reviews": 124389,
+      "recommended": 122069,
+      "recommended_rate_raw": 0.9813
+    },
+    {
+      "app_id": "48700",
+      "names": [
+        "Mount & Blade: Warband"
+      ],
+      "reviews": 123905,
+      "recommended": 121050,
+      "recommended_rate_raw": 0.977
+    },
+    {
+      "app_id": "477160",
+      "names": [
+        "Human: Fall Flat"
+      ],
+      "reviews": 123604,
+      "recommended": 116523,
+      "recommended_rate_raw": 0.9427
+    },
+    {
+      "app_id": "814380",
+      "names": [
+        "Sekiro™: Shadows Die Twice"
+      ],
+      "reviews": 119760,
+      "recommended": 113339,
+      "recommended_rate_raw": 0.9464
+    },
+    {
+      "app_id": "1145360",
+      "names": [
+        "Hades"
+      ],
+      "reviews": 118416,
+      "recommended": 117085,
+      "recommended_rate_raw": 0.9888
+    },
+    {
+      "app_id": "240",
+      "names": [
+        "Counter-Strike: Source"
+      ],
+      "reviews": 118081,
+      "recommended": 113430,
+      "recommended_rate_raw": 0.9606
+    },
+    {
+      "app_id": "394360",
+      "names": [
+        "Hearts of Iron IV"
+      ],
+      "reviews": 116255,
+      "recommended": 106448,
+      "recommended_rate_raw": 0.9156
+    },
+    {
+      "app_id": "435150",
+      "names": [
+        "Divinity: Original Sin 2"
+      ],
+      "reviews": 113508,
+      "recommended": 109059,
+      "recommended_rate_raw": 0.9608
+    },
+    {
+      "app_id": "427520",
+      "names": [
+        "Factorio"
+      ],
+      "reviews": 108282,
+      "recommended": 107111,
+      "recommended_rate_raw": 0.9892
+    },
+    {
+      "app_id": "8870",
+      "names": [
+        "BioShock Infinite"
+      ],
+      "reviews": 107277,
+      "recommended": 102220,
+      "recommended_rate_raw": 0.9529
+    },
+    {
+      "app_id": "782330",
+      "names": [
+        "DOOM Eternal"
+      ],
+      "reviews": 105196,
+      "recommended": 94222,
+      "recommended_rate_raw": 0.8957
+    },
+    {
+      "app_id": "648800",
+      "names": [
+        "Raft"
+      ],
+      "reviews": 97930,
+      "recommended": 90017,
+      "recommended_rate_raw": 0.9192
+    },
+    {
+      "app_id": "281990",
+      "names": [
+        "Stellaris"
+      ],
+      "reviews": 94667,
+      "recommended": 81866,
+      "recommended_rate_raw": 0.8648
+    },
+    {
+      "app_id": "294100",
+      "names": [
+        "RimWorld"
+      ],
+      "reviews": 94041,
+      "recommended": 92443,
+      "recommended_rate_raw": 0.983
+    },
+    {
+      "app_id": "304390",
+      "names": [
+        "For Honor"
+      ],
+      "reviews": 93971,
+      "recommended": 61762,
+      "recommended_rate_raw": 0.6572
+    },
+    {
+      "app_id": "812140",
+      "names": [
+        "Assassin's Creed Odyssey"
+      ],
+      "reviews": 92766,
+      "recommended": 82033,
+      "recommended_rate_raw": 0.8843
+    },
+    {
+      "app_id": "306130",
+      "names": [
+        "The Elder Scrolls Online"
+      ],
+      "reviews": 91923,
+      "recommended": 74344,
+      "recommended_rate_raw": 0.8088
+    },
+    {
+      "app_id": "391220",
+      "names": [
+        "Rise of the Tomb Raider"
+      ],
+      "reviews": 91106,
+      "recommended": 85475,
+      "recommended_rate_raw": 0.9382
+    },
+    {
+      "app_id": "221380",
+      "names": [
+        "Age of Empires II (2013)"
+      ],
+      "reviews": 86513,
+      "recommended": 82621,
+      "recommended_rate_raw": 0.955
+    },
+    {
+      "app_id": "262060",
+      "names": [
+        "Darkest Dungeon®"
+      ],
+      "reviews": 86384,
+      "recommended": 78012,
+      "recommended_rate_raw": 0.9031
+    },
+    {
+      "app_id": "1289310",
+      "names": [
+        "Helltaker"
+      ],
+      "reviews": 86306,
+      "recommended": 84683,
+      "recommended_rate_raw": 0.9812
+    },
+    {
+      "app_id": "646570",
+      "names": [
+        "Slay the Spire"
+      ],
+      "reviews": 86023,
+      "recommended": 84207,
+      "recommended_rate_raw": 0.9789
+    },
+    {
+      "app_id": "552520",
+      "names": [
+        "Far Cry 5"
+      ],
+      "reviews": 85745,
+      "recommended": 66555,
+      "recommended_rate_raw": 0.7762
+    },
+    {
+      "app_id": "236850",
+      "names": [
+        "Europa Universalis IV"
+      ],
+      "reviews": 85477,
+      "recommended": 74790,
+      "recommended_rate_raw": 0.875
+    },
+    {
+      "app_id": "594570",
+      "names": [
+        "Total War: WARHAMMER II"
+      ],
+      "reviews": 85255,
+      "recommended": 79700,
+      "recommended_rate_raw": 0.9348
+    },
+    {
+      "app_id": "219740",
+      "names": [
+        "Don't Starve"
+      ],
+      "reviews": 85088,
+      "recommended": 82379,
+      "recommended_rate_raw": 0.9682
+    },
+    {
+      "app_id": "883710",
+      "names": [
+        "Resident Evil 2"
+      ],
+      "reviews": 82650,
+      "recommended": 80352,
+      "recommended_rate_raw": 0.9722
+    },
+    {
+      "app_id": "629760",
+      "names": [
+        "MORDHAU"
+      ],
+      "reviews": 82327,
+      "recommended": 68359,
+      "recommended_rate_raw": 0.8303
+    },
+    {
+      "app_id": "225540",
+      "names": [
+        "Just Cause 3"
+      ],
+      "reviews": 82168,
+      "recommended": 65257,
+      "recommended_rate_raw": 0.7942
+    },
+    {
+      "app_id": "524220",
+      "names": [
+        "NieR:Automata™"
+      ],
+      "reviews": 81110,
+      "recommended": 69684,
+      "recommended_rate_raw": 0.8591
+    },
+    {
+      "app_id": "594650",
+      "names": [
+        "Hunt: Showdown"
+      ],
+      "reviews": 79345,
+      "recommended": 64372,
+      "recommended_rate_raw": 0.8113
+    },
+    {
+      "app_id": "204360",
+      "names": [
+        "Castle Crashers"
+      ],
+      "reviews": 74916,
+      "recommended": 71966,
+      "recommended_rate_raw": 0.9606
+    },
+    {
+      "app_id": "379430",
+      "names": [
+        "Kingdom Come: Deliverance"
+      ],
+      "reviews": 72944,
+      "recommended": 59270,
+      "recommended_rate_raw": 0.8125
+    },
+    {
+      "app_id": "548430",
+      "names": [
+        "Deep Rock Galactic"
+      ],
+      "reviews": 72059,
+      "recommended": 69822,
+      "recommended_rate_raw": 0.969
+    },
+    {
+      "app_id": "270880",
+      "names": [
+        "American Truck Simulator"
+      ],
+      "reviews": 71140,
+      "recommended": 68206,
+      "recommended_rate_raw": 0.9588
+    },
+    {
+      "app_id": "268910",
+      "names": [
+        "Cuphead"
+      ],
+      "reviews": 68691,
+      "recommended": 66159,
+      "recommended_rate_raw": 0.9631
+    },
+    {
+      "app_id": "518790",
+      "names": [
+        "theHunter: Call of the Wild™"
+      ],
+      "reviews": 67240,
+      "recommended": 57452,
+      "recommended_rate_raw": 0.8544
+    },
+    {
+      "app_id": "397540",
+      "names": [
+        "Borderlands 3"
+      ],
+      "reviews": 67080,
+      "recommended": 56159,
+      "recommended_rate_raw": 0.8372
+    },
+    {
+      "app_id": "779340",
+      "names": [
+        "Total War: THREE KINGDOMS"
+      ],
+      "reviews": 66982,
+      "recommended": 56996,
+      "recommended_rate_raw": 0.8509
+    },
+    {
+      "app_id": "238320",
+      "names": [
+        "Outlast"
+      ],
+      "reviews": 65525,
+      "recommended": 62969,
+      "recommended_rate_raw": 0.961
+    },
+    {
+      "app_id": "588650",
+      "names": [
+        "Dead Cells"
+      ],
+      "reviews": 64772,
+      "recommended": 62664,
+      "recommended_rate_raw": 0.9675
+    },
+    {
+      "app_id": "581320",
+      "names": [
+        "Insurgency: Sandstorm"
+      ],
+      "reviews": 64638,
+      "recommended": 53881,
+      "recommended_rate_raw": 0.8336
+    },
+    {
+      "app_id": "582160",
+      "names": [
+        "Assassin's Creed Origins"
+      ],
+      "reviews": 62294,
+      "recommended": 53493,
+      "recommended_rate_raw": 0.8587
+    },
+    {
+      "app_id": "440900",
+      "names": [
+        "Conan Exiles"
+      ],
+      "reviews": 62151,
+      "recommended": 48344,
+      "recommended_rate_raw": 0.7778
+    },
+    {
+      "app_id": "552500",
+      "names": [
+        "Warhammer: Vermintide 2"
+      ],
+      "reviews": 61887,
+      "recommended": 49940,
+      "recommended_rate_raw": 0.807
+    },
+    {
+      "app_id": "268500",
+      "names": [
+        "XCOM 2"
+      ],
+      "reviews": 61636,
+      "recommended": 52732,
+      "recommended_rate_raw": 0.8555
+    },
+    {
+      "app_id": "644560",
+      "names": [
+        "Mirror"
+      ],
+      "reviews": 60195,
+      "recommended": 58581,
+      "recommended_rate_raw": 0.9732
+    },
+    {
+      "app_id": "284160",
+      "names": [
+        "BeamNG.drive"
+      ],
+      "reviews": 60096,
+      "recommended": 57643,
+      "recommended_rate_raw": 0.9592
+    },
+    {
+      "app_id": "219150",
+      "names": [
+        "Hotline Miami"
+      ],
+      "reviews": 60074,
+      "recommended": 58490,
+      "recommended_rate_raw": 0.9736
+    },
+    {
+      "app_id": "457140",
+      "names": [
+        "Oxygen Not Included"
+      ],
+      "reviews": 59920,
+      "recommended": 57789,
+      "recommended_rate_raw": 0.9644
+    },
+    {
+      "app_id": "323190",
+      "names": [
+        "Frostpunk"
+      ],
+      "reviews": 59768,
+      "recommended": 54317,
+      "recommended_rate_raw": 0.9088
+    },
+    {
+      "app_id": "960090",
+      "names": [
+        "Bloons TD 6"
+      ],
+      "reviews": 59760,
+      "recommended": 57700,
+      "recommended_rate_raw": 0.9655
+    },
+    {
+      "app_id": "238460",
+      "names": [
+        "BattleBlock Theater"
+      ],
+      "reviews": 59317,
+      "recommended": 57704,
+      "recommended_rate_raw": 0.9728
+    },
+    {
+      "app_id": "55230",
+      "names": [
+        "Saints Row: The Third"
+      ],
+      "reviews": 59305,
+      "recommended": 56947,
+      "recommended_rate_raw": 0.9602
+    },
+    {
+      "app_id": "433340",
+      "names": [
+        "Slime Rancher"
+      ],
+      "reviews": 58049,
+      "recommended": 56589,
+      "recommended_rate_raw": 0.9748
+    },
+    {
+      "app_id": "212680",
+      "names": [
+        "FTL: Faster Than Light"
+      ],
+      "reviews": 57466,
+      "recommended": 55237,
+      "recommended_rate_raw": 0.9612
+    },
+    {
+      "app_id": "70",
+      "names": [
+        "Half-Life"
+      ],
+      "reviews": 57320,
+      "recommended": 55312,
+      "recommended_rate_raw": 0.965
+    },
+    {
+      "app_id": "214950",
+      "names": [
+        "Total War: ROME II - Emperor Edition"
+      ],
+      "reviews": 57149,
+      "recommended": 48041,
+      "recommended_rate_raw": 0.8406
+    },
+    {
+      "app_id": "362890",
+      "names": [
+        "Black Mesa"
+      ],
+      "reviews": 56895,
+      "recommended": 54522,
+      "recommended_rate_raw": 0.9583
+    },
+    {
+      "app_id": "205100",
+      "names": [
+        "Dishonored"
+      ],
+      "reviews": 56337,
+      "recommended": 54825,
+      "recommended_rate_raw": 0.9732
+    },
+    {
+      "app_id": "311690",
+      "names": [
+        "Enter the Gungeon"
+      ],
+      "reviews": 55358,
+      "recommended": 53198,
+      "recommended_rate_raw": 0.961
+    },
+    {
+      "app_id": "356190",
+      "names": [
+        "Middle-earth™: Shadow of War™"
+      ],
+      "reviews": 54196,
+      "recommended": 46362,
+      "recommended_rate_raw": 0.8555
+    },
+    {
+      "app_id": "207610",
+      "names": [
+        "The Walking Dead"
+      ],
+      "reviews": 52757,
+      "recommended": 51088,
+      "recommended_rate_raw": 0.9684
+    },
+    {
+      "app_id": "206440",
+      "names": [
+        "To the Moon"
+      ],
+      "reviews": 52738,
+      "recommended": 50890,
+      "recommended_rate_raw": 0.965
+    },
+    {
+      "app_id": "1057090",
+      "names": [
+        "Ori and the Will of the Wisps"
+      ],
+      "reviews": 52554,
+      "recommended": 50490,
+      "recommended_rate_raw": 0.9607
+    },
+    {
+      "app_id": "508440",
+      "names": [
+        "Totally Accurate Battle Simulator"
+      ],
+      "reviews": 52119,
+      "recommended": 51082,
+      "recommended_rate_raw": 0.9801
+    },
+    {
+      "app_id": "460930",
+      "names": [
+        "Tom Clancy's Ghost Recon® Wildlands"
+      ],
+      "reviews": 51460,
+      "recommended": 39602,
+      "recommended_rate_raw": 0.7696
+    },
+    {
+      "app_id": "546560",
+      "names": [
+        "Half-Life: Alyx"
+      ],
+      "reviews": 51099,
+      "recommended": 50428,
+      "recommended_rate_raw": 0.9869
+    },
+    {
+      "app_id": "113200",
+      "names": [
+        "The Binding of Isaac"
+      ],
+      "reviews": 48838,
+      "recommended": 46706,
+      "recommended_rate_raw": 0.9563
+    },
+    {
+      "app_id": "863550",
+      "names": [
+        "HITMAN™ 2"
+      ],
+      "reviews": 48372,
+      "recommended": 43707,
+      "recommended_rate_raw": 0.9036
+    },
+    {
+      "app_id": "1190460",
+      "names": [
+        "DEATH STRANDING"
+      ],
+      "reviews": 47781,
+      "recommended": 44893,
+      "recommended_rate_raw": 0.9396
+    },
+    {
+      "app_id": "447040",
+      "names": [
+        "Watch_Dogs 2"
+      ],
+      "reviews": 47742,
+      "recommended": 39241,
+      "recommended_rate_raw": 0.8219
+    },
+    {
+      "app_id": "364360",
+      "names": [
+        "Total War: WARHAMMER"
+      ],
+      "reviews": 46205,
+      "recommended": 35877,
+      "recommended_rate_raw": 0.7765
+    },
+    {
+      "app_id": "620980",
+      "names": [
+        "Beat Saber"
+      ],
+      "reviews": 46043,
+      "recommended": 44253,
+      "recommended_rate_raw": 0.9611
+    },
+    {
+      "app_id": "1158310",
+      "names": [
+        "Crusader Kings III"
+      ],
+      "reviews": 45151,
+      "recommended": 42458,
+      "recommended_rate_raw": 0.9404
+    },
+    {
+      "app_id": "513710",
+      "names": [
+        "SCUM"
+      ],
+      "reviews": 44913,
+      "recommended": 31785,
+      "recommended_rate_raw": 0.7077
+    },
+    {
+      "app_id": "213670",
+      "names": [
+        "South Park™: The Stick of Truth™"
+      ],
+      "reviews": 44849,
+      "recommended": 43747,
+      "recommended_rate_raw": 0.9754
+    },
+    {
+      "app_id": "493340",
+      "names": [
+        "Planet Coaster"
+      ],
+      "reviews": 43637,
+      "recommended": 39464,
+      "recommended_rate_raw": 0.9044
+    },
+    {
+      "app_id": "526870",
+      "names": [
+        "Satisfactory"
+      ],
+      "reviews": 42449,
+      "recommended": 41208,
+      "recommended_rate_raw": 0.9708
+    },
+    {
+      "app_id": "274190",
+      "names": [
+        "Broforce"
+      ],
+      "reviews": 40977,
+      "recommended": 39799,
+      "recommended_rate_raw": 0.9713
+    },
+    {
+      "app_id": "1113000",
+      "names": [
+        "Persona 4 Golden"
+      ],
+      "reviews": 40180,
+      "recommended": 39080,
+      "recommended_rate_raw": 0.9726
+    },
+    {
+      "app_id": "233860",
+      "names": [
+        "Kenshi"
+      ],
+      "reviews": 39936,
+      "recommended": 37663,
+      "recommended_rate_raw": 0.9431
+    },
+    {
+      "app_id": "239030",
+      "names": [
+        "Papers, Please"
+      ],
+      "reviews": 39882,
+      "recommended": 38549,
+      "recommended_rate_raw": 0.9666
+    },
+    {
+      "app_id": "787860",
+      "names": [
+        "Farming Simulator 19"
+      ],
+      "reviews": 38429,
+      "recommended": 35591,
+      "recommended_rate_raw": 0.9261
+    },
+    {
+      "app_id": "648350",
+      "names": [
+        "Jurassic World Evolution"
+      ],
+      "reviews": 38096,
+      "recommended": 32054,
+      "recommended_rate_raw": 0.8414
+    },
+    {
+      "app_id": "683320",
+      "names": [
+        "GRIS"
+      ],
+      "reviews": 38048,
+      "recommended": 36779,
+      "recommended_rate_raw": 0.9666
+    },
+    {
+      "app_id": "286160",
+      "names": [
+        "Tabletop Simulator"
+      ],
+      "reviews": 37766,
+      "recommended": 36340,
+      "recommended_rate_raw": 0.9622
+    },
+    {
+      "app_id": "646910",
+      "names": [
+        "The Crew 2"
+      ],
+      "reviews": 37744,
+      "recommended": 29624,
+      "recommended_rate_raw": 0.7849
+    },
+    {
+      "app_id": "834910",
+      "names": [
+        "ATLAS"
+      ],
+      "reviews": 37210,
+      "recommended": 17290,
+      "recommended_rate_raw": 0.4647
+    },
+    {
+      "app_id": "582660",
+      "names": [
+        "Black Desert Online"
+      ],
+      "reviews": 36968,
+      "recommended": 27861,
+      "recommended_rate_raw": 0.7537
+    },
+    {
+      "app_id": "570940",
+      "names": [
+        "DARK SOULS™: REMASTERED"
+      ],
+      "reviews": 36603,
+      "recommended": 31393,
+      "recommended_rate_raw": 0.8577
+    },
+    {
+      "app_id": "418370",
+      "names": [
+        "Resident Evil 7 Biohazard"
+      ],
+      "reviews": 36142,
+      "recommended": 33798,
+      "recommended_rate_raw": 0.9351
+    },
+    {
+      "app_id": "613100",
+      "names": [
+        "House Flipper"
+      ],
+      "reviews": 36092,
+      "recommended": 32939,
+      "recommended_rate_raw": 0.9126
+    },
+    {
+      "app_id": "253230",
+      "names": [
+        "A Hat in Time"
+      ],
+      "reviews": 34979,
+      "recommended": 34318,
+      "recommended_rate_raw": 0.9811
+    },
+    {
+      "app_id": "242920",
+      "names": [
+        "Banished"
+      ],
+      "reviews": 34675,
+      "recommended": 31247,
+      "recommended_rate_raw": 0.9011
+    },
+    {
+      "app_id": "678950",
+      "names": [
+        "DRAGON BALL FighterZ"
+      ],
+      "reviews": 34629,
+      "recommended": 30864,
+      "recommended_rate_raw": 0.8913
+    },
+    {
+      "app_id": "823130",
+      "names": [
+        "Totally Accurate Battlegrounds"
+      ],
+      "reviews": 34465,
+      "recommended": 28986,
+      "recommended_rate_raw": 0.841
+    },
+    {
+      "app_id": "637650",
+      "names": [
+        "FINAL FANTASY XV WINDOWS EDITION"
+      ],
+      "reviews": 32864,
+      "recommended": 26536,
+      "recommended_rate_raw": 0.8074
+    },
+    {
+      "app_id": "466560",
+      "names": [
+        "Northgard"
+      ],
+      "reviews": 32733,
+      "recommended": 28681,
+      "recommended_rate_raw": 0.8762
+    },
+    {
+      "app_id": "240720",
+      "names": [
+        "Getting Over It with Bennett Foddy"
+      ],
+      "reviews": 31970,
+      "recommended": 26314,
+      "recommended_rate_raw": 0.8231
+    },
+    {
+      "app_id": "644930",
+      "names": [
+        "They Are Billions"
+      ],
+      "reviews": 31842,
+      "recommended": 27049,
+      "recommended_rate_raw": 0.8495
+    },
+    {
+      "app_id": "638970",
+      "names": [
+        "Yakuza 0"
+      ],
+      "reviews": 31775,
+      "recommended": 29774,
+      "recommended_rate_raw": 0.937
+    },
+    {
+      "app_id": "636480",
+      "names": [
+        "Ravenfield"
+      ],
+      "reviews": 31746,
+      "recommended": 30640,
+      "recommended_rate_raw": 0.9652
+    },
+    {
+      "app_id": "504230",
+      "names": [
+        "Celeste"
+      ],
+      "reviews": 31454,
+      "recommended": 30751,
+      "recommended_rate_raw": 0.9776
+    },
+    {
+      "app_id": "35140",
+      "names": [
+        "Batman: Arkham Asylum GOTY Edition"
+      ],
+      "reviews": 31062,
+      "recommended": 29875,
+      "recommended_rate_raw": 0.9618
+    },
+    {
+      "app_id": "39210",
+      "names": [
+        "FINAL FANTASY XIV Online"
+      ],
+      "reviews": 29941,
+      "recommended": 26233,
+      "recommended_rate_raw": 0.8762
+    },
+    {
+      "app_id": "621060",
+      "names": [
+        "PC Building Simulator"
+      ],
+      "reviews": 29623,
+      "recommended": 27882,
+      "recommended_rate_raw": 0.9412
+    },
+    {
+      "app_id": "666140",
+      "names": [
+        "My Time At Portia"
+      ],
+      "reviews": 29557,
+      "recommended": 27466,
+      "recommended_rate_raw": 0.9293
+    },
+    {
+      "app_id": "312660",
+      "names": [
+        "Sniper Elite 4"
+      ],
+      "reviews": 28252,
+      "recommended": 25276,
+      "recommended_rate_raw": 0.8947
+    },
+    {
+      "app_id": "40800",
+      "names": [
+        "Super Meat Boy"
+      ],
+      "reviews": 28192,
+      "recommended": 26744,
+      "recommended_rate_raw": 0.9486
+    },
+    {
+      "app_id": "312530",
+      "names": [
+        "Duck Game"
+      ],
+      "reviews": 27945,
+      "recommended": 26938,
+      "recommended_rate_raw": 0.964
+    },
+    {
+      "app_id": "476600",
+      "names": [
+        "Call of Duty: WWII"
+      ],
+      "reviews": 27617,
+      "recommended": 17195,
+      "recommended_rate_raw": 0.6226
+    },
+    {
+      "app_id": "1118200",
+      "names": [
+        "People Playground"
+      ],
+      "reviews": 26319,
+      "recommended": 25995,
+      "recommended_rate_raw": 0.9877
+    },
+    {
+      "app_id": "728880",
+      "names": [
+        "Overcooked! 2"
+      ],
+      "reviews": 26015,
+      "recommended": 23433,
+      "recommended_rate_raw": 0.9007
+    },
+    {
+      "app_id": "250320",
+      "names": [
+        "The Wolf Among Us"
+      ],
+      "reviews": 24931,
+      "recommended": 24357,
+      "recommended_rate_raw": 0.977
+    },
+    {
+      "app_id": "339800",
+      "names": [
+        "HuniePop"
+      ],
+      "reviews": 24666,
+      "recommended": 23771,
+      "recommended_rate_raw": 0.9637
+    },
+    {
+      "app_id": "485510",
+      "names": [
+        "Nioh: Complete Edition"
+      ],
+      "reviews": 24622,
+      "recommended": 19851,
+      "recommended_rate_raw": 0.8062
+    },
+    {
+      "app_id": "447530",
+      "names": [
+        "VA-11 Hall-A: Cyberpunk Bartender Action"
+      ],
+      "reviews": 23694,
+      "recommended": 23168,
+      "recommended_rate_raw": 0.9778
+    },
+    {
+      "app_id": "583950",
+      "names": [
+        "Artifact"
+      ],
+      "reviews": 23509,
+      "recommended": 11283,
+      "recommended_rate_raw": 0.4799
+    },
+    {
+      "app_id": "420",
+      "names": [
+        "Half-Life 2: Episode Two"
+      ],
+      "reviews": 23500,
+      "recommended": 22704,
+      "recommended_rate_raw": 0.9661
+    },
+    {
+      "app_id": "47890",
+      "names": [
+        "The Sims(TM) 3"
+      ],
+      "reviews": 22812,
+      "recommended": 19471,
+      "recommended_rate_raw": 0.8535
+    },
+    {
+      "app_id": "841370",
+      "names": [
+        "NBA 2K19"
+      ],
+      "reviews": 22437,
+      "recommended": 8851,
+      "recommended_rate_raw": 0.3945
+    },
+    {
+      "app_id": "221640",
+      "names": [
+        "Super Hexagon"
+      ],
+      "reviews": 22216,
+      "recommended": 21532,
+      "recommended_rate_raw": 0.9692
+    },
+    {
+      "app_id": "535930",
+      "names": [
+        "Two Point Hospital"
+      ],
+      "reviews": 22116,
+      "recommended": 20101,
+      "recommended_rate_raw": 0.9089
+    },
+    {
+      "app_id": "637090",
+      "names": [
+        "BATTLETECH"
+      ],
+      "reviews": 21813,
+      "recommended": 17694,
+      "recommended_rate_raw": 0.8112
+    },
+    {
+      "app_id": "420290",
+      "names": [
+        "Blackwake"
+      ],
+      "reviews": 21147,
+      "recommended": 17619,
+      "recommended_rate_raw": 0.8332
+    },
+    {
+      "app_id": "424840",
+      "names": [
+        "Little Nightmares"
+      ],
+      "reviews": 20982,
+      "recommended": 19335,
+      "recommended_rate_raw": 0.9215
+    },
+    {
+      "app_id": "447820",
+      "names": [
+        "Day of Infamy"
+      ],
+      "reviews": 20908,
+      "recommended": 17321,
+      "recommended_rate_raw": 0.8284
+    },
+    {
+      "app_id": "292730",
+      "names": [
+        "Call of Duty: Infinite Warfare"
+      ],
+      "reviews": 20736,
+      "recommended": 9974,
+      "recommended_rate_raw": 0.481
+    },
+    {
+      "app_id": "32470",
+      "names": [
+        "STAR WARS™ Empire at War: Gold Pack"
+      ],
+      "reviews": 20553,
+      "recommended": 19962,
+      "recommended_rate_raw": 0.9712
+    },
+    {
+      "app_id": "640820",
+      "names": [
+        "Pathfinder: Kingmaker"
+      ],
+      "reviews": 20386,
+      "recommended": 15982,
+      "recommended_rate_raw": 0.784
+    },
+    {
+      "app_id": "1089980",
+      "names": [
+        "The Henry Stickmin Collection"
+      ],
+      "reviews": 19400,
+      "recommended": 19211,
+      "recommended_rate_raw": 0.9903
+    },
+    {
+      "app_id": "420530",
+      "names": [
+        "OneShot"
+      ],
+      "reviews": 18975,
+      "recommended": 18615,
+      "recommended_rate_raw": 0.981
+    },
+    {
+      "app_id": "577800",
+      "names": [
+        "NBA 2K18"
+      ],
+      "reviews": 18718,
+      "recommended": 5465,
+      "recommended_rate_raw": 0.292
+    },
+    {
+      "app_id": "285190",
+      "names": [
+        "Warhammer 40,000: Dawn of War III"
+      ],
+      "reviews": 18435,
+      "recommended": 8570,
+      "recommended_rate_raw": 0.4649
+    },
+    {
+      "app_id": "517630",
+      "names": [
+        "Just Cause 4"
+      ],
+      "reviews": 18111,
+      "recommended": 10431,
+      "recommended_rate_raw": 0.5759
+    },
+    {
+      "app_id": "247730",
+      "names": [
+        "Nether"
+      ],
+      "reviews": 17406,
+      "recommended": 7187,
+      "recommended_rate_raw": 0.4129
+    },
+    {
+      "app_id": "527230",
+      "names": [
+        "For The King"
+      ],
+      "reviews": 17118,
+      "recommended": 15221,
+      "recommended_rate_raw": 0.8892
+    },
+    {
+      "app_id": "413410",
+      "names": [
+        "Danganronpa: Trigger Happy Havoc"
+      ],
+      "reviews": 16689,
+      "recommended": 16180,
+      "recommended_rate_raw": 0.9695
+    },
+    {
+      "app_id": "1128000",
+      "names": [
+        "Cube World"
+      ],
+      "reviews": 16333,
+      "recommended": 6337,
+      "recommended_rate_raw": 0.388
+    },
+    {
+      "app_id": "760060",
+      "names": [
+        "Mutant Year Zero: Road to Eden"
+      ],
+      "reviews": 16208,
+      "recommended": 14701,
+      "recommended_rate_raw": 0.907
+    },
+    {
+      "app_id": "489940",
+      "names": [
+        "BATTALION 1944"
+      ],
+      "reviews": 16004,
+      "recommended": 9862,
+      "recommended_rate_raw": 0.6162
+    },
+    {
+      "app_id": "288160",
+      "names": [
+        "The Room"
+      ],
+      "reviews": 15820,
+      "recommended": 15448,
+      "recommended_rate_raw": 0.9765
+    },
+    {
+      "app_id": "1225330",
+      "names": [
+        "NBA 2K21"
+      ],
+      "reviews": 15735,
+      "recommended": 5518,
+      "recommended_rate_raw": 0.3507
+    },
+    {
+      "app_id": "264200",
+      "names": [
+        "One Finger Death Punch"
+      ],
+      "reviews": 15504,
+      "recommended": 15220,
+      "recommended_rate_raw": 0.9817
+    },
+    {
+      "app_id": "214560",
+      "names": [
+        "Mark of the Ninja"
+      ],
+      "reviews": 15501,
+      "recommended": 15036,
+      "recommended_rate_raw": 0.97
+    },
+    {
+      "app_id": "626690",
+      "names": [
+        "Sword Art Online: Fatal Bullet"
+      ],
+      "reviews": 14612,
+      "recommended": 11545,
+      "recommended_rate_raw": 0.7901
+    },
+    {
+      "app_id": "464920",
+      "names": [
+        "Surviving Mars"
+      ],
+      "reviews": 13714,
+      "recommended": 11435,
+      "recommended_rate_raw": 0.8338
+    },
+    {
+      "app_id": "413420",
+      "names": [
+        "Danganronpa 2: Goodbye Despair"
+      ],
+      "reviews": 13622,
+      "recommended": 13228,
+      "recommended_rate_raw": 0.9711
+    },
+    {
+      "app_id": "427290",
+      "names": [
+        "Vampyr"
+      ],
+      "reviews": 13312,
+      "recommended": 10029,
+      "recommended_rate_raw": 0.7534
+    },
+    {
+      "app_id": "250760",
+      "names": [
+        "Shovel Knight: Treasure Trove"
+      ],
+      "reviews": 13030,
+      "recommended": 12579,
+      "recommended_rate_raw": 0.9654
+    },
+    {
+      "app_id": "512900",
+      "names": [
+        "Streets of Rogue"
+      ],
+      "reviews": 12711,
+      "recommended": 12237,
+      "recommended_rate_raw": 0.9627
+    },
+    {
+      "app_id": "428690",
+      "names": [
+        "Youtubers Life"
+      ],
+      "reviews": 12621,
+      "recommended": 9566,
+      "recommended_rate_raw": 0.7579
+    },
+    {
+      "app_id": "283640",
+      "names": [
+        "Salt and Sanctuary"
+      ],
+      "reviews": 12362,
+      "recommended": 11313,
+      "recommended_rate_raw": 0.9151
+    },
+    {
+      "app_id": "673950",
+      "names": [
+        "Farm Together"
+      ],
+      "reviews": 12317,
+      "recommended": 11559,
+      "recommended_rate_raw": 0.9385
+    },
+    {
+      "app_id": "872790",
+      "names": [
+        "Football Manager 2019"
+      ],
+      "reviews": 11906,
+      "recommended": 10262,
+      "recommended_rate_raw": 0.8619
+    },
+    {
+      "app_id": "429660",
+      "names": [
+        "Tales of Berseria"
+      ],
+      "reviews": 11904,
+      "recommended": 11071,
+      "recommended_rate_raw": 0.93
+    },
+    {
+      "app_id": "736260",
+      "names": [
+        "Baba Is You"
+      ],
+      "reviews": 11762,
+      "recommended": 11555,
+      "recommended_rate_raw": 0.9824
+    },
+    {
+      "app_id": "560130",
+      "names": [
+        "Pillars of Eternity II: Deadfire"
+      ],
+      "reviews": 11619,
+      "recommended": 10118,
+      "recommended_rate_raw": 0.8708
+    },
+    {
+      "app_id": "206190",
+      "names": [
+        "Gunpoint"
+      ],
+      "reviews": 11610,
+      "recommended": 11304,
+      "recommended_rate_raw": 0.9736
+    },
+    {
+      "app_id": "571740",
+      "names": [
+        "Golf It!"
+      ],
+      "reviews": 11515,
+      "recommended": 10145,
+      "recommended_rate_raw": 0.881
+    },
+    {
+      "app_id": "425580",
+      "names": [
+        "The Room Two"
+      ],
+      "reviews": 11336,
+      "recommended": 11088,
+      "recommended_rate_raw": 0.9781
+    },
+    {
+      "app_id": "590380",
+      "names": [
+        "Into the Breach"
+      ],
+      "reviews": 11246,
+      "recommended": 10590,
+      "recommended_rate_raw": 0.9417
+    },
+    {
+      "app_id": "519860",
+      "names": [
+        "DUSK"
+      ],
+      "reviews": 11050,
+      "recommended": 10850,
+      "recommended_rate_raw": 0.9819
+    },
+    {
+      "app_id": "421020",
+      "names": [
+        "DiRT 4"
+      ],
+      "reviews": 11020,
+      "recommended": 8343,
+      "recommended_rate_raw": 0.7571
+    },
+    {
+      "app_id": "1222700",
+      "names": [
+        "A Way Out"
+      ],
+      "reviews": 10941,
+      "recommended": 9766,
+      "recommended_rate_raw": 0.8926
+    },
+    {
+      "app_id": "481510",
+      "names": [
+        "Night in the Woods"
+      ],
+      "reviews": 10808,
+      "recommended": 10171,
+      "recommended_rate_raw": 0.9411
+    },
+    {
+      "app_id": "337340",
+      "names": [
+        "Finding Paradise"
+      ],
+      "reviews": 10429,
+      "recommended": 10199,
+      "recommended_rate_raw": 0.9779
+    },
+    {
+      "app_id": "731490",
+      "names": [
+        "Crash Bandicoot™ N. Sane Trilogy"
+      ],
+      "reviews": 10313,
+      "recommended": 9584,
+      "recommended_rate_raw": 0.9293
+    },
+    {
+      "app_id": "681660",
+      "names": [
+        "Bless Online"
+      ],
+      "reviews": 10197,
+      "recommended": 3871,
+      "recommended_rate_raw": 0.3796
+    },
+    {
+      "app_id": "712100",
+      "names": [
+        "Total War Saga: Thrones of Britannia"
+      ],
+      "reviews": 10009,
+      "recommended": 6641,
+      "recommended_rate_raw": 0.6635
+    },
+    {
+      "app_id": "606280",
+      "names": [
+        "Darksiders III"
+      ],
+      "reviews": 10008,
+      "recommended": 7551,
+      "recommended_rate_raw": 0.7545
+    },
+    {
+      "app_id": "269950",
+      "names": [
+        "X-Plane 11"
+      ],
+      "reviews": 10000,
+      "recommended": 9090,
+      "recommended_rate_raw": 0.909
+    },
+    {
+      "app_id": "773951",
+      "names": [
+        "Freeman: Guerrilla Warfare"
+      ],
+      "reviews": 9904,
+      "recommended": 7758,
+      "recommended_rate_raw": 0.7833
+    },
+    {
+      "app_id": "704850",
+      "names": [
+        "Thief Simulator"
+      ],
+      "reviews": 9626,
+      "recommended": 8204,
+      "recommended_rate_raw": 0.8523
+    },
+    {
+      "app_id": "412830",
+      "names": [
+        "STEINS;GATE"
+      ],
+      "reviews": 9621,
+      "recommended": 9402,
+      "recommended_rate_raw": 0.9772
+    },
+    {
+      "app_id": "787480",
+      "names": [
+        "Phoenix Wright: Ace Attorney Trilogy"
+      ],
+      "reviews": 9360,
+      "recommended": 9146,
+      "recommended_rate_raw": 0.9771
+    },
+    {
+      "app_id": "531510",
+      "names": [
+        "Just Shapes & Beats"
+      ],
+      "reviews": 9256,
+      "recommended": 9075,
+      "recommended_rate_raw": 0.9804
+    },
+    {
+      "app_id": "555220",
+      "names": [
+        "Detention"
+      ],
+      "reviews": 9203,
+      "recommended": 8858,
+      "recommended_rate_raw": 0.9625
+    },
+    {
+      "app_id": "341800",
+      "names": [
+        "Keep Talking and Nobody Explodes"
+      ],
+      "reviews": 8813,
+      "recommended": 8638,
+      "recommended_rate_raw": 0.9801
+    },
+    {
+      "app_id": "1240210",
+      "names": [
+        "There Is No Game: Wrong Dimension"
+      ],
+      "reviews": 8409,
+      "recommended": 8281,
+      "recommended_rate_raw": 0.9848
+    },
+    {
+      "app_id": "428550",
+      "names": [
+        "Momodora: Reverie Under the Moonlight"
+      ],
+      "reviews": 8218,
+      "recommended": 7727,
+      "recommended_rate_raw": 0.9403
+    },
+    {
+      "app_id": "544750",
+      "names": [
+        "SOULCALIBUR VI"
+      ],
+      "reviews": 8211,
+      "recommended": 6632,
+      "recommended_rate_raw": 0.8077
+    },
+    {
+      "app_id": "875210",
+      "names": [
+        "三国群英传8 Heroes of the Three Kingdoms 8"
+      ],
+      "reviews": 8111,
+      "recommended": 4677,
+      "recommended_rate_raw": 0.5766
+    },
+    {
+      "app_id": "445220",
+      "names": [
+        "Avorion"
+      ],
+      "reviews": 8108,
+      "recommended": 7417,
+      "recommended_rate_raw": 0.9148
+    },
+    {
+      "app_id": "743450",
+      "names": [
+        "Monster Prom"
+      ],
+      "reviews": 8012,
+      "recommended": 7440,
+      "recommended_rate_raw": 0.9286
+    },
+    {
+      "app_id": "609320",
+      "names": [
+        "FAR: Lone Sails"
+      ],
+      "reviews": 8005,
+      "recommended": 7494,
+      "recommended_rate_raw": 0.9362
+    },
+    {
+      "app_id": "730310",
+      "names": [
+        "DYNASTY WARRIORS 9"
+      ],
+      "reviews": 7807,
+      "recommended": 2438,
+      "recommended_rate_raw": 0.3123
+    },
+    {
+      "app_id": "593600",
+      "names": [
+        "PixARK"
+      ],
+      "reviews": 7711,
+      "recommended": 5370,
+      "recommended_rate_raw": 0.6964
+    },
+    {
+      "app_id": "537800",
+      "names": [
+        "Bomber Crew"
+      ],
+      "reviews": 7689,
+      "recommended": 6832,
+      "recommended_rate_raw": 0.8885
+    },
+    {
+      "app_id": "589360",
+      "names": [
+        "Ni no Kuni™ II: Revenant Kingdom"
+      ],
+      "reviews": 7609,
+      "recommended": 6449,
+      "recommended_rate_raw": 0.8475
+    },
+    {
+      "app_id": "1291340",
+      "names": [
+        "Townscaper"
+      ],
+      "reviews": 7601,
+      "recommended": 7503,
+      "recommended_rate_raw": 0.9871
+    },
+    {
+      "app_id": "1056960",
+      "names": [
+        "Wolfenstein: Youngblood"
+      ],
+      "reviews": 7445,
+      "recommended": 3389,
+      "recommended_rate_raw": 0.4552
+    },
+    {
+      "app_id": "673880",
+      "names": [
+        "Warhammer 40,000: Mechanicus"
+      ],
+      "reviews": 7207,
+      "recommended": 6612,
+      "recommended_rate_raw": 0.9174
+    },
+    {
+      "app_id": "1180380",
+      "names": [
+        "Stay Out"
+      ],
+      "reviews": 7170,
+      "recommended": 3495,
+      "recommended_rate_raw": 0.4874
+    },
+    {
+      "app_id": "690830",
+      "names": [
+        "Foundation"
+      ],
+      "reviews": 7060,
+      "recommended": 6061,
+      "recommended_rate_raw": 0.8585
+    },
+    {
+      "app_id": "2870",
+      "names": [
+        "X Rebirth"
+      ],
+      "reviews": 7001,
+      "recommended": 2970,
+      "recommended_rate_raw": 0.4242
+    },
+    {
+      "app_id": "619080",
+      "names": [
+        "SOS"
+      ],
+      "reviews": 6900,
+      "recommended": 1921,
+      "recommended_rate_raw": 0.2784
+    },
+    {
+      "app_id": "291860",
+      "names": [
+        "Pit People"
+      ],
+      "reviews": 6806,
+      "recommended": 6392,
+      "recommended_rate_raw": 0.9392
+    },
+    {
+      "app_id": "701160",
+      "names": [
+        "Kingdom Two Crowns"
+      ],
+      "reviews": 6709,
+      "recommended": 5922,
+      "recommended_rate_raw": 0.8827
+    },
+    {
+      "app_id": "530070",
+      "names": [
+        "Train Sim World® 2020"
+      ],
+      "reviews": 6504,
+      "recommended": 5034,
+      "recommended_rate_raw": 0.774
+    },
+    {
+      "app_id": "503940",
+      "names": [
+        "Railway Empire"
+      ],
+      "reviews": 6302,
+      "recommended": 5175,
+      "recommended_rate_raw": 0.8212
+    },
+    {
+      "app_id": "200900",
+      "names": [
+        "Cave Story+"
+      ],
+      "reviews": 6208,
+      "recommended": 5845,
+      "recommended_rate_raw": 0.9415
+    },
+    {
+      "app_id": "585420",
+      "names": [
+        "Trailmakers"
+      ],
+      "reviews": 6026,
+      "recommended": 5373,
+      "recommended_rate_raw": 0.8916
+    },
+    {
+      "app_id": "1017900",
+      "names": [
+        "Age of Empires: Definitive Edition"
+      ],
+      "reviews": 5963,
+      "recommended": 4853,
+      "recommended_rate_raw": 0.8139
+    },
+    {
+      "app_id": "382310",
+      "names": [
+        "Eco"
+      ],
+      "reviews": 5918,
+      "recommended": 4815,
+      "recommended_rate_raw": 0.8136
+    },
+    {
+      "app_id": "1055540",
+      "names": [
+        "A Short Hike"
+      ],
+      "reviews": 5847,
+      "recommended": 5797,
+      "recommended_rate_raw": 0.9914
+    },
+    {
+      "app_id": "297130",
+      "names": [
+        "Titan Souls"
+      ],
+      "reviews": 5714,
+      "recommended": 4567,
+      "recommended_rate_raw": 0.7993
+    },
+    {
+      "app_id": "526160",
+      "names": [
+        "The Wild Eight"
+      ],
+      "reviews": 5601,
+      "recommended": 4052,
+      "recommended_rate_raw": 0.7234
+    },
+    {
+      "app_id": "1229490",
+      "names": [
+        "ULTRAKILL"
+      ],
+      "reviews": 5584,
+      "recommended": 5558,
+      "recommended_rate_raw": 0.9953
+    },
+    {
+      "app_id": "671510",
+      "names": [
+        "Desolate"
+      ],
+      "reviews": 5503,
+      "recommended": 3878,
+      "recommended_rate_raw": 0.7047
+    },
+    {
+      "app_id": "236510",
+      "names": [
+        "Takedown: Red Sabre"
+      ],
+      "reviews": 5502,
+      "recommended": 2214,
+      "recommended_rate_raw": 0.4024
+    },
+    {
+      "app_id": "620590",
+      "names": [
+        "Ancestors Legacy"
+      ],
+      "reviews": 5403,
+      "recommended": 4277,
+      "recommended_rate_raw": 0.7916
+    },
+    {
+      "app_id": "1170880",
+      "names": [
+        "Grimm's Hollow"
+      ],
+      "reviews": 5345,
+      "recommended": 5262,
+      "recommended_rate_raw": 0.9845
+    },
+    {
+      "app_id": "275390",
+      "names": [
+        "Guacamelee! Super Turbo Championship Edition"
+      ],
+      "reviews": 5318,
+      "recommended": 4909,
+      "recommended_rate_raw": 0.9231
+    },
+    {
+      "app_id": "753420",
+      "names": [
+        "Dungreed"
+      ],
+      "reviews": 5312,
+      "recommended": 4833,
+      "recommended_rate_raw": 0.9098
+    },
+    {
+      "app_id": "282560",
+      "names": [
+        "RollerCoaster Tycoon World"
+      ],
+      "reviews": 5304,
+      "recommended": 1300,
+      "recommended_rate_raw": 0.2451
+    },
+    {
+      "app_id": "677120",
+      "names": [
+        "Heroes of Hammerwatch"
+      ],
+      "reviews": 5207,
+      "recommended": 4622,
+      "recommended_rate_raw": 0.8877
+    },
+    {
+      "app_id": "572410",
+      "names": [
+        "Steel Division: Normandy 44"
+      ],
+      "reviews": 5201,
+      "recommended": 3814,
+      "recommended_rate_raw": 0.7333
+    },
+    {
+      "app_id": "899440",
+      "names": [
+        "GOD EATER 3"
+      ],
+      "reviews": 5128,
+      "recommended": 4179,
+      "recommended_rate_raw": 0.8149
+    },
+    {
+      "app_id": "1144400",
+      "names": [
+        "Senren＊Banka"
+      ],
+      "reviews": 5034,
+      "recommended": 5004,
+      "recommended_rate_raw": 0.994
+    },
+    {
+      "app_id": "788260",
+      "names": [
+        "Rules Of Survival"
+      ],
+      "reviews": 4902,
+      "recommended": 3022,
+      "recommended_rate_raw": 0.6165
+    },
+    {
+      "app_id": "758190",
+      "names": [
+        "Dragon Cliff 龙崖"
+      ],
+      "reviews": 4601,
+      "recommended": 4130,
+      "recommended_rate_raw": 0.8976
+    },
+    {
+      "app_id": "546050",
+      "names": [
+        "Puyo Puyo™Tetris® "
+      ],
+      "reviews": 4497,
+      "recommended": 3760,
+      "recommended_rate_raw": 0.8361
+    },
+    {
+      "app_id": "543460",
+      "names": [
+        "Dead Rising 4"
+      ],
+      "reviews": 4308,
+      "recommended": 2245,
+      "recommended_rate_raw": 0.5211
+    },
+    {
+      "app_id": "595520",
+      "names": [
+        "FINAL FANTASY XII THE ZODIAC AGE"
+      ],
+      "reviews": 4207,
+      "recommended": 3746,
+      "recommended_rate_raw": 0.8904
+    },
+    {
+      "app_id": "632350",
+      "names": [
+        "Cyberdimension Neptunia: 4 Goddesses Online"
+      ],
+      "reviews": 4200,
+      "recommended": 3665,
+      "recommended_rate_raw": 0.8726
+    },
+    {
+      "app_id": "502800",
+      "names": [
+        "SENRAN KAGURA ESTIVAL VERSUS"
+      ],
+      "reviews": 4105,
+      "recommended": 3907,
+      "recommended_rate_raw": 0.9518
+    },
+    {
+      "app_id": "543900",
+      "names": [
+        "METAL GEAR SURVIVE"
+      ],
+      "reviews": 4104,
+      "recommended": 2668,
+      "recommended_rate_raw": 0.6501
+    },
+    {
+      "app_id": "332200",
+      "names": [
+        "Axiom Verge"
+      ],
+      "reviews": 4015,
+      "recommended": 3738,
+      "recommended_rate_raw": 0.931
+    },
+    {
+      "app_id": "677160",
+      "names": [
+        "We Were Here Too"
+      ],
+      "reviews": 3809,
+      "recommended": 3050,
+      "recommended_rate_raw": 0.8007
+    },
+    {
+      "app_id": "613830",
+      "names": [
+        "CHRONO TRIGGER"
+      ],
+      "reviews": 3802,
+      "recommended": 3226,
+      "recommended_rate_raw": 0.8485
+    },
+    {
+      "app_id": "1015500",
+      "names": [
+        "WWE 2K20"
+      ],
+      "reviews": 3638,
+      "recommended": 1438,
+      "recommended_rate_raw": 0.3953
+    },
+    {
+      "app_id": "258180",
+      "names": [
+        "Deus Ex: The Fall"
+      ],
+      "reviews": 3610,
+      "recommended": 1243,
+      "recommended_rate_raw": 0.3443
+    },
+    {
+      "app_id": "322110",
+      "names": [
+        "20XX"
+      ],
+      "reviews": 3610,
+      "recommended": 3349,
+      "recommended_rate_raw": 0.9277
+    },
+    {
+      "app_id": "272270",
+      "names": [
+        "Torment: Tides of Numenera"
+      ],
+      "reviews": 3601,
+      "recommended": 2505,
+      "recommended_rate_raw": 0.6956
+    },
+    {
+      "app_id": "857980",
+      "names": [
+        "Void Bastards"
+      ],
+      "reviews": 3573,
+      "recommended": 3111,
+      "recommended_rate_raw": 0.8707
+    },
+    {
+      "app_id": "858210",
+      "names": [
+        "Nova Drift"
+      ],
+      "reviews": 3539,
+      "recommended": 3474,
+      "recommended_rate_raw": 0.9816
+    },
+    {
+      "app_id": "405710",
+      "names": [
+        "Staxel"
+      ],
+      "reviews": 3500,
+      "recommended": 2765,
+      "recommended_rate_raw": 0.79
+    },
+    {
+      "app_id": "417290",
+      "names": [
+        "Ghost of a Tale"
+      ],
+      "reviews": 3303,
+      "recommended": 3049,
+      "recommended_rate_raw": 0.9231
+    },
+    {
+      "app_id": "355790",
+      "names": [
+        "Styx: Shards of Darkness"
+      ],
+      "reviews": 3204,
+      "recommended": 2624,
+      "recommended_rate_raw": 0.819
+    },
+    {
+      "app_id": "825630",
+      "names": [
+        "STEINS;GATE 0"
+      ],
+      "reviews": 3202,
+      "recommended": 3089,
+      "recommended_rate_raw": 0.9647
+    },
+    {
+      "app_id": "753650",
+      "names": [
+        "Due Process"
+      ],
+      "reviews": 3104,
+      "recommended": 2657,
+      "recommended_rate_raw": 0.856
+    },
+    {
+      "app_id": "671440",
+      "names": [
+        "Rise of Industry"
+      ],
+      "reviews": 3102,
+      "recommended": 2413,
+      "recommended_rate_raw": 0.7779
+    },
+    {
+      "app_id": "696170",
+      "names": [
+        "SENRAN KAGURA Peach Beach Splash"
+      ],
+      "reviews": 3100,
+      "recommended": 2418,
+      "recommended_rate_raw": 0.78
+    },
+    {
+      "app_id": "631510",
+      "names": [
+        "Devil May Cry HD Collection"
+      ],
+      "reviews": 2999,
+      "recommended": 2697,
+      "recommended_rate_raw": 0.8993
+    },
+    {
+      "app_id": "817130",
+      "names": [
+        "WWE 2K19"
+      ],
+      "reviews": 2907,
+      "recommended": 2054,
+      "recommended_rate_raw": 0.7066
+    },
+    {
+      "app_id": "7510",
+      "names": [
+        "X-Blades"
+      ],
+      "reviews": 2805,
+      "recommended": 1720,
+      "recommended_rate_raw": 0.6132
+    },
+    {
+      "app_id": "357190",
+      "names": [
+        "Ultimate Marvel vs. Capcom 3"
+      ],
+      "reviews": 2804,
+      "recommended": 2517,
+      "recommended_rate_raw": 0.8976
+    },
+    {
+      "app_id": "598330",
+      "names": [
+        "SimAirport"
+      ],
+      "reviews": 2803,
+      "recommended": 2218,
+      "recommended_rate_raw": 0.7913
+    },
+    {
+      "app_id": "393520",
+      "names": [
+        "Iconoclasts"
+      ],
+      "reviews": 2800,
+      "recommended": 2471,
+      "recommended_rate_raw": 0.8825
+    },
+    {
+      "app_id": "569860",
+      "names": [
+        "Thimbleweed Park"
+      ],
+      "reviews": 2800,
+      "recommended": 2626,
+      "recommended_rate_raw": 0.9379
+    },
+    {
+      "app_id": "541210",
+      "names": [
+        "Cold Waters"
+      ],
+      "reviews": 2714,
+      "recommended": 2325,
+      "recommended_rate_raw": 0.8567
+    },
+    {
+      "app_id": "390340",
+      "names": [
+        "Umbrella Corps"
+      ],
+      "reviews": 2505,
+      "recommended": 707,
+      "recommended_rate_raw": 0.2822
+    },
+    {
+      "app_id": "688130",
+      "names": [
+        "Pogostuck: Rage With Your Friends"
+      ],
+      "reviews": 2332,
+      "recommended": 1972,
+      "recommended_rate_raw": 0.8456
+    },
+    {
+      "app_id": "352550",
+      "names": [
+        "Urban Empire"
+      ],
+      "reviews": 2300,
+      "recommended": 759,
+      "recommended_rate_raw": 0.33
+    },
+    {
+      "app_id": "247240",
+      "names": [
+        "Volgarr the Viking"
+      ],
+      "reviews": 2202,
+      "recommended": 1781,
+      "recommended_rate_raw": 0.8088
+    },
+    {
+      "app_id": "334040",
+      "names": [
+        "Down To One"
+      ],
+      "reviews": 2101,
+      "recommended": 797,
+      "recommended_rate_raw": 0.3793
+    },
+    {
+      "app_id": "524580",
+      "names": [
+        "Fairy Fencer F Advent Dark Force"
+      ],
+      "reviews": 2101,
+      "recommended": 1782,
+      "recommended_rate_raw": 0.8482
+    },
+    {
+      "app_id": "629910",
+      "names": [
+        "Clicker Heroes 2"
+      ],
+      "reviews": 2100,
+      "recommended": 1359,
+      "recommended_rate_raw": 0.6471
+    },
+    {
+      "app_id": "583470",
+      "names": [
+        "The End Is Nigh"
+      ],
+      "reviews": 2018,
+      "recommended": 1875,
+      "recommended_rate_raw": 0.9291
+    },
+    {
+      "app_id": "495560",
+      "names": [
+        "Farm Manager 2018"
+      ],
+      "reviews": 2002,
+      "recommended": 1392,
+      "recommended_rate_raw": 0.6953
+    },
+    {
+      "app_id": "637670",
+      "names": [
+        "Secret of Mana"
+      ],
+      "reviews": 1900,
+      "recommended": 1308,
+      "recommended_rate_raw": 0.6884
+    },
+    {
+      "app_id": "723390",
+      "names": [
+        "Hunt Down The Freeman"
+      ],
+      "reviews": 1815,
+      "recommended": 689,
+      "recommended_rate_raw": 0.3796
+    },
+    {
+      "app_id": "792990",
+      "names": [
+        "Identity"
+      ],
+      "reviews": 1804,
+      "recommended": 439,
+      "recommended_rate_raw": 0.2433
+    },
+    {
+      "app_id": "501080",
+      "names": [
+        "Fishing: Barents Sea"
+      ],
+      "reviews": 1802,
+      "recommended": 1391,
+      "recommended_rate_raw": 0.7719
+    },
+    {
+      "app_id": "748490",
+      "names": [
+        "The Legend of Heroes: Trails of Cold Steel II"
+      ],
+      "reviews": 1701,
+      "recommended": 1619,
+      "recommended_rate_raw": 0.9518
+    },
+    {
+      "app_id": "686600",
+      "names": [
+        "Rapture Rejects"
+      ],
+      "reviews": 1603,
+      "recommended": 672,
+      "recommended_rate_raw": 0.4192
+    },
+    {
+      "app_id": "502280",
+      "names": [
+        "BERSERK and the Band of the Hawk"
+      ],
+      "reviews": 1601,
+      "recommended": 1264,
+      "recommended_rate_raw": 0.7895
+    },
+    {
+      "app_id": "772540",
+      "names": [
+        "Battle Royale Trainer"
+      ],
+      "reviews": 1600,
+      "recommended": 935,
+      "recommended_rate_raw": 0.5844
+    },
+    {
+      "app_id": "510510",
+      "names": [
+        "WWE 2K17"
+      ],
+      "reviews": 1499,
+      "recommended": 922,
+      "recommended_rate_raw": 0.6151
+    },
+    {
+      "app_id": "400940",
+      "names": [
+        "Budget Cuts"
+      ],
+      "reviews": 1298,
+      "recommended": 1020,
+      "recommended_rate_raw": 0.7858
+    },
+    {
+      "app_id": "551730",
+      "names": [
+        "Toukiden 2"
+      ],
+      "reviews": 1200,
+      "recommended": 957,
+      "recommended_rate_raw": 0.7975
+    },
+    {
+      "app_id": "732810",
+      "names": [
+        "Slipstream"
+      ],
+      "reviews": 1103,
+      "recommended": 957,
+      "recommended_rate_raw": 0.8676
+    },
+    {
+      "app_id": "611760",
+      "names": [
+        "Don't Escape: 4 Days to Survive"
+      ],
+      "reviews": 1013,
+      "recommended": 998,
+      "recommended_rate_raw": 0.9852
+    },
+    {
+      "app_id": "385560",
+      "names": [
+        "Shadow Complex Remastered"
+      ],
+      "reviews": 700,
+      "recommended": 587,
+      "recommended_rate_raw": 0.8386
+    },
+    {
+      "app_id": "619290",
+      "names": [
+        "Out of the Park Baseball 19"
+      ],
+      "reviews": 700,
+      "recommended": 594,
+      "recommended_rate_raw": 0.8486
+    },
+    {
+      "app_id": "574050",
+      "names": [
+        "DRAGON QUEST HEROES™ II"
+      ],
+      "reviews": 600,
+      "recommended": 423,
+      "recommended_rate_raw": 0.705
+    },
+    {
+      "app_id": "454200",
+      "names": [
+        "Neon Hardcorps"
+      ],
+      "reviews": 200,
+      "recommended": 89,
+      "recommended_rate_raw": 0.445
+    }
+  ],
+  "app_count": 315,
+  "samples": {
+    "method": "hash_pandas_object(review_id, hash_key='steam2021tv2seed') % 100000",
+    "thresholds": {
+      "smoke": 48,
+      "core": 4800
+    },
+    "rows": {
+      "smoke": 10485,
+      "core": 1044450
+    }
+  }
+}
