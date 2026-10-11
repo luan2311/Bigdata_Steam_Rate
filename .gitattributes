@@ -1,0 +1,2 @@
+# Fixtures contain line breaks inside quoted CSV fields; keep bytes exact.
+tests/fixtures/*.csv -text
