@@ -18,10 +18,10 @@ except ImportError:
     st = None
 
 from steam_reviews.bootstrap.dashboard_container import create_dashboard_use_case
-from steam_reviews.presentation.dashboard.pages.overview import render_overview_page
-from steam_reviews.presentation.dashboard.pages.game_exploration import render_game_exploration_page
-from steam_reviews.presentation.dashboard.pages.playtime_quality import render_playtime_quality_page
-from steam_reviews.presentation.dashboard.pages.model_evaluation import render_model_evaluation_page
+from steam_reviews.presentation.dashboard.views.overview import render_overview_page
+from steam_reviews.presentation.dashboard.views.game_exploration import render_game_exploration_page
+from steam_reviews.presentation.dashboard.views.playtime_quality import render_playtime_quality_page
+from steam_reviews.presentation.dashboard.views.model_evaluation import render_model_evaluation_page
 
 
 def main() -> None:
