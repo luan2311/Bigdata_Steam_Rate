@@ -1,0 +1,142 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Gold Analytics Snapshot Contract v1",
+  "description": "Hợp đồng dữ liệu Gold phục vụ Streamlit Dashboard và đối soát số liệu (TV3-D02 / TV2)",
+  "type": "object",
+  "required": ["metadata", "quality_summary", "game_summary", "monthly_summary", "language_summary", "playtime_summary", "model_metrics"],
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "required": ["run_id", "dataset_version", "created_at", "total_games", "total_valid_reviews"],
+      "properties": {
+        "run_id": { "type": "string" },
+        "dataset_version": { "type": "string" },
+        "created_at": { "type": "string" },
+        "total_games": { "type": "integer", "minimum": 0 },
+        "total_valid_reviews": { "type": "integer", "minimum": 0 },
+        "is_fixture": { "type": "boolean" }
+      }
+    },
+    "quality_summary": {
+      "type": "object",
+      "required": ["raw_records", "valid_records", "duplicate_records", "quarantine_records", "quarantine_by_reason"],
+      "properties": {
+        "raw_records": { "type": "integer", "minimum": 0 },
+        "valid_records": { "type": "integer", "minimum": 0 },
+        "duplicate_records": { "type": "integer", "minimum": 0 },
+        "quarantine_records": { "type": "integer", "minimum": 0 },
+        "quarantine_by_reason": {
+          "type": "object",
+          "additionalProperties": { "type": "integer" }
+        }
+      }
+    },
+    "game_summary": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["app_id", "app_name", "total_reviews", "recommended_count", "recommendation_rate"],
+        "properties": {
+          "app_id": { "type": "string" },
+          "app_name": { "type": "string" },
+          "total_reviews": { "type": "integer", "minimum": 0 },
+          "recommended_count": { "type": "integer", "minimum": 0 },
+          "recommendation_rate": { "type": "number", "minimum": 0.0, "maximum": 1.0 }
+        }
+      }
+    },
+    "monthly_summary": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["year_month", "total_reviews", "recommended_count", "recommendation_rate"],
+        "properties": {
+          "year_month": { "type": "string" },
+          "app_id": { "type": ["string", "null"] },
+          "language": { "type": ["string", "null"] },
+          "total_reviews": { "type": "integer", "minimum": 0 },
+          "recommended_count": { "type": "integer", "minimum": 0 },
+          "recommendation_rate": { "type": "number", "minimum": 0.0, "maximum": 1.0 }
+        }
+      }
+    },
+    "language_summary": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["language", "total_reviews", "recommendation_rate"],
+        "properties": {
+          "language": { "type": "string" },
+          "total_reviews": { "type": "integer", "minimum": 0 },
+          "recommendation_rate": { "type": "number", "minimum": 0.0, "maximum": 1.0 }
+        }
+      }
+    },
+    "playtime_summary": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["bin_label", "min_hours", "max_hours", "total_reviews", "recommendation_rate"],
+        "properties": {
+          "bin_label": { "type": "string" },
+          "min_hours": { "type": "number" },
+          "max_hours": { "type": ["number", "null"] },
+          "total_reviews": { "type": "integer", "minimum": 0 },
+          "recommendation_rate": { "type": "number", "minimum": 0.0, "maximum": 1.0 }
+        }
+      }
+    },
+    "model_metrics": {
+      "type": "object",
+      "required": ["split_manifest", "baseline_metrics", "model_metrics", "confusion_matrix", "sample_errors"],
+      "properties": {
+        "split_manifest": {
+          "type": "object",
+          "properties": {
+            "train_count": { "type": "integer" },
+            "val_count": { "type": "integer" },
+            "test_count": { "type": "integer" }
+          }
+        },
+        "baseline_metrics": {
+          "type": "object",
+          "properties": {
+            "macro_f1": { "type": "number" },
+            "accuracy": { "type": "number" }
+          }
+        },
+        "model_metrics": {
+          "type": "object",
+          "properties": {
+            "macro_f1": { "type": "number" },
+            "precision_class_1": { "type": "number" },
+            "recall_class_1": { "type": "number" },
+            "pr_auc": { "type": "number" },
+            "reg_param": { "type": "number" }
+          }
+        },
+        "confusion_matrix": {
+          "type": "object",
+          "properties": {
+            "true_negatives": { "type": "integer" },
+            "false_positives": { "type": "integer" },
+            "false_negatives": { "type": "integer" },
+            "true_positives": { "type": "integer" }
+          }
+        },
+        "sample_errors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "review_text": { "type": "string" },
+              "actual_label": { "type": "integer" },
+              "predicted_label": { "type": "integer" },
+              "error_type": { "type": "string" }
+            }
+          }
+        }
+      }
+    }
+  }
+}
