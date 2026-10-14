@@ -29,7 +29,7 @@
 ### Giai đoạn 1: Baseline & Báo cáo tiến độ (Tuần 6–7) — Chiếm 30% điểm đồ án
 - [ ] **TV1-W07 — Hoàn thiện luồng Ingestion đáng tin cậy:** Bổ sung cơ chế chia lô (batching ~50.000 record/lô), xử lý lỗi cấu trúc qua Quarantine queue, giới hạn retry (tối đa 3 lần), chống nghẽn (back pressure) và tạo manifest kiểm soát lô. **Đạt khi:** Luồng chạy ổn định, có log chứng minh xử lý lỗi và provenance; export flow hoàn chỉnh.
 - [ ] **TV1-W08 — Nạp Core Tier vào HDFS:** Nạp tập dữ liệu Core (~1.000.000 bản ghi) vào HDFS Bronze, lưu trữ bằng chứng phân tán (báo cáo block replication, dung lượng DataNode qua `hdfs dfsadmin -report`). **Đầu ra:** Bằng chứng log/ảnh lưu tại `docs/evidence/`.
-- [ ] **TV1-W09 — Thiết kế khung giao diện Dashboard:** Dựng khung ứng dụng Streamlit trong `src/steam_reviews/presentation/dashboard/` với 4 trang điều hướng, cấu hình theme và components hiển thị thử nghiệm với fixture nhỏ. **Đạt khi:** Dashboard chạy mượt mà, độc lập, không import trực tiếp Spark driver.
+- [x] **TV1-W09 — Thiết kế khung giao diện Dashboard:** Dựng khung ứng dụng Streamlit trong `src/steam_reviews/presentation/dashboard/` với 4 trang điều hướng, cấu hình theme và components hiển thị thử nghiệm với fixture nhỏ. **Đạt khi:** Dashboard chạy mượt mà, độc lập, không import trực tiếp Spark driver.
 - [ ] **TV1-W10 — Hoàn thiện hồ sơ Báo cáo tiến độ GĐ1:** Viết phần Hạ tầng, NiFi, HDFS trong báo cáo Word; tổng hợp slide thuyết trình tiến độ Giai đoạn 1. **Đạt khi:** Hồ sơ báo cáo tiến độ Giai đoạn 1 hoàn thành đúng hạn quy định (Tuần 6–7).
 
 ### Giai đoạn 2: Hoàn thiện ứng dụng, Đánh giá & Báo cáo hoàn chỉnh (Tuần 8–9) — Chiếm 70% điểm đồ án
