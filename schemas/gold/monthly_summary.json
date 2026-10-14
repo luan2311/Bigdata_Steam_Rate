@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MonthlySummaryGoldSchema",
+  "description": "Bảng tổng hợp xu hướng số lượng và tỷ lệ khuyến nghị theo thời gian (tháng/năm)",
+  "version": "1.0.0",
+  "type": "object",
+  "required": [
+    "app_id",
+    "app_name",
+    "year_month",
+    "total_reviews",
+    "recommended_count",
+    "recommendation_rate"
+  ],
+  "properties": {
+    "app_id": { "type": "integer", "description": "ID trò chơi trên Steam Store" },
+    "app_name": { "type": "string", "description": "Tên trò chơi" },
+    "year_month": { "type": "string", "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])$", "description": "Mốc thời gian định dạng YYYY-MM" },
+    "year": { "type": "integer", "description": "Năm YYYY" },
+    "month": { "type": "integer", "minimum": 1, "maximum": 12, "description": "Tháng 1-12" },
+    "total_reviews": { "type": "integer", "minimum": 0, "description": "Tổng số đánh giá trong tháng" },
+    "recommended_count": { "type": "integer", "minimum": 0, "description": "Số lượng đánh giá tích cực trong tháng" },
+    "recommendation_rate": { "type": ["number", "null"], "minimum": 0.0, "maximum": 1.0, "description": "Tỷ lệ khuyến nghị trong tháng" }
+  }
+}

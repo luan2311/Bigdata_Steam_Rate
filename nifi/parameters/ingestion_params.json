@@ -1,0 +1,38 @@
+{
+  "parameterContext": {
+    "name": "SteamReviewsIngestionParams",
+    "description": "Tham số môi trường cho luồng tiếp nhận dữ liệu Steam Reviews vào HDFS",
+    "parameters": [
+      {
+        "name": "WebHDFS_Base_URL",
+        "value": "http://hdfs-namenode:9870/webhdfs/v1",
+        "description": "Địa chỉ cơ sở của WebHDFS REST API trên NameNode"
+      },
+      {
+        "name": "Landing_Directory",
+        "value": "/opt/nifi/data/sample",
+        "description": "Thư mục đọc tệp dữ liệu mẫu trên container NiFi"
+      },
+      {
+        "name": "Bronze_Target_Directory",
+        "value": "/steam/bronze/sample",
+        "description": "Đường dẫn thư mục lưu trữ tầng Bronze trên HDFS"
+      },
+      {
+        "name": "Records_Per_Split",
+        "value": "5000",
+        "description": "Số lượng bản ghi logic tối đa trong một lô (SplitRecord)"
+      },
+      {
+        "name": "Max_Retry_Attempts",
+        "value": "3",
+        "description": "Số lần thử lại tối đa khi gặp lỗi kết nối WebHDFS tạm thời"
+      },
+      {
+        "name": "Backpressure_Object_Threshold",
+        "value": "10000",
+        "description": "Ngưỡng số lượng FlowFile tối đa trong hàng đợi trước khi kích hoạt Back Pressure"
+      }
+    ]
+  }
+}

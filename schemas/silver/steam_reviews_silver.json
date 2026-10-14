@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SteamReviewsSilverSchema",
+  "description": "Hợp đồng dữ liệu tầng Silver (Đã làm sạch, chuẩn hóa kiểu, deduplication)",
+  "version": "1.0.0",
+  "type": "object",
+  "required": [
+    "review_id",
+    "app_id",
+    "app_name",
+    "language",
+    "created_at",
+    "updated_at",
+    "year",
+    "month",
+    "recommended",
+    "label"
+  ],
+  "properties": {
+    "review_id": { "type": "integer", "description": "Khóa chính duy nhất của đánh giá (long)" },
+    "app_id": { "type": "integer", "description": "ID trò chơi trên Steam Store" },
+    "app_name": { "type": "string", "description": "Tên thương mại của trò chơi" },
+    "language": { "type": "string", "description": "Ngôn ngữ bài viết đã chuẩn hóa chữ thường" },
+    "review_text": { "type": ["string", "null"], "description": "Văn bản đánh giá gốc UTF-8" },
+    "review_text_clean": { "type": ["string", "null"], "description": "Văn bản chuẩn hóa khoảng trắng phục vụ ML" },
+    "created_at": { "type": "string", "format": "date-time", "description": "Thời điểm tạo bài đánh giá (UTC)" },
+    "updated_at": { "type": "string", "format": "date-time", "description": "Thời điểm cập nhật bài đánh giá (UTC)" },
+    "year": { "type": "integer", "description": "Năm tạo bài viết (YYYY)" },
+    "month": { "type": "integer", "minimum": 1, "maximum": 12, "description": "Tháng tạo bài viết (1-12)" },
+    "recommended": { "type": "boolean", "description": "Nhãn khuyến nghị nhị phân (True/False)" },
+    "label": { "type": "number", "enum": [0.0, 1.0], "description": "Nhãn số hóa cho Spark MLlib (1.0 = True, 0.0 = False)" },
+    "votes_helpful": { "type": "integer", "minimum": 0, "description": "Số vote hữu ích" },
+    "votes_funny": { "type": "integer", "minimum": 0, "description": "Số vote hài hước" },
+    "weighted_vote_score": { "type": "number", "minimum": 0.0, "maximum": 1.0, "description": "Điểm tin cậy Steam" },
+    "comment_count": { "type": "integer", "minimum": 0, "description": "Số lượng bình luận" },
+    "steam_purchase": { "type": "boolean", "description": "Mua trực tiếp qua Steam" },
+    "received_for_free": { "type": "boolean", "description": "Nhận miễn phí" },
+    "written_during_early_access": { "type": "boolean", "description": "Viết trong Early Access" },
+    "author_steamid": { "type": ["string", "null"], "description": "Steam ID của tác giả" },
+    "author_num_games_owned": { "type": "integer", "minimum": 0, "description": "Số game sở hữu" },
+    "author_num_reviews": { "type": "integer", "minimum": 0, "description": "Tổng số review tác giả đã viết" },
+    "playtime_forever_minutes": { "type": ["number", "null"], "minimum": 0.0, "description": "Tổng thời gian chơi (phút)" },
+    "playtime_at_review_minutes": { "type": ["number", "null"], "minimum": 0.0, "description": "Thời gian chơi lúc review (phút)" },
+    "playtime_bucket": {
+      "type": "string",
+      "enum": ["<2h", "2-10h", "10-50h", "50-100h", ">100h", "unknown"],
+      "description": "Phân nhóm thời lượng chơi theo chính sách nghiệp vụ"
+    }
+  }
+}

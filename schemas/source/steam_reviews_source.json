@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SteamReviewsSourceSchema",
+  "description": "Hợp đồng dữ liệu tầng Source (Kaggle Steam Reviews CSV thô)",
+  "version": "1.0.0",
+  "type": "object",
+  "required": ["app_id", "app_name", "review_id", "timestamp_created", "recommended"],
+  "properties": {
+    "": { "type": ["string", "null"], "description": "Index dòng Pandas tự sinh" },
+    "app_id": { "type": "string", "description": "Steam App ID" },
+    "app_name": { "type": "string", "description": "Tên trò chơi" },
+    "review_id": { "type": "string", "description": "Mã định danh duy nhất của đánh giá" },
+    "language": { "type": ["string", "null"], "description": "Ngôn ngữ của đánh giá" },
+    "review": { "type": ["string", "null"], "description": "Nội dung văn bản đánh giá" },
+    "timestamp_created": { "type": "string", "description": "Unix timestamp tạo đánh giá (giây)" },
+    "timestamp_updated": { "type": ["string", "null"], "description": "Unix timestamp cập nhật đánh giá (giây)" },
+    "recommended": { "type": "string", "enum": ["True", "False", "true", "false"], "description": "Nhãn khuyến nghị nhị phân" },
+    "votes_helpful": { "type": ["string", "null"], "description": "Số lượt vote hữu ích" },
+    "votes_funny": { "type": ["string", "null"], "description": "Số lượt vote hài hước" },
+    "weighted_vote_score": { "type": ["string", "null"], "description": "Điểm tin cậy Steam" },
+    "comment_count": { "type": ["string", "null"], "description": "Số bình luận" },
+    "steam_purchase": { "type": ["string", "null"], "description": "Mua trên Steam" },
+    "received_for_free": { "type": ["string", "null"], "description": "Nhận miễn phí" },
+    "written_during_early_access": { "type": ["string", "null"], "description": "Viết trong Early Access" },
+    "author.steamid": { "type": ["string", "null"], "description": "Steam ID người dùng" },
+    "author.num_games_owned": { "type": ["string", "null"], "description": "Số game sở hữu" },
+    "author.num_reviews": { "type": ["string", "null"], "description": "Số review đã viết" },
+    "author.playtime_forever": { "type": ["string", "null"], "description": "Tổng phút chơi" },
+    "author.playtime_last_two_weeks": { "type": ["string", "null"], "description": "Phút chơi 2 tuần qua" },
+    "author.playtime_at_review": { "type": ["string", "null"], "description": "Phút chơi khi review" },
+    "author.last_played": { "type": ["string", "null"], "description": "Lần chơi cuối" }
+  }
+}

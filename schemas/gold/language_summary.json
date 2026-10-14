@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "LanguageSummaryGoldSchema",
+  "description": "Bảng tổng hợp phân bố đánh giá và mức độ hài lòng theo cộng đồng ngôn ngữ",
+  "version": "1.0.0",
+  "type": "object",
+  "required": [
+    "language",
+    "total_reviews",
+    "percentage_of_total",
+    "recommended_count",
+    "recommendation_rate"
+  ],
+  "properties": {
+    "language": { "type": "string", "description": "Tên ngôn ngữ chuẩn hóa (english, schinese, russian...)" },
+    "total_reviews": { "type": "integer", "minimum": 0, "description": "Tổng số bài đánh giá bằng ngôn ngữ này" },
+    "percentage_of_total": { "type": "number", "minimum": 0.0, "maximum": 100.0, "description": "Tỷ trọng phần trăm so với toàn bộ đánh giá" },
+    "recommended_count": { "type": "integer", "minimum": 0, "description": "Số lượng đánh giá tích cực" },
+    "recommendation_rate": { "type": ["number", "null"], "minimum": 0.0, "maximum": 1.0, "description": "Tỷ lệ khuyến nghị của cộng đồng ngôn ngữ này" }
+  }
+}

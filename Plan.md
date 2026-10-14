@@ -1,352 +1,309 @@
-# KẾ HOẠCH ĐỒ ÁN: PHÂN TÍCH DỮ LIỆU ĐÁNH GIÁ TRÒ CHƠI TRÊN STEAM
+# KẾ HOẠCH ĐỒ ÁN MÔN HỌC: NHẬP MÔN BIG DATA
+## ĐỀ TÀI: PHÂN TÍCH DỮ LIỆU ĐÁNH GIÁ TRÒ CHƠI TRÊN STEAM (STEAM REVIEWS ANALYTICS)
 
-**Thời gian:** 15 ngày liên tục, ký hiệu D1–D15.  
-**Nhân sự:** 3 thành viên, ký hiệu TV1, TV2, TV3; thay bằng họ tên/MSSV khi đăng ký.  
-**Công nghệ chính:** Apache NiFi, HDFS, Apache Spark/PySpark, Spark MLlib, Streamlit và Plotly.  
-**Dataset:** [Steam Reviews Dataset 2021 — najzeko](https://www.kaggle.com/datasets/najzeko/steam-reviews-2021/data).  
-**Ngày lập kế hoạch:** 01/10/2026. Nếu bắt đầu ngay, D1–D15 tương ứng 01–15/10/2026; đây là lịch nội bộ, không phải hạn nộp do giảng viên công bố.  
-**Trạng thái:** Kế hoạch đề xuất; chưa cài đặt hệ thống, tải toàn bộ dataset hoặc có kết quả thực nghiệm.
+> [!IMPORTANT]
+> **Ba yêu cầu cố định của đồ án — không thay thế khi điều chỉnh kế hoạch:**
+> 1. **Đề tài:** Phân tích dữ liệu đánh giá trò chơi trên Steam.
+> 2. **Công cụ luồng dữ liệu:** [Apache NiFi](https://nifi.apache.org/index.html) — là đường tiếp nhận duy nhất đưa dữ liệu vào HDFS (không nạp tay bằng `hdfs dfs -put` cho dữ liệu chính thức).
+> 3. **Dataset:** [Steam Reviews Dataset 2021 — najzeko (Kaggle)](https://www.kaggle.com/datasets/najzeko/steam-reviews-2021/data) — mọi phân tích, mô hình và dashboard đều dùng dữ liệu từ bộ này (toàn bộ hoặc mẫu có manifest).
+>
+> Đề tài thuộc dạng **sinh viên tự đề xuất** (không có nguyên văn trong danh sách 15 đề tài gợi ý), nên phải được giảng viên xem xét, chấp thuận trong Tuần 1–3.
 
-## 1. Căn cứ quy định và những việc cần xác nhận
+- **Quy mô nhóm:** 3 sinh viên (ký hiệu: **TV1**, **TV2**, **TV3**; sẽ thay bằng Họ tên & MSSV cụ thể).
+- **Thời lượng:** Kế hoạch 10 tuần học phần theo quy định của môn học.
+- **Công nghệ chủ đạo:** Apache NiFi, Hadoop HDFS, Apache Spark (PySpark DataFrame/SQL), Spark MLlib, Streamlit và Plotly.
+- **Bộ dữ liệu mục tiêu:** [Steam Reviews Dataset 2021 — Kaggle](https://www.kaggle.com/datasets/najzeko/steam-reviews-2021/data) (theo mô tả của tác giả: ~21 triệu đánh giá, ~300 tựa game; số đếm thực tế đo lại sau khi tải — xem mục 3.3).
+- **Trọng số điểm:** Đồ án thuộc phần CUỐI KỲ (chiếm **50% điểm học phần**), đánh giá qua 2 giai đoạn:
+  - **Giai đoạn 1 (Tuần 6–7):** Báo cáo tiến độ, cơ sở lý thuyết, định hướng thực hiện (CLO1, CLO2) — chiếm **30% điểm đồ án**.
+  - **Giai đoạn 2 (Tuần 9):** Báo cáo nội dung hoàn chỉnh đồ án, nộp toàn bộ sản phẩm (CLO5, CLO3, CLO4) — chiếm **70% điểm đồ án**.
+  - **Thuyết trình & Demo (Tuần 10):** Báo cáo trước lớp bằng PPT và Demo trực tiếp sản phẩm.
 
-Đã đọc toàn bộ hai tài liệu trong thư mục `Rule`:
+---
 
-- **R1:** [Quy định đồ án Dữ liệu lớn và danh sách gợi ý đề tài](<Rule/QD Do an Du lieu lon va Danh sach goi y 1 so de tai.pdf>), 3 trang.
-- **R2:** [Kế hoạch đồ án môn học Nhập môn Big Data](<Rule/Ke hoach Do an mon hoc Nhap mon Big data.pdf>), 5 trang.
+## 1. Căn cứ quy định và Phân bố vai trò 3 thành viên
 
-| Nội dung từ quy định | Cách áp dụng vào đồ án |
-|---|---|
-| R1 tr.1 yêu cầu lưu trữ và xử lý phân tán; R2 tr.1 yêu cầu ít nhất một công nghệ Big Data/lưu trữ, xử lý phân tán | Dùng HDFS lưu dữ liệu, Spark xử lý và huấn luyện; NiFi đảm nhiệm tiếp nhận, chuyển đổi và điều phối luồng dữ liệu. |
-| R2 tr.1 ghi **nhóm 2 sinh viên** | Kế hoạch này lập cho **3 người theo yêu cầu của nhóm**. D1, TV1 đề nghị giảng viên chấp thuận số lượng; chưa xem phương án 3 người là đã được duyệt. |
-| R2 tr.1–2 yêu cầu đề tài tự đề xuất được giảng viên xem xét, chấp thuận | D1 chuẩn bị đề cương một trang: đề tài, dataset, kiến trúc, đầu ra, phân công; xác nhận cả phạm vi dữ liệu và cách triển khai cụm. |
-| R2 tr.4 quy định đồ án chiếm 50% điểm học phần, hai giai đoạn lần lượt 30% và 70% điểm đồ án | Chuẩn bị gói tiến độ ở D7 và gói hoàn chỉnh ở D15. Hai mốc này là mốc nội bộ. |
-| R2 tr.4 có chỗ ghi giai đoạn 1 ở tuần 6–7, có chỗ ghi tuần 5–6; kế hoạch tổng thể 10 tuần | TV1 xác nhận hạn nộp/thuyết trình thực tế với giảng viên trong D1; điều chỉnh ngày nộp mà vẫn giữ đủ hai giai đoạn. |
-| R1 tr.2 và R2 tr.2 yêu cầu nộp Classroom: mã nguồn, báo cáo Word, PPT; có demo | Bàn giao đủ source/config, `.docx`, `.pptx`, hướng dẫn chạy, dữ liệu hoặc liên kết dữ liệu; video demo là phương án dự phòng. |
-| R2 tr.2 yêu cầu lịch làm việc và đóng góp từng người; tr.5 quy định xử lý sao chép | Ghi nhật ký hằng ngày, tổng hợp tuần D1–D7/D8–D14 và ngày D15; dẫn nguồn, lưu commit và kết quả tự thực nghiệm. |
+Căn cứ văn bản *"Yêu cầu chung và kế hoạch thực hiện đồ án môn Nhập môn Big Data"*:
+- Mỗi nhóm gồm **đúng 3 sinh viên**.
+- Quy định yêu cầu dùng **ít nhất một** công nghệ Big Data hoặc lưu trữ/xử lý phân tán (Hadoop, HDFS, Spark, Flink, NoSQL…). Nhóm chọn: **HDFS** để lưu trữ phân tán, **Apache Spark** để xử lý phân tán và học máy; ngoài ra theo yêu cầu cố định của đồ án dùng **Apache NiFi** để tiếp nhận, kiểm soát luồng dữ liệu (Data Ingestion), và **Streamlit** để trực quan hóa.
+- Sản phẩm nộp trên Classroom bao gồm: **Source Code**, **File Word báo cáo**, **File PPT báo cáo**, kèm kịch bản Demo trực tiếp.
 
-**Giả định lập lịch:** mỗi người dành trung bình 4 giờ/ngày, khoảng 60 giờ/người, tổng 180 giờ. Mỗi ngày gồm khoảng 3 giờ công việc chính và 1 giờ kiểm tra, tài liệu, trao đổi. Nếu nhân sự chỉ có 1–2 giờ/ngày, phải giảm phạm vi hoặc kéo dài lịch. Việc xác nhận quy định là đầu việc của nhóm; không cản trở việc chuẩn bị kế hoạch này.
+### Phân công trách nhiệm 3 thành viên
 
-## 2. Mục tiêu, câu hỏi phân tích và phạm vi
+| Tiêu chí | TV1 — Kỹ sư Hạ tầng dữ liệu & Trực quan hóa | TV2 — Kỹ sư Xử lý dữ liệu lớn & Machine Learning | TV3 — Kỹ sư Chất lượng dữ liệu & Báo cáo |
+|---|---|---|---|
+| **Vai trò chính** | Data Platform & Application Engineer | Big Data Processing & ML Engineer | Data Quality & Documentation Engineer |
+| **Hạ tầng & Thu thập** | • Quản lý Docker Compose cụm (Hadoop HDFS, Spark, NiFi).<br>• Thiết kế luồng NiFi: SplitRecord, CSVReader, WebHDFS, retry, manifest, quarantine. | • Khảo sát cấu trúc dataset gốc, đối chiếu schema, xây dựng data dictionary.<br>• Kiểm tra tính toàn vẹn dữ liệu và cơ chế partition trên HDFS. | • Hỗ trợ kiểm tra kết quả nạp dữ liệu vào HDFS.<br>• Xây dựng fixture kiểm thử và tài liệu minh chứng ingestion. |
+| **Xử lý dữ liệu (ETL)** | • Hỗ trợ đo đạc hiệu năng I/O, giám sát tài nguyên HDFS/Worker. | • Xây dựng Spark ETL: chuẩn hóa kiểu, lọc null, dedup theo `review_id`, xử lý outlier.<br>• Tạo các bảng tổng hợp (Gold layer) tối ưu truy vấn. | • Viết test đối soát số liệu trước/sau ETL.<br>• Kiểm tra và xác nhận tính đúng đắn của dữ liệu Silver/Gold. |
+| **Mô hình hóa (ML)** | • Tích hợp kết quả dự đoán và metrics vào giao diện hiển thị. | • Xây dựng baseline model (majority class).<br>• Xây dựng pipeline Spark MLlib (TF-IDF + Logistic Regression).<br>• Đánh giá mô hình (Macro-F1, PR-AUC, Confusion Matrix, Error Analysis). | • Hỗ trợ phân tích lỗi (~30 mẫu sai), soạn bảng đối sánh Baseline vs MLlib. |
+| **Trực quan hóa & Báo cáo** | • Xây dựng Dashboard Streamlit (4 trang, 6+ biểu đồ Plotly).<br>• Chủ trì trình bày kịch bản Demo và tổng hợp slide PPT. | • Đối soát số liệu hiển thị trên Dashboard khớp với bảng Gold.<br>• Phân tích sâu 5+ phát hiện từ dữ liệu và đánh giá hạn chế mô hình. | • Soạn thảo báo cáo Word (Cơ sở lý thuyết, Kết luận, Tài liệu tham khảo, Phụ lục).<br>• Rà soát toàn bộ báo cáo đảm bảo đúng 10 mục bắt buộc và không lỗi chính tả. |
+| **Trách nhiệm báo cáo** | Soạn thảo mục: Kiến trúc, Hạ tầng HDFS/NiFi, Dashboard, Hướng dẫn chạy. | Soạn thảo mục: Dữ liệu, Xử lý Spark, Cơ sở lý thuyết thuật toán, Kết quả ML. | Soạn thảo mục: Cơ sở lý thuyết Big Data, Kết luận & Định hướng, Tài liệu tham khảo, Phụ lục. |
 
-Xây dựng một quy trình có thể chạy lại, từ dữ liệu Steam gốc đến dashboard và mô hình dự đoán người viết có khuyến nghị trò chơi hay không. Kết quả hỗ trợ nhận diện trò chơi/nhóm đánh giá cần xem xét sâu hơn và mô tả mối liên hệ giữa nội dung, thời gian chơi, ngôn ngữ và mức khuyến nghị.
+---
 
-### 2.1. Các câu hỏi phải trả lời
+## 2. Mục tiêu, Bài toán và Bộ câu hỏi phân tích
 
-1. Trò chơi nào có nhiều đánh giá, tỷ lệ khuyến nghị cao/thấp? Luôn hiển thị số lượng đánh giá đi kèm tỷ lệ.
-2. Số đánh giá và tỷ lệ khuyến nghị thay đổi thế nào theo tháng trong khoảng thời gian thực có của dataset?
-3. Phân bố ngôn ngữ và sự khác biệt về tỷ lệ khuyến nghị giữa các nhóm là gì?
-4. Thời gian chơi tại thời điểm đánh giá liên hệ thế nào với khuyến nghị? Đây là phân tích liên hệ, không kết luận nhân quả.
-5. Mô hình dùng nội dung đánh giá tiếng Anh dự đoán nhãn khuyến nghị tốt hơn baseline đa số ở mức nào?
+### 2.1. Mục tiêu
+Xây dựng một hệ thống xử lý dữ liệu lớn khép kín, có khả năng tái lập: tiếp nhận dữ liệu đánh giá trò chơi Steam từ nguồn công khai, đưa vào lưu trữ phân tán HDFS qua Apache NiFi, làm sạch và tổng hợp bằng Apache Spark, huấn luyện mô hình dự đoán xu hướng khuyến nghị (`recommended`) bằng Spark MLlib, và trực quan hóa toàn diện trên giao diện Streamlit Dashboard.
 
-### 2.2. Phạm vi bắt buộc trong 15 ngày
+### 2.2. Năm câu hỏi phân tích trọng tâm
+1. **Xếp hạng & Tỷ lệ khuyến nghị:** Trò chơi nào nhận được nhiều đánh giá nhất, và tỷ lệ khuyến nghị thực tế là bao nhiêu? (Luôn đi kèm số lượng mẫu số để tránh thiên lệch).
+2. **Xu hướng thời gian:** Số lượng đánh giá và tỷ lệ khuyến nghị biến động như thế nào theo các mốc thời gian (tháng/năm)?
+3. **Phân bố ngôn ngữ:** Sự phân bổ các ngôn ngữ đánh giá ra sao và có sự khác biệt rõ rệt về mức độ hài lòng giữa các cộng đồng ngôn ngữ không?
+4. **Thời lượng chơi & Đánh giá:** Thời gian chơi tại thời điểm viết đánh giá (`playtime_at_review`) có mối liên hệ như thế nào với quyết định khuyến nghị trò chơi?
+5. **Khả năng dự đoán của nội dung:** Mô hình phân loại văn bản (Spark MLlib) dự đoán nhãn khuyến nghị dựa trên nội dung tiếng Anh có cải thiện vượt trội so với baseline đa số không?
 
-- Pipeline NiFi có phân lô, nhánh lỗi, retry có giới hạn, back pressure và bằng chứng provenance.
-- HDFS lưu dữ liệu; Spark chạy qua master/worker, có bằng chứng executor thực sự xử lý dữ liệu.
-- Làm sạch, chống trùng, thống kê chất lượng; dữ liệu sạch và bảng tổng hợp lưu Parquet.
-- Phân tích mô tả tất cả ngôn ngữ trong phạm vi dữ liệu đã chọn; ML chỉ dùng đánh giá tiếng Anh có văn bản và nhãn hợp lệ.
-- Baseline dự đoán lớp đa số và một mô hình TF-IDF + Logistic Regression bằng Spark MLlib.
-- Dashboard 4 trang, tối thiểu 6 biểu đồ có ý nghĩa; báo cáo ít nhất 5 nhận xét gắn với số liệu thực.
-- Báo cáo Word, slide, demo, hướng dẫn chạy và bảng đóng góp.
+---
 
-**Chỉ mở rộng sau khi lõi hoàn tất:** thêm Naive Bayes để so sánh hoặc phân tích từ khóa. Không đưa streaming thời gian thực, crawl Steam trực tiếp, BERT, dịch đa ngôn ngữ hay hệ gợi ý vào phạm vi bắt buộc. Dataset là snapshot; không mặc định mọi đánh giá đều thuộc năm 2021. Nhãn khuyến nghị không phải bộ nhãn cảm xúc ba lớp; không tự tạo lớp “trung lập”.
+## 3. Kiến trúc hệ thống và Quy trình phân tầng dữ liệu
 
-## 3. Dữ liệu và chiến lược quy mô
+Hệ thống được thiết kế theo nguyên lý **Clean Architecture** kết hợp mô hình dữ liệu đa tầng (**Medallion Architecture**):
 
-### 3.1. Những gì đã xác minh và cần đo lại
+```mermaid
+flowchart TD
+    K[Dataset Kaggle: CSV thô] --> L[Landing Zone: Kiểm tra checksum]
+    L --> N[Apache NiFi: Chia lô, kiểm tra cấu trúc]
+    N -->|WebHDFS| B[HDFS Bronze: Lô chuẩn hóa & Metadata]
+    N --> Q[HDFS Quarantine: Bản ghi lỗi cấu trúc]
+    B --> S[Apache Spark ETL: Làm sạch, chuyển kiểu, Dedup]
+    S --> SI[HDFS Silver: Parquet sạch theo schema chuẩn]
+    SI --> G1[Spark SQL: Tính toán các chiều tổng hợp Gold]
+    SI --> G2[Spark MLlib: Feature Extraction & Huấn luyện mô hình]
+    G1 --> GO[HDFS Gold: Bảng tổng hợp & KPI]
+    G2 --> MO[Artifacts: Model nạp sẵn & Metrics đánh giá]
+    GO --> D[Streamlit Dashboard: Trực quan hóa dữ liệu]
+    MO --> D
+```
 
-Metadata công khai của [Kaggle API — dataset detail](https://www.kaggle.com/api/v1/datasets/view/najzeko/steam-reviews-2021), truy cập 01/10/2026, mô tả **khoảng 21 triệu đánh giá, khoảng 300 trò chơi**, thu thập qua Steam API, phiên bản 1. Đây là mô tả của bên cung cấp, chưa phải số đếm thực nghiệm của nhóm.
+### 3.1. Các tầng dữ liệu
+- **Bronze (HDFS):** Lưu các lô dữ liệu thô nhận từ NiFi thông qua WebHDFS, kèm `batch_id`, timestamp và manifest kiểm soát.
+- **Silver (HDFS - Parquet):** Dữ liệu sau khi làm sạch bằng Spark: loại bỏ bản ghi không hợp lệ, deduplication dựa trên `review_id` (chọn bản cập nhật mới nhất theo `updated_at`), định dạng chuẩn thời gian UTC và các kiểu số nguyên/thực.
+- **Gold (HDFS - Parquet):** Các bảng tổng hợp phục vụ truy vấn tốc độ cao:
+  - `quality_summary`: Số bản ghi đọc được, lỗi theo lý do, trùng lặp, thiếu văn bản/thời gian, số bản ghi sạch.
+  - `game_summary`: Tổng hợp theo tựa game, số lượng đánh giá, số khuyến nghị, tỷ lệ.
+  - `monthly_summary`: Tổng hợp theo game, năm/tháng, số lượng và xu hướng.
+  - `language_summary`: Phân bố theo ngôn ngữ đánh giá.
+  - `playtime_summary`: Phân nhóm thời lượng chơi (`<2h`, `2-10h`, `10-50h`, `50-100h`, `>100h`) và tỷ lệ tương ứng.
+  - `model_metrics`: Bảng so sánh baseline vs Logistic Regression, ma trận nhầm lẫn (confusion matrix), Precision, Recall, Macro-F1.
 
-API chi tiết trả `totalBytes = 8.171.787.229`, còn [API danh sách](https://www.kaggle.com/api/v1/datasets/list?search=steam-reviews-2021) trả `3.193.406.910`. Hai giá trị chưa thống nhất; không suy diễn chắc chắn đâu là kích thước nén/giải nén. D2 phải ghi kích thước tệp thực, tên tệp, checksum SHA-256, số cột, số bản ghi, khoảng thời gian và phân bố ngôn ngữ sau khi tải. Metadata ghi giấy phép `GPL 2`; lưu thông tin nguồn/giấy phép cùng phiên bản dữ liệu.
+Tỷ lệ khuyến nghị luôn tính bằng `recommended_count / valid_label_count`; mẫu số 0 hiển thị N/A. Khi gộp nhóm, cộng tử số và mẫu số rồi mới chia — không lấy trung bình các tỷ lệ từng lô/FlowFile.
 
-### 3.2. Ba mức chạy
+### 3.2. Mức quy mô thử nghiệm (3 Tiers)
+1. **Smoke Tier (~10.000 bản ghi):** Phục vụ kiểm thử nhanh luồng dữ liệu, test trường hợp CSV có xuống dòng, dấu nháy kép, ký tự Unicode đặc biệt.
+2. **Core Tier (~1.000.000 bản ghi):** Mục tiêu chính để nạp vào cụm phân tán HDFS, chạy Spark ETL và huấn luyện mô hình MLlib (lấy mẫu chuẩn ngẫu nhiên có cố định seed).
+3. **Full Tier (Toàn bộ dataset ~21 triệu bản ghi):** Chạy thử nghiệm đánh giá hiệu năng và khả năng mở rộng quy mô khi tài nguyên phần cứng cho phép.
 
-| Mức | Mục đích và phạm vi dự kiến | Cách nghiệm thu |
-|---|---|---|
-| Smoke | Khoảng 10.000 bản ghi và fixture lỗi nhỏ | CSV có dấu phẩy, dấu nháy, xuống dòng, Unicode vẫn đọc đúng; chạy được toàn luồng. |
-| Core | Mục tiêu 1 triệu bản ghi hợp lệ cho ETL/EDA; ML lấy tối đa khoảng 200.000 đánh giá tiếng Anh | Ghi số lượng thực tế, seed, điều kiện lấy mẫu, phân bố game/ngôn ngữ/nhãn; không lấy máy móc 1 triệu dòng đầu. |
-| Full | Thử xử lý toàn bộ dataset cho ETL và bảng tổng hợp ở D10–D11 nếu tài nguyên cho phép | Công bố rõ chạy full hay subset; ghi thời gian, dung lượng, số bản ghi và lý do giới hạn. ML không bắt buộc huấn luyện trên toàn bộ. |
+Core là mục tiêu kỹ thuật của nhóm, không phải ngưỡng do quy định đặt ra. Mẫu lấy theo hash của `review_id` (không lấy máy móc 1 triệu dòng đầu); ghi seed, điều kiện lấy mẫu, phân bố game/ngôn ngữ/nhãn vào manifest. Báo cáo luôn nêu rõ kết quả thuộc Full hay subset.
 
-Mức Core là **mục tiêu kỹ thuật của nhóm**, không phải ngưỡng tối thiểu do `Rule` quy định. Chốt mức dữ liệu với giảng viên. D2 thử đọc tuần tự và tạo mẫu xác định theo hash của ID; kiểm tra độ đại diện theo game/ngôn ngữ/nhãn trước khi dùng. Nếu phải lấy mẫu phân tầng, ghi quota và giới hạn suy rộng; không dùng tỷ lệ của mẫu đã cân bằng nhãn để đại diện toàn dataset.
+### 3.3. Dataset Steam Reviews 2021 và hợp đồng dữ liệu v1
 
-### 3.3. Hợp đồng dữ liệu phiên bản 1 — chốt cuối D2
+**Nguồn:** [Kaggle — najzeko/steam-reviews-2021](https://www.kaggle.com/datasets/najzeko/steam-reviews-2021/data). Metadata công khai ([API chi tiết](https://www.kaggle.com/api/v1/datasets/view/najzeko/steam-reviews-2021), truy cập 01/10/2026) mô tả khoảng 21 triệu đánh giá, khoảng 300 trò chơi, thu thập qua Steam API, phiên bản 1, giấy phép `GPL 2`. Đây là mô tả của tác giả, chưa phải số đếm của nhóm.
 
-Các tên cột nguồn dưới đây là **dự kiến cần đối chiếu header thực**, không phải schema đã được xác minh từ tệp. Nếu khác tên, TV2 cập nhật bảng ánh xạ; không âm thầm bỏ cột bắt buộc.
+API chi tiết trả `totalBytes = 8.171.787.229`, còn [API danh sách](https://www.kaggle.com/api/v1/datasets/list?search=steam-reviews-2021) trả `3.193.406.910`; chưa xác định đâu là kích thước nén/giải nén. Sau khi tải (Tuần 1–3), TV2 ghi vào manifest: tên tệp, kích thước thực, SHA-256, số cột, số bản ghi, khoảng thời gian và phân bố ngôn ngữ.
+
+Tên cột nguồn dưới đây là **dự kiến, phải đối chiếu header thực**; nếu khác, cập nhật bảng ánh xạ trong `schemas/source/`, không âm thầm bỏ cột bắt buộc.
 
 | Cột nguồn dự kiến | Tên chuẩn/kiểu | Quy tắc |
 |---|---|---|
 | `review_id` | `review_id: string` | Khóa đánh giá; không dùng số dòng CSV làm ID. |
 | `app_id`, `app_name` | `app_id: string`, `app_name: string` | ID bắt buộc cho phân tích theo game; tên thiếu có thể hiển thị ID. |
 | `language` | `language: string` | Chuẩn hóa khoảng trắng/chữ thường; giữ nhóm `unknown` khi thiếu. |
-| `review` | `review_text: string` | Giữ bản gốc; tạo bản văn bản chuẩn hóa riêng cho ML. |
+| `review` | `review_text: string` | Giữ bản gốc; tạo bản chuẩn hóa riêng cho ML. |
 | `recommended` | `recommended: boolean` | Chỉ chấp nhận ánh xạ đã công bố; không đổi thiếu/không hợp lệ thành `false`. |
 | `timestamp_created`, `timestamp_updated` | `created_at`, `updated_at: timestamp` | Xác minh đơn vị thời gian; chuẩn hóa UTC; không ép ngày thiếu thành ngày hiện tại. |
-| `author.playtime_at_review` | `playtime_at_review_minutes: double` | Dùng nếu thực sự tồn tại; kiểm tra đơn vị, số âm và null. |
-| `author.playtime_forever` | `playtime_forever_minutes: double` | Mô tả tại lúc thu thập; không thay thế ngầm cho playtime tại thời điểm đánh giá. |
-| `votes_helpful`, `votes_funny` | Các cột số đếm kiểu long | Dùng mô tả nếu có; không đưa vào mô hình văn bản bắt buộc. |
-| Thuộc tính luồng dữ liệu | `dataset_version`, `batch_id`, `source_file`, `ingested_at` | Bổ sung để truy vết và chạy lại. |
+| `author.playtime_at_review` | `playtime_at_review_minutes: double` | Kiểm tra đơn vị, số âm và null. |
+| `author.playtime_forever` | `playtime_forever_minutes: double` | Giá trị tại lúc thu thập; không thay thế ngầm cho playtime tại thời điểm đánh giá. |
+| `votes_helpful`, `votes_funny` | kiểu `long` | Dùng cho mô tả; không đưa vào mô hình văn bản. |
+| (bổ sung khi tiếp nhận) | `dataset_version`, `batch_id`, `source_file`, `ingested_at` | Truy vết và chạy lại. |
 
-Xử lý dữ liệu:
+Quy tắc xử lý:
+- Bản ghi thiếu ID/game/nhãn hoặc lỗi cấu trúc đi vào quarantine kèm mã lý do. Tệp CSV không parse được đi nhánh lỗi cấp tệp.
+- Đánh giá không có văn bản vẫn dùng cho thống kê nhãn nhưng loại khỏi tập ML và đếm riêng. Ngày thiếu chỉ loại khỏi biểu đồ thời gian.
+- Dedup theo `review_id`; giữ `updated_at` mới nhất, có quy tắc phụ xác định khi bằng nhau/thiếu ngày; lưu số bản ghi trùng bị loại.
+- Cột có dấu chấm (`author.*`) phải được tham chiếu/đổi tên đúng, không diễn giải là cấu trúc lồng nhau.
+- Không xóa outlier thời gian chơi: giữ bản gốc, đánh dấu; biểu đồ có thể giới hạn trục kèm ghi chú.
+- Nhãn `recommended` là nhãn **khuyến nghị nhị phân**, không phải cảm xúc ba lớp; không tự tạo lớp "trung lập". Nếu thiếu `playtime_at_review`, câu hỏi số 4 chuyển sang `playtime_forever` và ghi rõ giới hạn.
+- Đối soát bắt buộc: `N_parseable = N_invalid_record + N_valid_pre_dedup`; `N_silver = N_valid_pre_dedup − N_duplicate_removed`; lỗi cấp tệp báo riêng.
 
-- Bản ghi thiếu ID/game/nhãn hoặc lỗi cấu trúc đi vào quarantine với mã lý do. Tệp CSV không parse được đi nhánh lỗi cấp tệp; không báo giả số bản ghi lỗi khi chưa đọc được.
-- Đánh giá không có văn bản vẫn có thể dùng cho thống kê nhãn; loại khỏi tập ML và đếm riêng. Ngày thiếu chỉ loại khỏi biểu đồ thời gian, không loại toàn bộ bản ghi hợp lệ.
-- Deduplicate toàn bộ phạm vi bằng `review_id`; nếu có nhiều phiên bản, giữ `updated_at` mới nhất, có quy tắc phụ xác định khi bằng nhau/thiếu ngày. Lưu số trùng bị loại.
-- Cột có dấu chấm phải được tham chiếu/đổi tên đúng; không tự diễn giải chúng là cấu trúc lồng nhau.
-- Không xóa tất cả outlier thời gian chơi: giữ bản gốc, đánh dấu; biểu đồ có thể giới hạn trục và phải ghi chú.
-- Nếu thiếu `playtime_at_review`, chuyển câu hỏi số 4 sang thời gian chơi tại lúc thu thập và ghi rõ giới hạn. Nếu thiếu nhãn hoặc nội dung văn bản, đánh dấu chặn phần ML và đối chiếu lại tệp nguồn ngay D2.
+### 3.4. Luồng Apache NiFi (TV1 chủ trì)
 
-## 4. Kiến trúc và cách triển khai
+[Apache NiFi](https://nifi.apache.org/index.html) là thành phần bắt buộc, đảm nhiệm toàn bộ việc đưa dataset Kaggle vào HDFS. Dùng NiFi dòng 2.x (tài liệu Apache yêu cầu Java 21 — [NiFi README](https://github.com/apache/nifi/blob/main/README.md)); khóa phiên bản/image digest khi dựng cụm ở Tuần 4–5. Các processor/service tham chiếu tài liệu chính thức: [CSVReader](https://nifi.apache.org/components/org.apache.nifi.csv.CSVReader/), [SplitRecord](https://nifi.apache.org/components/org.apache.nifi.processors.standard.SplitRecord/), [InvokeHTTP](https://nifi.apache.org/components/org.apache.nifi.processors.standard.InvokeHTTP/).
 
-```mermaid
-flowchart LR
-    K[Dataset Kaggle đã tải và kiểm tra] --> L[Thư mục landing]
-    L --> N[NiFi: đọc CSV, chia lô, kiểm tra cấu trúc]
-    N -->|InvokeHTTP / WebHDFS| R[HDFS bronze]
-    N --> Q[Quarantine và nhật ký lỗi]
-    R --> S[Spark: chuẩn hóa và chống trùng]
-    S --> C[HDFS silver / Parquet]
-    C --> E[Spark SQL: thống kê]
-    C --> M[Spark MLlib: TF-IDF + Logistic Regression]
-    E --> G[HDFS gold và metrics]
-    M --> G
-    G --> X[Xuất snapshot tổng hợp đã kiểm tra]
-    X --> D[Streamlit + Plotly]
-```
+1. **Landing:** tải/giải nén dataset bằng Kaggle CLI hoặc trình duyệt, lưu checksum. NiFi dùng `ListFile → FetchFile` đọc bản sao bất biến; chỉ công bố tệp hoàn tất vào landing bằng đổi tên để tránh đọc tệp đang tải dở.
+2. **Chia lô:** `SplitRecord` với `CSVReader` và record writer; khởi đầu ~50.000 record/lô, tinh chỉnh theo số đo. Chốt encoding, header, quote, escape từ mẫu thực. Không cắt theo dòng vì review có thể chứa xuống dòng.
+3. **Kiểm tra:** tách lỗi parse cấp tệp và lỗi cấu trúc cấp record. Landing giữ dữ liệu gốc; bronze lưu lô đã chuẩn hóa định dạng; luật làm sạch nghiệp vụ do Spark xử lý.
+4. **Ghi HDFS qua WebHDFS:** `InvokeHTTP` thực hiện quy trình CREATE hai bước — PUT không nội dung để nhận vị trí DataNode, rồi PUT nội dung tới vị trí đó và kiểm tra mã tạo thành công ([WebHDFS CREATE](https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-hdfs/WebHDFS.html#Create_and_Write_to_a_File)). Kiểm tra redirect, hostname DataNode và cổng trong mạng container. Không giả định `PutHDFS` có sẵn ở mọi bản NiFi 2.x.
+5. **Chạy lại an toàn:** `batch_id` = checksum nguồn + chỉ số lô + phiên bản schema; ghi vào đường dẫn tạm, kiểm tra rồi commit/rename. Manifest ghi số lô dự kiến/đã xong, số record, checksum, trạng thái. Chỉ phát hành dấu hoàn tất khi toàn bộ lô đã commit; Spark chỉ đọc đợt hoàn tất.
+6. **Lỗi và tải:** retry tối đa 3 lần với lỗi kết nối/tạm thời rồi chuyển hàng đợi lỗi; lỗi schema không retry. Back pressure khởi đầu ~100 FlowFile hoặc 256 MB trên các queue giữa lô, điều chỉnh theo số đo.
+7. **Bằng chứng:** export flow JSON vào `nifi/flows/`, tham số mẫu vào `nifi/parameters/`; ảnh processor/provenance, số lô vào–ra–lỗi, log thử gián đoạn HDFS và chạy lại lưu ở `docs/evidence/`. Replay không được làm tăng số review duy nhất ở silver.
 
-**Lựa chọn thiết kế:** NiFi tiếp nhận và theo dõi dữ liệu; HDFS phụ trách lưu trữ phân tán; Spark xử lý xuyên nhiều lô và huấn luyện. Không tính thống kê toàn tập bằng cách lấy trung bình các tỷ lệ từng FlowFile. Dashboard chỉ đọc bảng tổng hợp/snapshot nhỏ đã xuất, không nạp hàng triệu review vào RAM.
+Mỗi `batch_id` chỉ có một phiên ghi. Khi retry gặp tệp đích đã tồn tại, xác minh manifest/checksum trước khi coi là thành công; không ghi đè mù. Spark vẫn dedup; không tuyên bố hệ thống bảo đảm exactly-once.
 
-### 4.1. Môi trường
+### 3.5. Môi trường cụm và bố cục HDFS
 
-- Ưu tiên Docker Compose trên Linux/WSL2: 1 NiFi, 1 HDFS NameNode + 2 DataNode, 1 Spark master + 2 worker, 1 ứng dụng dashboard. Mỗi dịch vụ có volume và cấu hình được lưu trong repo.
-- Cụm container trên một máy là mô phỏng nhiều nút; trình bày đúng giới hạn tài nguyên và miền lỗi. Nếu giảng viên yêu cầu nhiều máy vật lý, TV1 chốt phân bố qua các máy trong D1–D2.
-- Cấu hình dự trù: máy chạy cụm khoảng 24–32 GB RAM, SSD còn khoảng 80–100 GB; đây là ngân sách ước tính, phải đo ở D2. Nếu chỉ có 16 GB, giảm mẫu và chạy ETL/ML/dashboard theo lượt; ưu tiên chuyển cụm sang máy phòng lab khi cần.
-- Dự trù dung lượng theo: tệp tải + giải nén + NiFi content repository + dữ liệu HDFS có replication + Parquet + shuffle/checkpoint + phần trống vận hành. Không lấy dung lượng dataset làm toàn bộ dung lượng cần thiết.
-- D1 chọn và D2 khóa phiên bản/image digest, Python và Java theo kiểm tra tương thích. Dùng NiFi dòng 2.x; tài liệu Apache hiện yêu cầu Java 21 cho NiFi. Java/Python của Spark và Hadoop được kiểm tra riêng theo bản đã chọn, không buộc dùng chung một runtime. [Apache NiFi README](https://github.com/apache/nifi/blob/main/README.md)
-- Hai DataNode dùng replication dự kiến 2; xác minh bằng `hdfs dfsadmin -report` và `hdfs fsck`. Hai Spark worker phải có executor/task thực tế, kiểm tra qua Spark UI/event log.
-
-### 4.2. Luồng NiFi cần bàn giao
-
-Thiết kế dùng các processor/service hiện có tài liệu chính thức: [CSVReader](https://nifi.apache.org/components/org.apache.nifi.csv.CSVReader/), [SplitRecord](https://nifi.apache.org/components/org.apache.nifi.processors.standard.SplitRecord/), [InvokeHTTP](https://nifi.apache.org/components/org.apache.nifi.processors.standard.InvokeHTTP/). Kiểm tra tên thuộc tính theo phiên bản đã khóa trong D2.
-
-1. **Landing:** tải/giải nén dataset bằng công cụ Kaggle hoặc trình duyệt, lưu checksum. NiFi dùng `ListFile → FetchFile` đọc bản sao bất biến; chỉ công bố tệp hoàn tất vào landing bằng đổi tên để tránh đọc khi đang tải dở.
-2. **Chia lô:** `SplitRecord` với `CSVReader` và writer theo record; khởi đầu khoảng 50.000 record/lô, điều chỉnh ở D4. Chốt encoding, header, quote, escape và schema nullable từ mẫu thực. Không dùng cắt theo dòng vì review có thể xuống dòng.
-3. **Kiểm tra:** tách lỗi parse cấp tệp, lỗi cấu trúc cấp record khi có thể nhận diện. Giữ dữ liệu gốc tại landing; bronze lưu lô chuẩn hóa định dạng, còn luật làm sạch nghiệp vụ do Spark xử lý.
-4. **Ghi HDFS:** dùng `InvokeHTTP` gọi WebHDFS; bước đầu PUT không gửi nội dung, nhận vị trí DataNode, bước sau PUT nội dung tới vị trí đó và kiểm tra trạng thái tạo thành công. Giữ nội dung FlowFile gốc trong quá trình nhận phản hồi. Kiểm tra riêng redirect, hostname DataNode và cổng trong mạng container. Không giả định `PutHDFS` có sẵn ở mọi bản NiFi. [Quy trình CREATE của WebHDFS](https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-hdfs/WebHDFS.html#Create_and_Write_to_a_File)
-5. **Chạy lại:** `batch_id` dựa trên checksum nguồn + chỉ số lô + phiên bản schema; ghi vào đường dẫn tạm, kiểm tra rồi commit/rename. Manifest chứa số lô dự kiến/đã hoàn tất, số record, checksum, trạng thái. Chỉ phát hành dấu hoàn tất sau khi toàn bộ lô của đợt đã commit; Spark chỉ đọc đợt hoàn tất.
-6. **Lỗi và tải:** thử tối đa 3 lần với lỗi kết nối/tạm thời, sau đó chuyển hàng đợi lỗi để xử lý thủ công. Lỗi schema không retry vô hạn. Khởi đầu back pressure khoảng 100 FlowFile hoặc 256 MB ở các queue giữa lô, rồi điều chỉnh theo số đo; ngưỡng không phải giới hạn cứng kích thước một tệp.
-7. **Bằng chứng:** export flow dạng JSON, ảnh processor/provenance, số lô vào–ra–lỗi, log thử gián đoạn HDFS và chạy lại. Replay không được làm tăng số review duy nhất ở silver.
-
-Chỉ chạy một phiên ghi cho cùng `batch_id`. Khi retry gặp tệp đích đã có, xác minh manifest/checksum trước khi coi là thành công; không ghi đè mù. Chống trùng ở Spark vẫn cần thiết, không tuyên bố toàn hệ thống có bảo đảm exactly-once.
-
-### 4.3. Tổ chức dữ liệu và mã nguồn theo Clean Architecture
-
-Bộ khung thư mục đã được tạo; pipeline, mô hình và dashboard chưa triển khai. Xem `README.md`, `docs/architecture.md` để biết trách nhiệm/chiều phụ thuộc và `Checklist.md` để theo dõi công việc của 3 thành viên.
+- Docker Compose trên Linux/WSL2: 1 NiFi, 1 HDFS NameNode + 2 DataNode (replication 2), 1 Spark master + 2 worker, 1 dashboard. Cụm container trên một máy là mô phỏng nhiều nút; báo cáo nêu rõ giới hạn này.
+- Dự trù 24–32 GB RAM, SSD trống 80–100 GB (đo lại khi dựng). Dung lượng cần = tệp tải + giải nén + NiFi content repository + HDFS có replication + Parquet + shuffle. Nếu chỉ có 16 GB: giảm mẫu, chạy NiFi/Spark/dashboard theo lượt.
+- Bằng chứng phân tán: `hdfs dfsadmin -report`, `hdfs fsck` cho block/replication; Spark UI/event log cho task trên executor của cả 2 worker.
+- Cổng Web UI phải không trùng nhau (ví dụ NiFi HTTPS `8443`, Spark master `8080`, NameNode `9870`).
 
 ```text
-Bigdata/
-├── Plan.md
-├── Checklist.md                  # Checklist theo thành viên và ngày
-├── Rule/                         # Quy định đầu vào
-├── infra/                        # Compose, cấu hình, .env.example, phiên bản
-├── nifi/                         # Flow JSON, parameters.example, hướng dẫn import
-├── schemas/                      # Schema nguồn, chuẩn hóa, gold
-├── src/steam_reviews/
-│   ├── domain/                   # Entities và policies thuần Python
-│   ├── application/              # Ports, DTO và use cases
-│   ├── infrastructure/           # Adapter ingestion/storage/Spark/MLlib
-│   ├── presentation/             # CLI và dashboard
-│   └── bootstrap/                # Cấu hình và ghép dependency
-├── scripts/                      # Wrapper vận hành/submit, không chứa nghiệp vụ
-├── tests/                        # Unit, integration, e2e và fixtures
-├── data/                         # Landing/sample/cache, không commit dữ liệu lớn
-├── artifacts/                    # Metrics, mô hình tham chiếu, manifest, biểu đồ
-├── docs/                         # Từ điển dữ liệu, kiến trúc, nhật ký, hướng dẫn
-├── report/                       # word/, slides/, demo/
-└── README.md
-
 HDFS: /steam/bronze/<dataset_version>/<batch_id>/
       /steam/silver/<run_id>/
       /steam/gold/<run_id>/
       /steam/quarantine/<run_id>/
 ```
 
-Chọn phân vùng silver theo năm/tháng khi phù hợp dữ liệu thực; tránh chia nhỏ theo hàng trăm game × nhiều ngôn ngữ. Gom tệp Parquet theo dung lượng mục tiêu đo được. Mỗi snapshot có `run_id`, schema version, phạm vi mẫu và thời điểm tạo; dashboard không trộn nhiều lần chạy.
+Phân vùng silver theo năm/tháng khi phù hợp dữ liệu thực; tránh chia nhỏ theo game × ngôn ngữ. Mỗi snapshot dashboard có `run_id`, schema version, phạm vi mẫu và thời điểm tạo; dashboard không trộn nhiều lần chạy.
 
-## 5. Phân tích, mô hình và dashboard
+---
 
-### 5.1. Bảng kết quả và công thức
+## 4. Kế hoạch thực hiện chi tiết 10 tuần
 
-| Bảng/đầu ra | Nội dung tối thiểu | Kiểm tra |
-|---|---|---|
-| `quality_summary` | Nguồn, số đọc được, lỗi, trùng, thiếu văn bản/thời gian, số sạch | Đối soát tổng; số lỗi theo lý do không bị đếm chồng trong phương trình tổng. |
-| `game_summary` | Game, tổng review hợp lệ, số khuyến nghị, tỷ lệ khuyến nghị | `rate = recommended_count / valid_label_count`; mẫu số 0 hiển thị N/A. |
-| `monthly_summary` | Game, tháng UTC, ngôn ngữ, tổng và số khuyến nghị | Tổng theo tháng khớp phần dữ liệu có ngày hợp lệ. |
-| `language_summary` | Ngôn ngữ, số review, tỷ lệ khuyến nghị | Hiển thị `unknown`; không suy ngôn ngữ thành quốc gia. |
-| `playtime_summary` | Nhóm giờ chơi, số review, tỷ lệ; số thiếu/âm riêng | Đổi phút sang giờ đúng; khoảng không chồng nhau: [0,2), [2,10), [10,50), [50,100), [100,+∞). |
-| `model_metrics` | Baseline, LR, số mẫu mỗi split/lớp, F1, precision, recall, PR-AUC, confusion matrix | Đọc được cả nhãn và định nghĩa lớp dương; tính macro-F1 rõ ràng. |
+Kế hoạch bám sát đề cương học phần, chia thành 5 chặng công việc:
 
-Xếp hạng tỷ lệ theo game dùng ngưỡng mặc định ít nhất 100 đánh giá trong phạm vi lọc; người dùng có thể đổi ngưỡng. Khi kết hợp nhóm, cộng tử số/mẫu số rồi mới chia. Nếu có bộ lọc phối hợp game–ngôn ngữ–tháng, bảng gold phải giữ đủ các chiều đó; không áp bộ lọc lên bảng đã mất chiều.
+### Tuần 1–3: Khởi động, Đăng ký đề tài & Lập kế hoạch chi tiết
+- **Mục tiêu:** Thống nhất đề tài, thành lập nhóm 3 người, khảo sát sơ bộ dữ liệu, hoàn thiện kế hoạch 10 tuần và thiết lập repository.
+- **Công việc TV1:**
+  - Thiết lập Git repository, cấu trúc thư mục Clean Architecture, quy ước commit.
+  - Khảo sát các công nghệ hạ tầng: Docker Compose, Apache NiFi, Hadoop HDFS, Spark.
+  - Chuẩn bị dự thảo kế hoạch làm việc và phân công nhiệm vụ.
+- **Công việc TV2:**
+  - Khảo sát bộ dữ liệu Steam Reviews trên Kaggle (kiểm tra schema dự kiến, giấy phép, dung lượng).
+  - Xác định bài toán nghiệp vụ, 5 câu hỏi phân tích và các độ đo đánh giá.
+  - Cùng TV1 hoàn thiện bản kế hoạch chi tiết 10 tuần.
+- **Công việc TV3:**
+  - Xây dựng fixture kiểm thử CSV mẫu (multiline, unicode, dấu nháy kép) phục vụ kiểm tra parser.
+  - Cùng TV1 & TV2 hoàn thiện bản kế hoạch chi tiết 10 tuần.
+- **Sản phẩm cần đạt:** Đề tài được phê duyệt; Bản kế hoạch làm việc chi tiết của nhóm (`Plan.md`, `Checklist.md`).
 
-### 5.2. Thiết kế ML khả thi
+### Tuần 4–5: Cơ sở lý thuyết, Thiết kế giải pháp & Dựng môi trường cụm
+- **Mục tiêu:** Nghiên cứu lý thuyết các công nghệ sử dụng, thiết kế kiến trúc hệ thống, xây dựng môi trường cụm phân tán và thử nghiệm luồng dữ liệu mẫu.
+- **Công việc TV1:**
+  - Viết Docker Compose cho cụm: 1 NiFi, 1 HDFS NameNode + 2 DataNodes, 1 Spark Master + 2 Workers.
+  - Kiểm tra kết nối WebHDFS từ NiFi; xây dựng luồng tiếp nhận mẫu (ListFile → SplitRecord → WebHDFS).
+  - Soạn thảo cơ sở lý thuyết về Hadoop HDFS, cơ chế lưu trữ phân tán block/replication và Apache NiFi.
+- **Công việc TV2:**
+  - Nghiên cứu cơ sở lý thuyết về Apache Spark (RDD, DataFrame, Spark SQL, Spark MLlib).
+  - Nghiên cứu thuật toán phân loại văn bản: TF-IDF, mô hình phân lớp Logistic Regression, các độ đo Macro-F1, Precision, Recall, PR-AUC.
+  - Xây dựng schema ban đầu (`schemas/source/`, `schemas/silver/`, `schemas/gold/`).
+  - Viết ví dụ minh họa và tài liệu tóm tắt lý thuyết thuật toán.
+- **Công việc TV3:**
+  - Soạn thảo cơ sở lý thuyết về Big Data (khái niệm, đặc trưng V, hệ sinh thái).
+  - Thiết kế khung báo cáo Word đầy đủ 10 mục theo quy định.
+  - Xây dựng bộ fixture kiểm thử đa dạng (các case CSV lỗi) hỗ trợ TV1 kiểm tra luồng NiFi.
+- **Sản phẩm cần đạt:** Tài liệu tóm tắt cơ sở lý thuyết thuật toán; Cụm container HDFS/Spark/NiFi chạy thông suốt ở mức smoke test.
 
-- **Bài toán:** phân loại nhị phân `recommended` từ `review_text`; nhãn 1 = khuyến nghị, 0 = không khuyến nghị. Giải thích đây là học nhãn hành vi khuyến nghị, không phải đánh giá cảm xúc tuyệt đối.
-- **Tập dữ liệu:** tiếng Anh, text không rỗng, nhãn hợp lệ; loại trùng ID trước khi chia. Chuẩn hóa text nhẹ, giữ từ phủ định; kiểm tra các nội dung giống nhau giữa các split.
-- **Chia tập:** mặc định 70/15/15 train/validation/test bằng hash có seed cố định của nhóm văn bản chuẩn hóa, để văn bản trùng không rơi sang nhiều tập. Báo cáo tỷ lệ thực tế và phân bố nhãn/game. Không khẳng định đây là phép thử dự báo tương lai; có thể thêm holdout thời gian nếu còn thời gian.
-- **Baseline:** luôn dự đoán lớp phổ biến nhất xác định trên train; chấm trên cùng validation/test với mô hình.
-- **Pipeline:** RegexTokenizer → bước loại stopword có giữ phủ định → HashingTF → IDF → LogisticRegression. Fit IDF và mô hình chỉ trên train. Spark có triển khai Logistic Regression trong `spark.ml`. [Tài liệu Spark](https://spark.apache.org/docs/latest/ml-classification-regression.html#logistic-regression)
-- **Thử nghiệm giới hạn:** bắt đầu `numFeatures=2^16`, `maxIter=30`; thử `regParam` 0,01 và 0,1; so sánh có/không trọng số lớp tính từ train, tối đa 4 cấu hình. Chọn bằng macro-F1 trên validation; không dò tham số bằng test.
-- **Ngăn rò rỉ:** không đưa `recommended`, ID, lượt hữu ích hay dữ liệu phát sinh sau đánh giá vào feature. Chỉ dùng nội dung text cho mô hình bắt buộc. Kiểm tra giao nhau của ID/text hash giữa train/validation/test bằng 0.
-- **Đánh giá:** macro-F1 = trung bình F1 của hai lớp, cùng precision/recall từng lớp, confusion matrix và PR-AUC với lớp dương đã công bố. Không gọi weighted-F1 mặc định là macro-F1. Test được giữ lại đến khi chốt mô hình.
-- **Mục tiêu nội bộ:** macro-F1 cải thiện khoảng 0,10 so với baseline trên validation, sau đó xác nhận bằng test. Đây là mục tiêu, không phải kết quả cam kết. Nếu không đạt, kiểm tra dữ liệu/nhãn, báo cáo nguyên nhân và kết quả thật; không đổi test để tăng điểm.
-- **Phân tích lỗi:** xem khoảng 30 dự đoán sai, phân nhóm phủ định, mỉa mai, văn bản ngắn, nhãn khó giải thích; không hiển thị Steam ID cá nhân trên dashboard.
+### Tuần 6–7: Xây dựng Baseline, Đánh giá sơ bộ & BÁO CÁO TIẾN ĐỘ (Giai đoạn 1)
+- **Mục tiêu:** Hoàn thành tiền xử lý dữ liệu cơ bản, xây dựng mô hình baseline, đánh giá sơ bộ và hoàn thành báo cáo tiến độ Giai đoạn 1 (chiếm 30% điểm đồ án, đánh giá theo CLO1, CLO2).
+- **Công việc TV1:**
+  - Hoàn thiện luồng NiFi có chia lô (batching), xử lý lỗi (quarantine queue), retry có giới hạn và ghi nhận manifest.
+  - Nạp dữ liệu vào HDFS bronze; chụp ảnh minh chứng hoạt động của NameNode, 2 DataNodes và NiFi Data Provenance.
+  - Phác thảo wireframe và khung giao diện Streamlit Dashboard (`src/steam_reviews/presentation/dashboard/`).
+  - Tổng hợp slide báo cáo tiến độ Giai đoạn 1.
+- **Công việc TV2:**
+  - Viết job Spark ETL đọc dữ liệu từ HDFS, làm sạch dữ liệu, lọc bỏ nhãn rác, xử lý giá trị thiếu.
+  - Chia tập dữ liệu train/validation/test cố định seed (tránh rò rỉ dữ liệu qua văn bản trùng).
+  - Xây dựng mô hình Baseline (dự đoán lớp đa số); tính toán các độ đo sơ bộ ban đầu trên validation set.
+  - Xác định các điểm cần cải thiện cho mô hình Spark MLlib ở giai đoạn sau.
+  - Soạn thảo nội dung Báo cáo tiến độ Giai đoạn 1 (mục Giới thiệu đề tài, Cơ sở lý thuyết, Dữ liệu và Thiết kế hệ thống).
+- **Công việc TV3:**
+  - Viết test đối soát số liệu sau ETL (số bản ghi trước/sau làm sạch, dedup).
+  - Soạn thảo mục Cơ sở lý thuyết Big Data và mục Giới thiệu đề tài trong báo cáo Word.
+  - Hỗ trợ TV1 rà soát và tổng hợp slide báo cáo tiến độ Giai đoạn 1.
+- **Sản phẩm cần đạt:**
+  - Kết quả đánh giá sơ bộ mô hình baseline và hướng cải thiện.
+  - **Hồ sơ Báo cáo tiến độ Giai đoạn 1 hoàn chỉnh** (nộp theo yêu cầu giảng viên).
 
-### 5.3. Dashboard 4 trang
+### Tuần 8–9: Hoàn thiện Pipeline, Tối ưu MLlib, Trực quan hóa & BÁO CÁO HOÀN CHỈNH (Giai đoạn 2)
+- **Mục tiêu:** Hoàn thiện toàn bộ pipeline từ NiFi đến Dashboard, tối ưu mô hình Spark MLlib, phân tích lỗi, hoàn thiện báo cáo hoàn chỉnh (chiếm 70% điểm đồ án, đánh giá theo CLO5, CLO3, CLO4) và nộp trên Classroom.
+- **Công việc TV1:**
+  - Hoàn thiện ứng dụng Dashboard Streamlit với 4 trang đầy đủ:
+    1. *Tổng quan:* Thống kê toàn cảnh, số lượng game, phân bố đánh giá và ngôn ngữ.
+    2. *Khám phá trò chơi:* Bảng xếp hạng game, tỷ lệ khuyến nghị kèm ngưỡng lọc số lượng đánh giá, xu hướng theo thời gian.
+    3. *Thời lượng chơi & Chất lượng:* Tương quan giữa giờ chơi và khuyến nghị, thống kê tỷ lệ bản ghi thiếu/trùng lặp/lỗi.
+    4. *Hiệu năng mô hình:* So sánh trực quan Baseline vs Logistic Regression, ma trận nhầm lẫn, biểu đồ PR-AUC, kiểm thử dự đoán mẫu.
+  - Đo đạc hiệu năng cụm (tốc độ xử lý, thời gian ETL, giám sát tài nguyên 1 worker vs 2 workers).
+  - Soạn thảo phần Xây dựng ứng dụng, trực quan hóa và hướng dẫn cài đặt/vận hành hệ thống.
+  - Tổng hợp toàn bộ slide thuyết trình cuối kỳ (.pptx).
+- **Công việc TV2:**
+  - Hoàn thiện pipeline Spark MLlib: Tokenizer, StopWordsRemover, HashingTF, IDF, LogisticRegression.
+  - Tinh chỉnh siêu tham số trên validation set; đánh giá độc lập lần cuối trên test set (tuyệt đối không leak test set).
+  - Thực hiện Error Analysis trên ~30 mẫu dự đoán sai (văn bản mỉa mai, đánh giá ngắn, tiếng lóng).
+  - Xây dựng hoàn chỉnh các bảng Gold summaries trên HDFS/Parquet, xuất snapshot phục vụ Dashboard.
+  - Soạn thảo mục Kết quả thực nghiệm, Phân tích dữ liệu, Đánh giá mô hình và Hạn chế của giải pháp trong báo cáo Word.
+- **Công việc TV3:**
+  - Soạn thảo mục Kết luận & Định hướng phát triển, Tài liệu tham khảo và Phụ lục (hướng dẫn cài đặt) trong báo cáo Word.
+  - Rà soát toàn bộ báo cáo Word đảm bảo đúng **10 mục bắt buộc**, không lỗi chính tả, số liệu nhất quán.
+  - Hỗ trợ TV2 soạn bảng đối sánh Baseline vs Logistic Regression và phân tích lỗi.
+- **Công việc chung Tuần 9:**
+  - Rà soát toàn diện báo cáo Word theo đúng **10 mục bắt buộc** trong quy định.
+  - Kiểm thử độc lập: TV1 chạy lại toàn bộ mã nguồn của TV2 trên môi trường sạch; TV2 kiểm tra chéo các số liệu trên Dashboard của TV1; TV3 đối soát số liệu báo cáo với kết quả thực tế.
+  - **Nộp đầy đủ trên Classroom:** Source Code, File Word báo cáo hoàn chỉnh, File PPT báo cáo.
+- **Sản phẩm cần đạt:**
+  - Bộ dữ liệu đã qua tiền xử lý, sẵn sàng huấn luyện.
+  - Toàn bộ source code chạy ổn định, không lỗi.
+  - Dashboard tương tác trực quan hoàn chỉnh.
+  - File Word báo cáo hoàn chỉnh và Slide PPT.
+  - Bằng chứng nộp bài đầy đủ trên Classroom.
 
-1. **Tổng quan:** số review, số game, phạm vi ngày, tỷ lệ khuyến nghị; biểu đồ số đánh giá theo game và phân bố ngôn ngữ.
-2. **Khám phá trò chơi:** top game theo tỷ lệ có ngưỡng số lượng; xu hướng theo tháng; bộ lọc game, ngôn ngữ, thời gian trong phạm vi gold hỗ trợ.
-3. **Thời gian chơi và chất lượng dữ liệu:** số đánh giá/tỷ lệ theo nhóm giờ chơi, tỷ lệ thiếu/trùng/lỗi; chú thích rõ cột thời gian chơi dùng để tính.
-4. **Mô hình:** baseline so với LR, confusion matrix, precision/recall/F1 từng lớp, phạm vi train/test, ví dụ dự đoán đã tính sẵn. Nhập text dự đoán trực tiếp là mở rộng, không là điều kiện hoàn thành.
+### Tuần 10: Báo cáo, Thuyết trình & Demo sản phẩm trước lớp
+- **Mục tiêu:** Thuyết trình tự tin, mạch lạc trước lớp; Demo trực tiếp hệ thống hoạt động ổn định; trả lời tốt các câu hỏi phản biện của giảng viên.
+- **Công việc thực hiện:**
+  - Diễn tập thuyết trình chung (thời lượng 8–10 phút theo yêu cầu giảng viên). Cả 3 thành viên đều tham gia trình bày phần công việc phụ trách.
+  - Chuẩn bị môi trường demo trực tiếp (chạy các container cụm, thực thi luồng NiFi, hiển thị Dashboard tương tác).
+  - Chuẩn bị video quay demo dự phòng chất lượng cao và dữ liệu snapshot offline phòng sự cố mạng/máy móc.
+  - Chuẩn bị trả lời phản biện: giải thích cơ chế phân tán của HDFS/Spark, lý do chọn mô hình, cơ chế chống rò rỉ dữ liệu, giải thích các số liệu bất thường.
+- **Sản phẩm cần đạt:** Buổi thuyết trình hoàn chỉnh, đúng thời gian quy định; trả lời xuất sắc câu hỏi phản biện.
 
-Mỗi trang hiển thị nguồn, full/subset, cỡ mẫu và `run_id`. Biểu đồ có tiêu đề, đơn vị, mẫu số, trạng thái rỗng; các kết luận chỉ áp dụng cho tập quan sát. Không suy ra doanh thu, số người mua hoặc toàn bộ cộng đồng Steam từ số review.
+---
 
-## 6. Phân công 3 thành viên và quy tắc phối hợp
+## 5. Ma trận chuẩn hóa theo Rubric đánh giá (Thang điểm 10)
 
-| Thành viên | Trách nhiệm chính | Sản phẩm chịu trách nhiệm | Người kiểm tra chéo |
-|---|---|---|---|
-| **TV1 — Hạ tầng và luồng dữ liệu** | Điều phối; NiFi; HDFS; môi trường cụm; ingestion, retry, benchmark I/O | `infra/`, `nifi/`, manifest, hướng dẫn dựng hệ thống; phần kiến trúc trong Word | TV2 kiểm tra dữ liệu nhận; TV3 thử dựng theo README. |
-| **TV2 — Xử lý và ML** | Từ điển dữ liệu; Spark ETL/EDA; baseline, huấn luyện, đánh giá | `schemas/`, các lớp domain/application, adapter Spark/ML và CLI trong `src/steam_reviews/`; silver/gold, metrics, phần thực nghiệm trong Word | TV1 kiểm tra chạy phân tán; TV3 đối chiếu số liệu. |
-| **TV3 — Dashboard và hồ sơ** | Thiết kế/chạy dashboard; kiểm tra gold; chủ trì tổng hợp Word/PPT, demo | `src/steam_reviews/presentation/dashboard/`, biểu đồ, báo cáo, slide, checklist, nhật ký đóng góp | TV2 kiểm tra nội dung; TV1 kiểm tra demo và đóng gói. |
+Kế hoạch bám sát bảng Rubric đánh giá đồ án cuối kỳ gồm 6 tiêu chí:
 
-TV3 biên tập báo cáo, nhưng TV1 và TV2 phải tự viết phần mình làm. Mỗi người khoảng 60 giờ; nếu TV2 quá tải ở D6–D9, TV1 nhận tối ưu phân vùng/đo hiệu năng, TV3 nhận SQL đối soát và đồ thị đánh giá, không để TV2 làm toàn bộ xử lý lẫn trình bày.
+| Tiêu chí đánh giá | Chuẩn đầu ra (CLO) | Điểm tối đa | Bằng chứng và sản phẩm thực hiện của nhóm | Phụ trách chính |
+|---|:---:|:---:|---|:---:|
+| **1. Tính ứng dụng của kĩ thuật** | CLO1 | 1.0 đ | • Bài toán phân tích đánh giá Steam gắn liền với thực tế ngành công nghiệp game.<br>• Trả lời 5 câu hỏi nghiệp vụ rõ ràng, rút ra ít nhất 5 nhận xét giá trị đi kèm số liệu xác thực và đề xuất giải pháp. | TV1 + TV2 + TV3 |
+| **2. Lưu trữ và xử lý dữ liệu / phân tích dữ liệu** | CLO2 | 2.0 đ | • Cụm Hadoop HDFS lưu trữ phân tán dữ liệu thực tế (chứng minh qua blocks, replication, NameNode/DataNodes).<br>• Luồng thu thập tự động qua Apache NiFi có chia lô, retry, quarantine.<br>• Pipeline Spark ETL xử lý phân tán: làm sạch, dedup, chuẩn hóa kiểu, chuyển đổi sang Parquet tầng Silver/Gold. | TV1 (Hạ tầng, NiFi, HDFS)<br>TV2 (Spark ETL, Data)<br>TV3 (Kiểm thử, Đối soát) |
+| **3. Mô hình / công nghệ xử lý bài toán** | CLO3 | 2.5 đ | • Xây dựng mô hình Baseline đa số chuẩn mực để đối sánh.<br>• Xây dựng pipeline Spark MLlib (TF-IDF + Logistic Regression).<br>• Đánh giá mô hình khách quan qua Macro-F1, Precision, Recall, PR-AUC, Confusion Matrix.<br>• Phân tích lỗi (Error Analysis) và chỉ rõ các hạn chế kỹ thuật. | TV2 (chủ trì)<br>TV3 (hỗ trợ) |
+| **4. Trực quan hóa / Xây dựng ứng dụng** | CLO3 | 2.5 đ | • Dashboard tương tác Streamlit 4 trang hoàn chỉnh, bố cục khoa học.<br>• Tối thiểu 6 biểu đồ trực quan hóa dữ liệu có ý nghĩa (Plotly).<br>• Hỗ trợ bộ lọc tương tác (game, ngôn ngữ, thời gian); xử lý trạng thái rỗng an toàn. | TV1 (UI/Dashboard)<br>TV2 (Dữ liệu Gold)<br>TV3 (Đối soát số liệu) |
+| **5. Trình bày báo cáo** | CLO4 | 1.0 đ | • Báo cáo Word tuân thủ chính xác cấu trúc 10 mục bắt buộc, trình bày chuẩn mực, không lỗi chính tả.<br>• Slide PPT thiết kế chuyên nghiệp, mạch lạc.<br>• Thuyết trình đúng giờ, kịch bản demo rõ ràng, trả lời tốt câu hỏi phản biện. | TV1 + TV2 + TV3 |
+| **6. Phân công và phối hợp làm việc nhóm** | CLO5 | 1.0 đ | • Bảng phân công chi tiết, cân đối khối lượng công việc giữa 3 thành viên.<br>• Nhật ký làm việc hàng tuần, minh chứng commit Git và review chéo giữa 3 bạn.<br>• Tinh thần trách nhiệm cao, giải quyết vấn đề hiệu quả. | TV1 + TV2 + TV3 |
+| **TỔNG CỘNG** | | **10.0 đ** | | |
 
-- Mỗi ngày họp 15 phút: việc xong, bằng chứng, việc tiếp theo, vướng mắc.
-- Cuối ngày cập nhật nhật ký: công việc, thời lượng, commit/tệp, kết quả kiểm tra, người review. Tỷ lệ đóng góp cuối cùng dựa trên công việc thực, không mặc định 33,3%.
-- Chốt schema và định dạng gold cuối D2; thay đổi sau đó phải báo cho cả nhóm và cập nhật version.
-- Mỗi đầu việc có người chính và một người review; mỗi ngày bàn giao phần chạy được. Nhánh công việc/PR nhỏ nếu dùng Git; không commit dataset lớn, token hoặc mật khẩu.
-- Vướng mắc quá 2 giờ phải báo nhóm. Khi trễ, bỏ mở rộng trước, giảm mẫu có ghi nhận sau; giữ HDFS/Spark, NiFi, mô hình cơ bản và hồ sơ bắt buộc.
+---
 
-## 7. Chín gói công việc và phụ thuộc
+## 6. Cấu trúc chuẩn 10 mục của Báo cáo Word (.docx)
 
-| Gói | Thời gian | Chủ trì | Đầu ra và điều kiện hoàn thành | Phụ thuộc |
-|---|---|---|---|---|
-| W1. Chốt đề tài/quy định | D1 | TV1 | Đề cương, phân công, danh sách xác nhận với GV; phạm vi bắt buộc rõ | Không |
-| W2. Dựng môi trường/chốt dữ liệu | D1–D2 | TV1 + TV2 | Đọc được mẫu, schema v1, HDFS/Spark smoke, khóa phiên bản | W1 định hướng |
-| W3. Luồng NiFi vào HDFS | D3–D4 | TV1 | Lô vào HDFS, manifest, lỗi và chạy lại có kiểm tra | W2 |
-| W4. Spark làm sạch/tổng hợp | D3–D6 | TV2 | Silver/gold v1, đối soát chất lượng và KPI | W2; nghiệm thu cần W3 |
-| W5. Baseline và mô hình | D6–D9 | TV2 | Split cố định, baseline/LR, metrics, mô hình lưu được | Silver của W4 |
-| W6. Dashboard | D3–D10 | TV3 | 4 trang; ít nhất 6 biểu đồ, bộ lọc đúng trên gold thật | Schema W2; hoàn tất cần W4–W5 |
-| W7. Tích hợp và thực nghiệm quy mô | D8–D11 | TV1 | Toàn luồng Core; thử Full nếu đủ máy; đo tài nguyên, thời gian | W3–W6 |
-| W8. Hồ sơ và chuẩn bị demo | D1–D12 | TV3 | Gói tiến độ D7; Word/PPT/README/đóng góp gần hoàn chỉnh D12 | Tích lũy từ W1–W7 |
-| W9. Kiểm chứng và bàn giao | D13–D15 | Cả nhóm | Chạy sạch, review chéo, diễn tập, gói nộp đủ và kiểm tra cuối | W7–W8 |
+File Word báo cáo cuối kỳ bắt buộc phải tuân theo đúng thứ tự 10 mục sau:
 
-**Đường găng:** schema thực → NiFi ghi HDFS → Spark silver → gold + ML → dashboard dữ liệu thật → chạy lại → hồ sơ/demo → nộp. TV3 dựng giao diện bằng fixture từ D3 để không phải chờ ML; fixture phải ghi rõ dữ liệu minh họa và được thay bằng kết quả thật trước nghiệm thu.
+1. **Trang bìa:** Thông tin Trường, Khoa, Môn học, Tên đề tài, Giảng viên hướng dẫn, Thông tin 3 sinh viên thực hiện (Họ tên, MSSV, Lớp).
+2. **Lịch làm việc nhóm trong hàng tuần:** Tiến độ thực tế từ Tuần 1 đến Tuần 10.
+3. **Công việc mỗi thành viên trong nhóm:** Bảng chi tiết phân công, sản phẩm hoàn thành, tỷ lệ đóng góp (≈ 33% - 33% - 34%).
+4. **Mục lục:** Danh mục các chương mục, danh mục bảng biểu và hình ảnh.
+5. **Giới thiệu đề tài:** Bối cảnh, mục tiêu, đối tượng sử dụng, phạm vi dữ liệu, 5 câu hỏi phân tích và giá trị thực tiễn.
+6. **Cơ sở lý thuyết:**
+   - Khái niệm dữ liệu lớn và các đặc trưng V.
+   - Hệ sinh thái Big Data: Hadoop HDFS, Apache Spark (DataFrame, SQL, MLlib), Apache NiFi.
+   - Lý thuyết xử lý ngôn ngữ tự nhiên: TF-IDF, Logistic Regression, các độ đo đánh giá phân loại.
+7. **Xây dựng ứng dụng, trực quan hóa dữ liệu:**
+   - Khảo sát bộ dữ liệu, mô tả thuộc tính và data dictionary.
+   - Thiết kế kiến trúc tổng thể Clean Architecture và luồng dữ liệu Medallion (Bronze - Silver - Gold).
+   - Quy trình thu thập qua NiFi và lưu trữ phân tán trên HDFS.
+   - Quy trình tiền xử lý, làm sạch và tổng hợp dữ liệu bằng PySpark.
+   - Xây dựng mô hình máy học Spark MLlib, kết quả thực nghiệm và phân tích lỗi.
+   - Thiết kế và tính năng của ứng dụng Streamlit Dashboard.
+8. **Kết luận định hướng phát triển:** Tổng kết kết quả đạt được, đối chiếu mục tiêu ban đầu, bài học kinh nghiệm và hướng mở rộng.
+9. **Tài liệu tham khảo:** Dẫn nguồn tài liệu khoa học, documentation chính thức của Apache, Kaggle dataset.
+10. **Phụ lục (nếu có):** Hướng dẫn cài đặt và chạy hệ thống, cấu hình tham số, các mẫu truy vấn đối soát dữ liệu.
 
-## 8. Lịch chi tiết 15 ngày
+---
 
-Mỗi ô là phần việc chính trong khoảng 3 giờ tập trung; thời gian còn lại dành cho review/tài liệu/họp. Cuối ngày phải có bằng chứng trong repo hoặc thư mục artifacts.
+## 7. Quản trị rủi ro trong quá trình thực hiện
 
-| Ngày | TV1 — Hạ tầng/NiFi | TV2 — Spark/ML | TV3 — Dashboard/báo cáo | Bàn giao và tiêu chí cuối ngày |
-|---|---|---|---|---|
-| **D1** | Tổng hợp quy định; chuẩn bị xác nhận nhóm 3 người, đề tài và mốc nộp; kiểm kê máy; tạo khung cấu hình | Kiểm tra truy cập Kaggle; lên câu hỏi phân tích, danh sách cột cần; phác thảo pipeline | Lập bố cục Word đúng quy định, wireframe 4 trang, nhật ký nhóm | Đề cương 1 trang, vai trò, lịch, stack đề xuất; ghi rõ mục đang chờ GV. |
-| **D2** | Dựng NiFi/HDFS/Spark; thử ghi–đọc HDFS và job Spark nhỏ; khóa phiên bản | Tải/đo dữ liệu; kiểm tra header, ngày/nhãn/ngôn ngữ; tạo mẫu tái lập; chốt schema | Chốt hợp đồng gold và KPI; kiểm tra mẫu, tạo fixture cho giao diện; ghi nguồn | Schema v1, manifest nguồn, môi trường smoke; quyết định mức Core và tài nguyên Full. |
-| **D3** | Làm `ListFile → FetchFile → SplitRecord`; kiểm tra CSV nhiều dòng; dựng ghi WebHDFS | Viết job đọc/chuẩn hóa kiểu, null, ngày; đọc mẫu bronze; tạo ca dữ liệu lỗi | Dựng Streamlit navigation và trang tổng quan bằng fixture | 10.000 record đi từ NiFi vào HDFS; Spark đọc được; CSV multiline/Unicode không vỡ. |
-| **D4** | Hoàn thiện manifest, nhánh lỗi, retry/back pressure; thử chạy lại một lô | Hoàn thiện dedup, quarantine, Parquet silver; thống kê trước/sau | Dựng trang trò chơi và bộ lọc; viết mô tả dữ liệu | Raw đọc được = hợp lệ trước dedup + lỗi record; silver = hợp lệ trước dedup − trùng. |
-| **D5** | Nạp mức Core đã chốt; xác minh hai DataNode và executor; lưu ảnh/log | Tạo gold game/tháng/ngôn ngữ/playtime; SQL kiểm tra độc lập | Kết nối gold thật; kiểm tra KPI và biểu đồ; ghi nhận xét sơ bộ | **M1:** toàn luồng ingestion → silver → gold → dashboard tối thiểu chạy được. |
-| **D6** | Đo tốc độ ingestion/ETL, hỗ trợ phân vùng và tài nguyên; viết phần NiFi/HDFS | Tạo split ML, baseline đa số và pipeline LR đầu tiên; lưu thông số | Làm trang chất lượng dữ liệu; tổng hợp slide tiến độ và các biểu đồ thật | Có metrics baseline và lần LR đầu tiên hoặc log lỗi cụ thể; draft tiến độ có demo ETL. |
-| **D7** | Demo NiFi/HDFS, tổng hợp tồn đọng và khả năng chạy Full | Trình bày baseline, split, hướng cải thiện; kiểm tra rò rỉ | Hoàn thiện gói tiến độ, lịch làm việc tuần 1, đóng góp; trình bày thử | **M2 — Giai đoạn 1 nội bộ:** đề cương, lý thuyết, kiến trúc, kết quả sơ bộ, slide và demo; nộp theo lịch GV. |
-| **D8** | Tích hợp điều kiện đợt hoàn tất và chạy tuần tự các job; thử restart dịch vụ | Chạy tối đa 4 cấu hình trên train/validation; chọn cấu hình | Hoàn thiện trang mô hình bằng metrics thật; kiểm thử trạng thái rỗng | Có mô hình chọn theo validation; pipeline không đọc lô chưa hoàn tất. |
-| **D9** | Review cấu hình, log executor và hướng dẫn vận hành; sửa lỗi tích hợp | Chấm test sau khi chốt mô hình; phân tích 30 lỗi; lưu model/metrics | Đối chiếu số liệu model/dashboard; viết phần đánh giá và hạn chế | **M3:** baseline và LR so sánh trên cùng test; không trùng ID/text hash qua split. |
-| **D10** | Chạy thử Full nếu đủ tài nguyên; nếu thiếu, ghi giới hạn và hoàn thiện Core; đo RAM/disk/time | Tối ưu ETL theo số đo; kiểm tra tổng giữa các mức dữ liệu | Hoàn thiện 4 trang, bộ lọc, nhãn mẫu số; ghi ít nhất 5 nhận xét | Bản chức năng hoàn chỉnh; đóng băng tính năng; xác định rõ phạm vi số liệu sử dụng. |
-| **D11** | Benchmark cùng đầu vào với 1 và 2 worker, kiểm tra restart/replay | Đối soát gold với truy vấn độc lập; kiểm tra kết quả model nạp lại | Kiểm thử thao tác dashboard; so biểu đồ với bảng chuẩn; viết phần benchmark | **M4:** chạy end-to-end ổn định; bảng hiệu năng có cấu hình và số đo, không mặc định 2 worker nhanh hơn. |
-| **D12** | Hoàn thiện README hạ tầng, export flow/config và bản sao artifact | Hoàn thiện lý thuyết, tiền xử lý, mô hình, kết quả; kiểm tra tái lập metrics | Ghép Word đủ mục, PPT cuối, kịch bản demo; kiểm kê gói bàn giao | **M5:** ứng viên bàn giao đầy đủ; từ đây chỉ sửa lỗi/tài liệu, không thêm tính năng. |
-| **D13** | Hỗ trợ TV3 dựng/chạy trên môi trường sạch; sửa lỗi hướng dẫn/cấu hình | Kiểm tra số liệu, split và mô hình độc lập; sửa lỗi còn lại | Tự chạy theo README; rà cấu trúc Word, liên kết nguồn, sơ đồ | **Kiểm chứng:** một người không viết phần đó chạy được; ghi lỗi, sửa rồi chạy lại phần ảnh hưởng. |
-| **D14** | Diễn tập phần luồng dữ liệu; sao lưu flow/model/gold; chuẩn bị demo mất mạng | Diễn tập phần xử lý/ML, trả lời câu hỏi nhãn, mất cân bằng, rò rỉ | Diễn tập dashboard và toàn bài; ghi video dự phòng; kiểm tra thời lượng | **Kiểm chứng:** demo đủ bước trong thời gian GV cho phép; từng người giải thích được đóng góp của mình. |
-| **D15** | Kiểm tra source/config/README và danh sách tệp; điều phối nộp | Kiểm tra lần cuối metrics, dữ liệu tham chiếu, model và checksum | Kiểm tra Word/PPT/mục lục/đóng góp; đóng gói và lưu bằng chứng nộp | **M6 — Giai đoạn 2 nội bộ:** nghiệm thu checklist cuối, nộp Classroom theo hạn thật và kiểm tra mở/tải lại được. |
-
-D13–D15 là khoảng đệm cho lỗi và nghiệm thu, không dành cho một tính năng mới. Khi ngày báo cáo chính thức khác D7/D15, nhóm chuẩn bị gói tại các mốc nội bộ và nộp đúng lịch giảng viên xác nhận.
-
-## 9. Ma trận bám rubric và hồ sơ phải nộp
-
-### 9.1. Bằng chứng cho từng tiêu chí
-
-| Tiêu chí | Điểm theo Rule | Bằng chứng trong sản phẩm | Người chính |
-|---|---:|---|---|
-| Tính ứng dụng của kỹ thuật | 1,0 | Câu hỏi rõ; ít nhất 5 nhận xét có số liệu, phạm vi áp dụng và đề xuất hành động hợp lý | TV3, cả nhóm review |
-| Lưu trữ/xử lý dữ liệu phân tán | 2,0 | HDFS blocks/replication, Spark executors, pipeline NiFi, dữ liệu sạch, benchmark | TV1 + TV2 |
-| Mô hình/công nghệ xử lý bài toán | 2,5 | Baseline/LR, split, quy trình feature, metrics từng lớp, phân tích lỗi và giới hạn | TV2 |
-| Trực quan hóa/xây dựng ứng dụng | 2,5 | Dashboard 4 trang, tối thiểu 6 biểu đồ, bộ lọc đúng, số liệu đối soát | TV3 |
-| Trình bày báo cáo | 1,0 | Word đúng cấu trúc, PPT thống nhất, demo và câu trả lời phản biện | TV3, mỗi người viết phần mình |
-| Phân công/phối hợp nhóm | 1,0 | Kế hoạch, nhật ký tuần, commit/tệp, review chéo, bảng đóng góp có bằng chứng | Cả nhóm |
-| **Tổng** | **10,0** | Không phải điểm bảo đảm; kết quả do giảng viên đánh giá | |
-
-### 9.2. Báo cáo Word theo đúng thứ tự R2
-
-1. Trang bìa: trường, môn, tên đề tài, giảng viên, họ tên/MSSV thành viên.
-2. Lịch làm việc nhóm hằng tuần: D1–D7, D8–D14, bổ sung D15 và thực tế hoàn thành.
-3. Công việc mỗi thành viên: dự kiến/thực tế, sản phẩm, bằng chứng, mức đóng góp.
-4. Mục lục.
-5. Giới thiệu đề tài: bài toán, người dùng, mục tiêu, phạm vi, câu hỏi phân tích.
-6. Cơ sở lý thuyết: đặc trưng dữ liệu lớn, NiFi, HDFS, Spark, TF-IDF, Logistic Regression và độ đo.
-7. Xây dựng ứng dụng, trực quan hóa: dữ liệu, kiến trúc, môi trường, schema, ETL, mô hình, thực nghiệm, dashboard, kết quả và hạn chế.
-8. Kết luận và định hướng phát triển.
-9. Tài liệu tham khảo.
-10. Phụ lục nếu có: cấu hình, data dictionary, hướng dẫn chạy, kiểm thử, nhật ký chi tiết.
-
-### 9.3. Gói bàn giao
-
-- Source code và cấu hình triển khai; flow NiFi JSON, schema, job Spark, dashboard, fixture kiểm thử.
-- `README.md`: yêu cầu máy, phiên bản, tải dữ liệu, cấu hình biến môi trường, import flow, chạy theo thứ tự, tái tạo kết quả, dừng/khởi động lại, lỗi thường gặp.
-- Báo cáo `.docx`; slide tiến độ và slide hoàn chỉnh `.pptx`; PDF có thể bổ sung nhưng không thay Word/PPT được yêu cầu.
-- Dataset URL/version, giấy phép được ghi nhận, checksum, quy tắc lấy mẫu, manifest; mẫu nhỏ phù hợp điều kiện sử dụng. Không cần đưa hàng GB dữ liệu vào tệp source nộp nếu nộp bằng liên kết theo quy định.
-- Metrics, bảng tổng hợp, hình minh chứng, thông số huấn luyện, model hoặc đường dẫn tải nội bộ đã kiểm tra; video demo dự phòng.
-- Bảng phân công/đóng góp thực tế; checklist nghiệm thu; bằng chứng nộp Classroom do thành viên phụ trách lưu.
-
-**Kịch bản demo dự kiến 8–10 phút**, rút/gia tăng theo yêu cầu GV: bài toán và dữ liệu → NiFi chạy mẫu và nhánh lỗi → HDFS/Spark → dashboard trả lời câu hỏi → baseline/LR → hạn chế. Chuẩn bị sẵn artifact từ lần chạy lớn; không chờ huấn luyện lại toàn bộ trong buổi thuyết trình. Cả 3 thành viên đều có phần trình bày.
-
-## 10. Rủi ro và phương án xử lý
-
-| Rủi ro/tín hiệu | Hành động cụ thể | Chủ trì/hạn quyết định |
-|---|---|---|
-| Nhóm 3 người hoặc đề tài chưa được duyệt | Gửi đề cương và xin xác nhận; nếu GV chỉ cho 2 người, lập lại phân công/phạm vi trước triển khai chính thức | TV1, D1 |
-| Máy thiếu RAM/disk, tải dataset chậm | D2 đo mẫu, dự trù dung lượng; ưu tiên máy lab hoặc giảm mẫu có manifest; vẫn giữ luồng phân tán và công bố giới hạn | TV1, D2 |
-| Khác phiên bản/runtime hoặc không có processor mong đợi | Smoke NiFi → WebHDFS → Spark ngay D2–D3, khóa bản chạy được, dùng container runtime riêng | TV1, chậm nhất D3 |
-| CSV nhiều dòng/sai quote làm lệch record | Dùng parser theo record; fixture nhiều dòng; cách ly tệp lỗi; không bỏ âm thầm bằng tùy chọn ignore lỗi | TV1 + TV2, D3–D4 |
-| HTTP tới DataNode lỗi hoặc tệp ghi dở | Kiểm tra DNS/cổng từ container NiFi; ghi tạm/commit; retry có giới hạn và manifest; Spark chỉ đọc đợt hoàn tất | TV1, D4 |
-| Mất cân bằng nhãn, văn bản trùng, độ đo thấp | Baseline, group split, trọng số lớp trên train; báo cáo recall từng lớp và lỗi; không đặt kết quả giả để đạt mục tiêu | TV2, D6–D9 |
-| Dashboard lệch số liệu vì filter/sample/run khác nhau | Chốt grain của gold; dùng cùng run_id; kiểm tra ít nhất 3 tổ hợp filter bằng truy vấn độc lập | TV2 + TV3, D10–D11 |
-| Trễ lịch hoặc một người bận | Bỏ mở rộng; TV1 hỗ trợ job hiệu năng, TV3 hỗ trợ đối soát; dùng D13 sửa lỗi; cập nhật đóng góp thực | Cả nhóm, rà mỗi ngày |
-| Máy demo/mạng trục trặc | Lưu snapshot gold, metrics, ảnh UI và video; chuẩn bị dữ liệu demo offline, thử ở D14 | TV1 + TV3 |
-
-## 11. Tài liệu tham khảo và giới hạn của kế hoạch
-
-- R1/R2: hai PDF trong `Rule`, các trang viện dẫn ở mục 1; đây là căn cứ chính về yêu cầu và thang điểm.
-- [Dataset Kaggle](https://www.kaggle.com/datasets/najzeko/steam-reviews-2021/data), [metadata chi tiết](https://www.kaggle.com/api/v1/datasets/view/najzeko/steam-reviews-2021), [metadata danh sách](https://www.kaggle.com/api/v1/datasets/list?search=steam-reviews-2021): nguồn và quy mô do tác giả cung cấp; số đếm thực tế chờ D2.
-- [Steamworks — User Reviews](https://partner.steamgames.com/doc/store/getreviews): tham khảo ý nghĩa dữ liệu đánh giá; tên cột CSV vẫn phải đối chiếu tệp Kaggle.
-- [Apache NiFi](https://nifi.apache.org/index.html), [NiFi README](https://github.com/apache/nifi/blob/main/README.md), [CSVReader](https://nifi.apache.org/components/org.apache.nifi.csv.CSVReader/), [SplitRecord](https://nifi.apache.org/components/org.apache.nifi.processors.standard.SplitRecord/), [InvokeHTTP](https://nifi.apache.org/components/org.apache.nifi.processors.standard.InvokeHTTP/): cơ sở lựa chọn thành phần luồng.
-- [HDFS Architecture](https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-hdfs/HdfsDesign.html), [WebHDFS](https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-hdfs/WebHDFS.html): lưu trữ và giao tiếp HTTP với HDFS.
-- [Spark Classification and Regression](https://spark.apache.org/docs/latest/ml-classification-regression.html): thuật toán và API tham khảo cho mô hình.
-
-Tài liệu web kiểm tra ngày 01/10/2026. Các URL `latest`/`stable` có thể đổi; D2 phải ghi lại đúng phiên bản tài liệu tương ứng phần mềm đã khóa. Hạ tầng, mức mẫu, số biểu đồ, số giờ và mục tiêu mô hình là đề xuất thực hiện, không phải quy định được thêm vào từ giảng viên. Kế hoạch áp dụng nguyên tắc của skill `plan-writing`: đầu việc có sản phẩm, phụ thuộc và tiêu chí kiểm tra; mức chi tiết và tên `Plan.md` theo yêu cầu trực tiếp của người dùng.
-
-## 12. Giai đoạn cuối — kiểm chứng và điều kiện hoàn thành D13–D15
-
-| Mã | Phép kiểm tra | Điều kiện đạt/bằng chứng | Phụ trách |
-|---|---|---|---|
-| V1 | Kiểm tra quy định và gói nộp | Có xác nhận số người/đề tài/lịch; đầy đủ source, Word, PPT, demo, đóng góp | TV1 + TV3 |
-| V2 | Dựng và chạy lại theo README | TV3 chạy được smoke từ landing tới dashboard trên môi trường sạch; phiên bản/config đủ | TV3, TV1 hỗ trợ |
-| V3 | CSV và dữ liệu xấu | Fixture gồm dấu nháy, dấu phẩy, xuống dòng, Unicode, null/nhãn sai, ID trùng; kết quả đúng dự kiến | TV1 + TV2 |
-| V4 | Đối soát dữ liệu | `N_parseable = N_invalid_record + N_valid_pre_dedup`; `N_silver = N_valid_pre_dedup − N_duplicate_removed`; lỗi parse cấp tệp báo riêng | TV2 |
-| V5 | Chạy lại và gián đoạn | Nạp lại cùng batch không tăng số ID duy nhất; HDFS gián đoạn có retry/error, khôi phục xử lý được, không đọc tệp dở | TV1 |
-| V6 | Bằng chứng phân tán | HDFS có 2 DataNode và block replication đúng; Spark job có task trên executor thuộc các worker đã cấu hình; ghi rõ cụm một/nhiều máy | TV1 |
-| V7 | Chất lượng mô hình | Train/validation/test không giao ID/text hash; IDF fit train; baseline/LR cùng test; macro-F1, metrics từng lớp và lỗi được giải thích | TV2, TV3 review |
-| V8 | Dashboard | KPI khớp gold; ít nhất 3 tổ hợp filter đối soát đúng; trang rỗng không lỗi; phạm vi mẫu/ngày/đơn vị rõ | TV3 + TV2 |
-| V9 | Hiệu năng và quy mô | Có số đo ingest/ETL/train, RAM/disk, số record, cấu hình, full/subset; benchmark 1/2 worker cùng đầu vào, cùng tổng tài nguyên khi so sánh | TV1 + TV2 |
-| V10 | Hồ sơ và diễn tập | Word đúng thứ tự R2, PPT khớp số liệu, nguồn đầy đủ, mỗi người hiểu phần mình; lưu bằng chứng nộp và kiểm tra tệp mở được | Cả nhóm |
-
-V9 ghi throughput = số bản ghi thực xử lý / thời gian công đoạn, không trộn thời gian tải dữ liệu với ETL. Chạy benchmark ít nhất 2 lần/cấu hình khi đủ thời gian, ghi từng lần và trạng thái cache; không khẳng định khả năng mở rộng nhiều máy từ benchmark container chung một máy.
-
-- [ ] Hoàn thành V1–V10, mọi lỗi chặn demo đã sửa và kiểm tra lại.
-- [ ] Năm câu hỏi phân tích có kết quả, hình/bảng chứng minh và giới hạn diễn giải.
-- [ ] NiFi → HDFS → Spark → dashboard chạy được trên phạm vi dữ liệu đã công bố.
-- [ ] Baseline và mô hình được đánh giá trung thực; artifact và hướng dẫn tái lập sẵn sàng.
-- [ ] Báo cáo tiến độ và báo cáo hoàn chỉnh được chuẩn bị; nộp đúng thời điểm giảng viên yêu cầu.
-- [ ] Bảng đóng góp ghi công việc thực tế của từng thành viên; gói bàn giao có bản sao và bằng chứng nộp.
+| Rủi ro tiềm ẩn | Mức độ | Biện pháp phòng ngừa và xử lý | Người phụ trách |
+|---|:---:|---|:---:|
+| Tài nguyên máy tính cá nhân không đủ RAM để chạy đồng thời HDFS + Spark + NiFi | Cao | Sử dụng cấu hình container tinh giản (giới hạn bộ nhớ JVM); chạy theo giai đoạn (ingest xong dừng NiFi, sau đó chạy Spark); ưu tiên test trên tập Core Tier (~1M dòng). | TV1 |
+| CSV chứa dữ liệu lỗi, nhiều dòng (multiline), dấu quote bị hỏng làm vỡ parser | Trung bình | Sử dụng `CSVReader` theo chuẩn Record trong NiFi; xây dựng fixture kiểm thử với các trường hợp ngoại lệ; đẩy bản ghi hỏng vào Quarantine queue. | TV1 + TV3 |
+| Rò rỉ dữ liệu (Data Leakage) giữa các tập train/test trong bài toán văn bản | Cao | Chia tập dữ liệu dựa trên hash của nội dung văn bản (đảm bảo các review trùng nội dung hoàn toàn nằm cùng 1 tập); chỉ fit TF-IDF trên tập train. | TV2 |
+| Lệch số liệu giữa Dashboard và kết quả xử lý của Spark | Trung bình | Sử dụng chung `run_id` cho mỗi lần xử lý; chốt grain của bảng Gold; viết test đối soát độc lập ít nhất 3 tổ hợp filter. | TV1 + TV2 + TV3 |
+| Lỗi mạng hoặc sự cố phần cứng trong buổi thuyết trình & Demo | Trung bình | Xuất bản snapshot dữ liệu tĩnh cục bộ; chuẩn bị video quay sẵn toàn bộ quy trình demo ở độ phân giải cao; chuẩn bị slide chi tiết có ảnh chụp minh chứng. | TV1 |
