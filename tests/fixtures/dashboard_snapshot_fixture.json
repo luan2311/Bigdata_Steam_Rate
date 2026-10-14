@@ -1,0 +1,118 @@
+{
+  "metadata": {
+    "run_id": "run_20261001_smoke_fixture_01",
+    "dataset_version": "2021-v1-fixture",
+    "created_at": "2026-10-01T12:00:00Z",
+    "total_games": 5,
+    "total_valid_reviews": 10000,
+    "is_fixture": true
+  },
+  "quality_summary": {
+    "raw_records": 10500,
+    "valid_records": 10000,
+    "duplicate_records": 350,
+    "quarantine_records": 150,
+    "quarantine_by_reason": {
+      "missing_review_text": 80,
+      "invalid_created_timestamp": 45,
+      "missing_app_id": 25
+    }
+  },
+  "game_summary": [
+    {
+      "app_id": "730",
+      "app_name": "Counter-Strike: Global Offensive",
+      "total_reviews": 3500,
+      "recommended_count": 3080,
+      "recommendation_rate": 0.880
+    },
+    {
+      "app_id": "570",
+      "app_name": "Dota 2",
+      "total_reviews": 2800,
+      "recommended_count": 2324,
+      "recommendation_rate": 0.830
+    },
+    {
+      "app_id": "105600",
+      "app_name": "Terraria",
+      "total_reviews": 1800,
+      "recommended_count": 1746,
+      "recommendation_rate": 0.970
+    },
+    {
+      "app_id": "292030",
+      "app_name": "The Witcher 3: Wild Hunt",
+      "total_reviews": 1400,
+      "recommended_count": 1344,
+      "recommendation_rate": 0.960
+    },
+    {
+      "app_id": "252490",
+      "app_name": "Rust",
+      "total_reviews": 500,
+      "recommended_count": 385,
+      "recommendation_rate": 0.770
+    }
+  ],
+  "monthly_summary": [
+    { "year_month": "2020-01", "app_id": null, "language": null, "total_reviews": 1200, "recommended_count": 1020, "recommendation_rate": 0.850 },
+    { "year_month": "2020-02", "app_id": null, "language": null, "total_reviews": 1350, "recommended_count": 1134, "recommendation_rate": 0.840 },
+    { "year_month": "2020-03", "app_id": null, "language": null, "total_reviews": 1800, "recommended_count": 1566, "recommendation_rate": 0.870 },
+    { "year_month": "2020-04", "app_id": null, "language": null, "total_reviews": 1950, "recommended_count": 1696, "recommendation_rate": 0.870 },
+    { "year_month": "2020-05", "app_id": null, "language": null, "total_reviews": 1700, "recommended_count": 1445, "recommendation_rate": 0.850 },
+    { "year_month": "2020-06", "app_id": null, "language": null, "total_reviews": 2000, "recommended_count": 1720, "recommendation_rate": 0.860 }
+  ],
+  "language_summary": [
+    { "language": "english", "total_reviews": 5500, "recommendation_rate": 0.865 },
+    { "language": "schinese", "total_reviews": 2100, "recommendation_rate": 0.845 },
+    { "language": "russian", "total_reviews": 1300, "recommendation_rate": 0.820 },
+    { "language": "spanish", "total_reviews": 600, "recommendation_rate": 0.880 },
+    { "language": "unknown", "total_reviews": 500, "recommendation_rate": 0.790 }
+  ],
+  "playtime_summary": [
+    { "bin_label": "[0, 2h)", "min_hours": 0.0, "max_hours": 2.0, "total_reviews": 1200, "recommendation_rate": 0.680 },
+    { "bin_label": "[2h, 10h)", "min_hours": 2.0, "max_hours": 10.0, "total_reviews": 2300, "recommendation_rate": 0.790 },
+    { "bin_label": "[10h, 50h)", "min_hours": 10.0, "max_hours": 50.0, "total_reviews": 3500, "recommendation_rate": 0.860 },
+    { "bin_label": "[50h, 100h)", "min_hours": 50.0, "max_hours": 100.0, "total_reviews": 1800, "recommendation_rate": 0.910 },
+    { "bin_label": "[100h, +inf)", "min_hours": 100.0, "max_hours": null, "total_reviews": 1200, "recommendation_rate": 0.940 }
+  ],
+  "model_metrics": {
+    "split_manifest": {
+      "train_count": 7000,
+      "val_count": 1500,
+      "test_count": 1500
+    },
+    "baseline_metrics": {
+      "macro_f1": 0.463,
+      "accuracy": 0.865
+    },
+    "model_metrics": {
+      "macro_f1": 0.792,
+      "precision_class_1": 0.905,
+      "recall_class_1": 0.930,
+      "pr_auc": 0.925,
+      "reg_param": 0.01
+    },
+    "confusion_matrix": {
+      "true_negatives": 125,
+      "false_positives": 77,
+      "false_negatives": 91,
+      "true_positives": 1207
+    },
+    "sample_errors": [
+      {
+        "review_text": "Good game but toxic community and server lag killed all fun.",
+        "actual_label": 0,
+        "predicted_label": 1,
+        "error_type": "False Positive (Chứa từ ngữ tích cực xen kẽ phàn nàn)"
+      },
+      {
+        "review_text": "Warning: Highly addictive, say goodbye to your social life and sleep.",
+        "actual_label": 1,
+        "predicted_label": 0,
+        "error_type": "False Negative (Cách hành văn mỉa mai/nghịch lý)"
+      }
+    ]
+  }
+}
