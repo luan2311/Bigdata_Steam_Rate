@@ -56,10 +56,16 @@ def _print(title: str, payload) -> None:
 def cmd_etl(c: Container, args) -> None:
     level = DatasetLevel(args.level)
     run_id = RunId(args.run_id) if args.run_id else RunId.new(level)
-    local = Path(args.source)
-    if not local.exists():
-        raise FileNotFoundError(args.source)
-    source = DatasetReference(local.resolve().as_posix(), args.dataset_version, level, _sha256(local))
+    source_uri = str(args.source)
+    if source_uri.startswith("hdfs://") or source_uri.startswith("webhdfs://") or source_uri.startswith("http://"):
+        sha = getattr(args, "sha256", None) or "remote_hdfs_source"
+        source = DatasetReference(source_uri, args.dataset_version, level, sha)
+    else:
+        local = Path(source_uri)
+        if not local.exists():
+            raise FileNotFoundError(args.source)
+        sha = getattr(args, "sha256", None) or _sha256(local)
+        source = DatasetReference(local.resolve().as_posix(), args.dataset_version, level, sha)
     cleaned = c.clean_reviews().execute(CleanRequest(
         source, run_id, c.config.lake("silver", run_id), c.config.lake("quarantine", run_id)))
     _print("clean", cleaned.counts)
@@ -109,6 +115,7 @@ def build_parser() -> argparse.ArgumentParser:
     etl.add_argument("--level", choices=[lv.value for lv in DatasetLevel], required=True)
     etl.add_argument("--dataset-version", default="v1")
     etl.add_argument("--run-id")
+    etl.add_argument("--sha256", help="Checksum SHA-256 (tùy chọn khi đọc từ HDFS hoặc đã có manifest)")
     etl.set_defaults(handler=cmd_etl)
 
     prep = sub.add_parser("ml-prepare", help="english scope + hash split + leakage check")

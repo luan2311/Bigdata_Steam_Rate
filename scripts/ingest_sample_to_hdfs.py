@@ -44,6 +44,20 @@ def batch_to_csv_bytes(header, rows):
     writer.writerows(rows)
     return buf.getvalue().encode("utf-8")
 
+def _resolve_docker_redirect_url(url: str) -> str:
+    """
+    Khi gọi WebHDFS từ máy host bên ngoài Docker, NameNode chuyển hướng sang hostname container:
+    - hdfs-datanode-1:9864 -> localhost:9864
+    - hdfs-datanode-2:9864 -> localhost:9865 (host port mapping)
+    """
+    import re
+    if "hdfs-datanode-2" in url:
+        return re.sub(r"hdfs-datanode-2(:\d+)?", "localhost:9865", url)
+    elif "hdfs-datanode-1" in url:
+        return re.sub(r"hdfs-datanode-1(:\d+)?", "localhost:9864", url)
+    return url
+
+
 def upload_to_webhdfs(hdfs_path: str, data_bytes: bytes, base_url: str = WEBHDFS_BASE):
     """
     Quy trình WebHDFS CREATE 2 bước chuẩn:
@@ -55,11 +69,10 @@ def upload_to_webhdfs(hdfs_path: str, data_bytes: bytes, base_url: str = WEBHDFS
     
     res1 = requests.put(create_url, allow_redirects=False, timeout=30)
     if res1.status_code == 307:
-        redirect_url = res1.headers["Location"]
-        print(f"[*] Bước 2: Nhận redirect tới DataNode: {redirect_url}")
+        raw_location = res1.headers["Location"]
+        redirect_url = _resolve_docker_redirect_url(raw_location)
+        print(f"[*] Bước 2: Nhận redirect tới DataNode ({raw_location}) -> Resolved: {redirect_url}")
         
-        # Nếu chạy từ host ngoài docker, cần ánh xạ hostname sang localhost nếu cần
-        # Ví dụ hdfs-datanode-1 -> localhost
         res2 = requests.put(redirect_url, data=data_bytes, headers={"Content-Type": "application/octet-stream"}, timeout=60)
         if res2.status_code in [200, 201]:
             print(f"[+] Nạp thành công {len(data_bytes):,} bytes vào HDFS: {hdfs_path}")
@@ -78,7 +91,10 @@ def verify_hdfs_content(hdfs_path: str, base_url: str = WEBHDFS_BASE):
     """Đọc lại dữ liệu từ WebHDFS và đếm số lượng logical records"""
     open_url = f"{base_url}{hdfs_path}?op=OPEN"
     print(f"[*] Đọc kiểm chứng từ HDFS: {open_url}")
-    res = requests.get(open_url, timeout=30)
+    res = requests.get(open_url, allow_redirects=False, timeout=30)
+    if res.status_code == 307:
+        redirect_url = _resolve_docker_redirect_url(res.headers["Location"])
+        res = requests.get(redirect_url, timeout=30)
     if res.status_code == 200:
         content = res.content.decode("utf-8", errors="replace")
         reader = csv.reader(io.StringIO(content))

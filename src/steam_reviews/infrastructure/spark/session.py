@@ -24,9 +24,26 @@ def _prepare_windows_hadoop() -> None:
         return
     hadoop_home = os.environ.get("HADOOP_HOME")
     if not hadoop_home:
-        raise RuntimeError("Set HADOOP_HOME to a folder containing bin\\winutils.exe and bin\\hadoop.dll")
+        try:
+            import winreg
+            with winreg.OpenKey(winreg.HKEY_CURRENT_USER, r"Environment") as key:
+                hadoop_home, _ = winreg.QueryValueEx(key, "HADOOP_HOME")
+                os.environ["HADOOP_HOME"] = hadoop_home
+        except Exception:
+            pass
+
+    if not hadoop_home:
+        import warnings
+        warnings.warn(
+            "Biến môi trường HADOOP_HOME chưa được thiết lập trên Windows. "
+            "Một số tác vụ lưu Parquet cục bộ có thể cần winutils.exe/hadoop.dll.",
+            UserWarning,
+            stacklevel=2,
+        )
+        return
+
     hadoop_bin = os.path.join(hadoop_home, "bin")
-    if hadoop_bin not in os.environ.get("PATH", ""):
+    if os.path.exists(hadoop_bin) and hadoop_bin not in os.environ.get("PATH", ""):
         os.environ["PATH"] = hadoop_bin + os.pathsep + os.environ.get("PATH", "")
 
 
