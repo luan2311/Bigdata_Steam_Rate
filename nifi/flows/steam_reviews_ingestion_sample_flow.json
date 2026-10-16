@@ -1,81 +1,25 @@
 {
-  "flowEncodingVersion": "1.0",
-  "flow": {
-    "identifier": "steam-reviews-ingestion-v1",
-    "instanceIdentifier": "8f2e4b3c-910a-4a21-9923-d8b5a1b3e100",
+  "flowContents": {
+    "identifier": "d1eec782-0b4d-3658-a278-24a6e93d3977",
+    "instanceIdentifier": "42d5ed12-01a1-1000-2014-bebbdad8b46f",
     "name": "Steam Reviews Ingestion Flow (Sample 10K)",
-    "comments": "Luồng tiếp nhận dữ liệu Steam Reviews mẫu (~10.000 bản ghi) từ thư mục cục bộ vào HDFS Bronze qua WebHDFS REST API",
+    "comments": "Luồng tiếp nhận dữ liệu Steam Reviews mẫu (~10.000 bản ghi) từ Landing Zone vào HDFS Bronze qua WebHDFS REST API",
     "position": {
       "x": 300.0,
-      "y": 100.0
+      "y": 150.0
     },
     "processGroups": [],
+    "remoteProcessGroups": [],
     "processors": [
       {
-        "identifier": "proc-list-file-01",
-        "name": "ListFile - Quét tệp mẫu",
-        "type": "org.apache.nifi.processors.standard.ListFile",
-        "bundle": {
-          "group": "org.apache.nifi",
-          "artifact": "nifi-standard-nar",
-          "version": "2.0.0"
+        "identifier": "a090ac60-ec1a-367a-809f-8253b9badd0f",
+        "instanceIdentifier": "42d5edf8-01a1-1000-85d1-d9e833b22077",
+        "name": "InvokeHTTP - Đẩy vào HDFS WebHDFS",
+        "comments": "",
+        "position": {
+          "x": 300.0,
+          "y": 680.0
         },
-        "properties": {
-          "Input Directory": "/opt/nifi/data/sample",
-          "File Filter": "steam_reviews_sample_10k\\.csv",
-          "Recurse Subdirectories": "false",
-          "Minimum File Age": "0 sec"
-        },
-        "schedulingPeriod": "10 sec",
-        "schedulingStrategy": "TIMER_DRIVEN"
-      },
-      {
-        "identifier": "proc-fetch-file-02",
-        "name": "FetchFile - Nạp nội dung tệp",
-        "type": "org.apache.nifi.processors.standard.FetchFile",
-        "bundle": {
-          "group": "org.apache.nifi",
-          "artifact": "nifi-standard-nar",
-          "version": "2.0.0"
-        },
-        "properties": {
-          "File to Fetch": "${absolute.path}/${filename}",
-          "Completion Strategy": "None"
-        }
-      },
-      {
-        "identifier": "proc-split-record-03",
-        "name": "SplitRecord - Chia lô theo bản ghi logic",
-        "type": "org.apache.nifi.processors.standard.SplitRecord",
-        "bundle": {
-          "group": "org.apache.nifi",
-          "artifact": "nifi-standard-nar",
-          "version": "2.0.0"
-        },
-        "properties": {
-          "Record Reader": "service-csv-reader-01",
-          "Record Writer": "service-csv-writer-01",
-          "Records Per Split": "5000"
-        }
-      },
-      {
-        "identifier": "proc-update-attr-04",
-        "name": "UpdateAttribute - Đính kèm Metadata & Batch ID",
-        "type": "org.apache.nifi.processors.attributes.UpdateAttribute",
-        "bundle": {
-          "group": "org.apache.nifi",
-          "artifact": "nifi-update-attribute-nar",
-          "version": "2.0.0"
-        },
-        "properties": {
-          "batch_id": "batch_sample_${now():format('yyyyMMdd_HHmmss')}_${fragment.index}",
-          "webhdfs.target.path": "/steam/bronze/sample/batch_${fragment.index}.csv",
-          "webhdfs.url": "http://hdfs-namenode:9870/webhdfs/v1/steam/bronze/sample/batch_${fragment.index}.csv?op=CREATE&overwrite=true"
-        }
-      },
-      {
-        "identifier": "proc-invoke-http-05",
-        "name": "InvokeHTTP - Đẩy vào HDFS qua WebHDFS",
         "type": "org.apache.nifi.processors.standard.InvokeHTTP",
         "bundle": {
           "group": "org.apache.nifi",
@@ -83,18 +27,475 @@
           "version": "2.0.0"
         },
         "properties": {
+          "Request Content-Encoding": "DISABLED",
+          "proxy-configuration-service": null,
+          "Request Multipart Form-Data Filename Enabled": "true",
+          "Request Chunked Transfer-Encoding Enabled": "false",
+          "HTTP/2 Disabled": "False",
+          "Connection Timeout": "5 secs",
+          "Response Cookie Strategy": "DISABLED",
+          "Socket Read Timeout": "15 secs",
+          "Socket Idle Connections": "5",
+          "Request Body Enabled": "true",
+          "HTTP URL": "http://hdfs-namenode:9870/webhdfs/v1/steam/bronze/sample/batch_01.csv?op=CREATE",
+          "Request OAuth2 Access Token Provider": null,
+          "Socket Idle Timeout": "5 mins",
+          "Response Redirects Enabled": "True",
+          "Socket Write Timeout": "15 secs",
+          "Request Header Attributes Pattern": null,
+          "Response FlowFile Naming Strategy": "RANDOM",
+          "Response Cache Enabled": "false",
+          "Request Date Header Enabled": "True",
+          "Request Failure Penalization Enabled": "false",
+          "Response Body Attribute Size": "256",
+          "SSL Context Service": null,
+          "Response Generation Required": "false",
+          "Request User-Agent": null,
+          "Response Header Request Attributes Enabled": "false",
           "HTTP Method": "PUT",
-          "Remote URL": "${webhdfs.url}",
-          "Follow Redirects": "true",
-          "Connection Timeout": "30 secs",
-          "Read Timeout": "30 secs",
-          "Content-Type": "text/csv; charset=UTF-8",
-          "Send Message Body": "true"
-        }
+          "Request Username": null,
+          "Request Content-Type": "${mime.type}",
+          "Response Body Attribute Name": null,
+          "Request Digest Authentication Enabled": "false",
+          "Request Multipart Form-Data Name": null,
+          "Response Cache Size": "10MB",
+          "Response Body Ignored": "false"
+        },
+        "propertyDescriptors": {
+          "Request Content-Encoding": {
+            "name": "Request Content-Encoding",
+            "displayName": "Request Content-Encoding",
+            "identifiesControllerService": false,
+            "sensitive": false,
+            "dynamic": false
+          },
+          "proxy-configuration-service": {
+            "name": "proxy-configuration-service",
+            "displayName": "Proxy Configuration Service",
+            "identifiesControllerService": true,
+            "sensitive": false,
+            "dynamic": false
+          },
+          "Request Multipart Form-Data Filename Enabled": {
+            "name": "Request Multipart Form-Data Filename Enabled",
+            "displayName": "Request Multipart Form-Data Filename Enabled",
+            "identifiesControllerService": false,
+            "sensitive": false,
+            "dynamic": false
+          },
+          "Request Chunked Transfer-Encoding Enabled": {
+            "name": "Request Chunked Transfer-Encoding Enabled",
+            "displayName": "Request Chunked Transfer-Encoding Enabled",
+            "identifiesControllerService": false,
+            "sensitive": false,
+            "dynamic": false
+          },
+          "HTTP/2 Disabled": {
+            "name": "HTTP/2 Disabled",
+            "displayName": "HTTP/2 Disabled",
+            "identifiesControllerService": false,
+            "sensitive": false,
+            "dynamic": false
+          },
+          "Connection Timeout": {
+            "name": "Connection Timeout",
+            "displayName": "Connection Timeout",
+            "identifiesControllerService": false,
+            "sensitive": false,
+            "dynamic": false
+          },
+          "Response Cookie Strategy": {
+            "name": "Response Cookie Strategy",
+            "displayName": "Response Cookie Strategy",
+            "identifiesControllerService": false,
+            "sensitive": false,
+            "dynamic": false
+          },
+          "Request Password": {
+            "name": "Request Password",
+            "displayName": "Request Password",
+            "identifiesControllerService": false,
+            "sensitive": true,
+            "dynamic": false
+          },
+          "Socket Read Timeout": {
+            "name": "Socket Read Timeout",
+            "displayName": "Socket Read Timeout",
+            "identifiesControllerService": false,
+            "sensitive": false,
+            "dynamic": false
+          },
+          "Socket Idle Connections": {
+            "name": "Socket Idle Connections",
+            "displayName": "Socket Idle Connections",
+            "identifiesControllerService": false,
+            "sensitive": false,
+            "dynamic": false
+          },
+          "Request Body Enabled": {
+            "name": "Request Body Enabled",
+            "displayName": "Request Body Enabled",
+            "identifiesControllerService": false,
+            "sensitive": false,
+            "dynamic": false
+          },
+          "HTTP URL": {
+            "name": "HTTP URL",
+            "displayName": "HTTP URL",
+            "identifiesControllerService": false,
+            "sensitive": false,
+            "dynamic": false
+          },
+          "Request OAuth2 Access Token Provider": {
+            "name": "Request OAuth2 Access Token Provider",
+            "displayName": "Request OAuth2 Access Token Provider",
+            "identifiesControllerService": true,
+            "sensitive": false,
+            "dynamic": false
+          },
+          "Socket Idle Timeout": {
+            "name": "Socket Idle Timeout",
+            "displayName": "Socket Idle Timeout",
+            "identifiesControllerService": false,
+            "sensitive": false,
+            "dynamic": false
+          },
+          "Response Redirects Enabled": {
+            "name": "Response Redirects Enabled",
+            "displayName": "Response Redirects Enabled",
+            "identifiesControllerService": false,
+            "sensitive": false,
+            "dynamic": false
+          },
+          "Socket Write Timeout": {
+            "name": "Socket Write Timeout",
+            "displayName": "Socket Write Timeout",
+            "identifiesControllerService": false,
+            "sensitive": false,
+            "dynamic": false
+          },
+          "Request Header Attributes Pattern": {
+            "name": "Request Header Attributes Pattern",
+            "displayName": "Request Header Attributes Pattern",
+            "identifiesControllerService": false,
+            "sensitive": false,
+            "dynamic": false
+          },
+          "Response FlowFile Naming Strategy": {
+            "name": "Response FlowFile Naming Strategy",
+            "displayName": "Response FlowFile Naming Strategy",
+            "identifiesControllerService": false,
+            "sensitive": false,
+            "dynamic": false
+          },
+          "Response Cache Enabled": {
+            "name": "Response Cache Enabled",
+            "displayName": "Response Cache Enabled",
+            "identifiesControllerService": false,
+            "sensitive": false,
+            "dynamic": false
+          },
+          "Request Date Header Enabled": {
+            "name": "Request Date Header Enabled",
+            "displayName": "Request Date Header Enabled",
+            "identifiesControllerService": false,
+            "sensitive": false,
+            "dynamic": false
+          },
+          "Request Failure Penalization Enabled": {
+            "name": "Request Failure Penalization Enabled",
+            "displayName": "Request Failure Penalization Enabled",
+            "identifiesControllerService": false,
+            "sensitive": false,
+            "dynamic": false
+          },
+          "Response Body Attribute Size": {
+            "name": "Response Body Attribute Size",
+            "displayName": "Response Body Attribute Size",
+            "identifiesControllerService": false,
+            "sensitive": false,
+            "dynamic": false
+          },
+          "SSL Context Service": {
+            "name": "SSL Context Service",
+            "displayName": "SSL Context Service",
+            "identifiesControllerService": true,
+            "sensitive": false,
+            "dynamic": false
+          },
+          "Response Generation Required": {
+            "name": "Response Generation Required",
+            "displayName": "Response Generation Required",
+            "identifiesControllerService": false,
+            "sensitive": false,
+            "dynamic": false
+          },
+          "Request User-Agent": {
+            "name": "Request User-Agent",
+            "displayName": "Request User-Agent",
+            "identifiesControllerService": false,
+            "sensitive": false,
+            "dynamic": false
+          },
+          "Response Header Request Attributes Enabled": {
+            "name": "Response Header Request Attributes Enabled",
+            "displayName": "Response Header Request Attributes Enabled",
+            "identifiesControllerService": false,
+            "sensitive": false,
+            "dynamic": false
+          },
+          "HTTP Method": {
+            "name": "HTTP Method",
+            "displayName": "HTTP Method",
+            "identifiesControllerService": false,
+            "sensitive": false,
+            "dynamic": false
+          },
+          "Request Username": {
+            "name": "Request Username",
+            "displayName": "Request Username",
+            "identifiesControllerService": false,
+            "sensitive": false,
+            "dynamic": false
+          },
+          "Request Content-Type": {
+            "name": "Request Content-Type",
+            "displayName": "Request Content-Type",
+            "identifiesControllerService": false,
+            "sensitive": false,
+            "dynamic": false
+          },
+          "Response Body Attribute Name": {
+            "name": "Response Body Attribute Name",
+            "displayName": "Response Body Attribute Name",
+            "identifiesControllerService": false,
+            "sensitive": false,
+            "dynamic": false
+          },
+          "Request Digest Authentication Enabled": {
+            "name": "Request Digest Authentication Enabled",
+            "displayName": "Request Digest Authentication Enabled",
+            "identifiesControllerService": false,
+            "sensitive": false,
+            "dynamic": false
+          },
+          "Request Multipart Form-Data Name": {
+            "name": "Request Multipart Form-Data Name",
+            "displayName": "Request Multipart Form-Data Name",
+            "identifiesControllerService": false,
+            "sensitive": false,
+            "dynamic": false
+          },
+          "Response Cache Size": {
+            "name": "Response Cache Size",
+            "displayName": "Response Cache Size",
+            "identifiesControllerService": false,
+            "sensitive": false,
+            "dynamic": false
+          },
+          "Response Body Ignored": {
+            "name": "Response Body Ignored",
+            "displayName": "Response Body Ignored",
+            "identifiesControllerService": false,
+            "sensitive": false,
+            "dynamic": false
+          }
+        },
+        "style": {},
+        "schedulingPeriod": "0 sec",
+        "schedulingStrategy": "TIMER_DRIVEN",
+        "executionNode": "ALL",
+        "penaltyDuration": "30 sec",
+        "yieldDuration": "1 sec",
+        "bulletinLevel": "WARN",
+        "runDurationMillis": 0,
+        "concurrentlySchedulableTaskCount": 1,
+        "autoTerminatedRelationships": [
+          "Response",
+          "Retry",
+          "Original"
+        ],
+        "scheduledState": "ENABLED",
+        "retryCount": 10,
+        "retriedRelationships": [],
+        "backoffMechanism": "PENALIZE_FLOWFILE",
+        "maxBackoffPeriod": "10 mins",
+        "componentType": "PROCESSOR",
+        "groupIdentifier": "d1eec782-0b4d-3658-a278-24a6e93d3977"
       },
       {
-        "identifier": "proc-log-quarantine-06",
+        "identifier": "ad5fbdb2-3a86-3849-bd0a-5ea0b56f3b89",
+        "instanceIdentifier": "42d5edbe-01a1-1000-56bd-aed90f40803b",
+        "name": "SplitText - Phân lô 5000 dòng",
+        "comments": "",
+        "position": {
+          "x": 300.0,
+          "y": 450.0
+        },
+        "type": "org.apache.nifi.processors.standard.SplitText",
+        "bundle": {
+          "group": "org.apache.nifi",
+          "artifact": "nifi-standard-nar",
+          "version": "2.0.0"
+        },
+        "properties": {
+          "Remove Trailing Newlines": "true",
+          "Maximum Fragment Size": null,
+          "Header Line Marker Characters": null,
+          "Header Line Count": "1",
+          "Line Split Count": "5000"
+        },
+        "propertyDescriptors": {
+          "Remove Trailing Newlines": {
+            "name": "Remove Trailing Newlines",
+            "displayName": "Remove Trailing Newlines",
+            "identifiesControllerService": false,
+            "sensitive": false,
+            "dynamic": false
+          },
+          "Maximum Fragment Size": {
+            "name": "Maximum Fragment Size",
+            "displayName": "Maximum Fragment Size",
+            "identifiesControllerService": false,
+            "sensitive": false,
+            "dynamic": false
+          },
+          "Header Line Marker Characters": {
+            "name": "Header Line Marker Characters",
+            "displayName": "Header Line Marker Characters",
+            "identifiesControllerService": false,
+            "sensitive": false,
+            "dynamic": false
+          },
+          "Header Line Count": {
+            "name": "Header Line Count",
+            "displayName": "Header Line Count",
+            "identifiesControllerService": false,
+            "sensitive": false,
+            "dynamic": false
+          },
+          "Line Split Count": {
+            "name": "Line Split Count",
+            "displayName": "Line Split Count",
+            "identifiesControllerService": false,
+            "sensitive": false,
+            "dynamic": false
+          }
+        },
+        "style": {},
+        "schedulingPeriod": "0 sec",
+        "schedulingStrategy": "TIMER_DRIVEN",
+        "executionNode": "ALL",
+        "penaltyDuration": "30 sec",
+        "yieldDuration": "1 sec",
+        "bulletinLevel": "WARN",
+        "runDurationMillis": 0,
+        "concurrentlySchedulableTaskCount": 1,
+        "autoTerminatedRelationships": [
+          "original"
+        ],
+        "scheduledState": "ENABLED",
+        "retryCount": 10,
+        "retriedRelationships": [],
+        "backoffMechanism": "PENALIZE_FLOWFILE",
+        "maxBackoffPeriod": "10 mins",
+        "componentType": "PROCESSOR",
+        "groupIdentifier": "d1eec782-0b4d-3658-a278-24a6e93d3977"
+      },
+      {
+        "identifier": "c14ca0e4-4c5f-352a-9a1f-47f6f1ddca0c",
+        "instanceIdentifier": "42d5ed84-01a1-1000-6b36-f7f55a4f3122",
+        "name": "FetchFile - Nạp nội dung tệp",
+        "comments": "",
+        "position": {
+          "x": 300.0,
+          "y": 250.0
+        },
+        "type": "org.apache.nifi.processors.standard.FetchFile",
+        "bundle": {
+          "group": "org.apache.nifi",
+          "artifact": "nifi-standard-nar",
+          "version": "2.0.0"
+        },
+        "properties": {
+          "Move Conflict Strategy": "Rename",
+          "Log level when file not found": "ERROR",
+          "Move Destination Directory": null,
+          "Log level when permission denied": "ERROR",
+          "File to Fetch": "${absolute.path}/${filename}",
+          "Completion Strategy": "None"
+        },
+        "propertyDescriptors": {
+          "Move Conflict Strategy": {
+            "name": "Move Conflict Strategy",
+            "displayName": "Move Conflict Strategy",
+            "identifiesControllerService": false,
+            "sensitive": false,
+            "dynamic": false
+          },
+          "Log level when file not found": {
+            "name": "Log level when file not found",
+            "displayName": "Log level when file not found",
+            "identifiesControllerService": false,
+            "sensitive": false,
+            "dynamic": false
+          },
+          "Move Destination Directory": {
+            "name": "Move Destination Directory",
+            "displayName": "Move Destination Directory",
+            "identifiesControllerService": false,
+            "sensitive": false,
+            "dynamic": false
+          },
+          "Log level when permission denied": {
+            "name": "Log level when permission denied",
+            "displayName": "Log level when permission denied",
+            "identifiesControllerService": false,
+            "sensitive": false,
+            "dynamic": false
+          },
+          "File to Fetch": {
+            "name": "File to Fetch",
+            "displayName": "File to Fetch",
+            "identifiesControllerService": false,
+            "sensitive": false,
+            "dynamic": false
+          },
+          "Completion Strategy": {
+            "name": "Completion Strategy",
+            "displayName": "Completion Strategy",
+            "identifiesControllerService": false,
+            "sensitive": false,
+            "dynamic": false
+          }
+        },
+        "style": {},
+        "schedulingPeriod": "0 sec",
+        "schedulingStrategy": "TIMER_DRIVEN",
+        "executionNode": "ALL",
+        "penaltyDuration": "30 sec",
+        "yieldDuration": "1 sec",
+        "bulletinLevel": "WARN",
+        "runDurationMillis": 0,
+        "concurrentlySchedulableTaskCount": 1,
+        "autoTerminatedRelationships": [],
+        "scheduledState": "ENABLED",
+        "retryCount": 10,
+        "retriedRelationships": [],
+        "backoffMechanism": "PENALIZE_FLOWFILE",
+        "maxBackoffPeriod": "10 mins",
+        "componentType": "PROCESSOR",
+        "groupIdentifier": "d1eec782-0b4d-3658-a278-24a6e93d3977"
+      },
+      {
+        "identifier": "3f55fd15-f7f8-38da-ac2a-c25caef891ff",
+        "instanceIdentifier": "42d5ee31-01a1-1000-8f1c-eda8c375903a",
         "name": "LogAttribute - Cách ly bản ghi lỗi (Quarantine)",
+        "comments": "",
+        "position": {
+          "x": 820.0,
+          "y": 450.0
+        },
         "type": "org.apache.nifi.processors.standard.LogAttribute",
         "bundle": {
           "group": "org.apache.nifi",
@@ -102,104 +503,557 @@
           "version": "2.0.0"
         },
         "properties": {
+          "Log prefix": null,
+          "character-set": "UTF-8",
+          "Log FlowFile Properties": "true",
           "Log Level": "warn",
-          "Log Payload": "false",
-          "Attributes to Log": "filename,batch_id,record.error,invokehttp.status.code"
-        }
-      }
-    ],
-    "controllerServices": [
-      {
-        "identifier": "service-csv-reader-01",
-        "name": "CSVReader - Bộ đọc Record đa dòng hỗ trợ Unicode",
-        "type": "org.apache.nifi.csv.CSVReader",
-        "bundle": {
-          "group": "org.apache.nifi",
-          "artifact": "nifi-record-serialization-services-nar",
-          "version": "2.0.0"
+          "attributes-to-ignore-regex": null,
+          "Attributes to Ignore": null,
+          "Attributes to Log": null,
+          "attributes-to-log-regex": ".*",
+          "Output Format": "Line per Attribute",
+          "Log Payload": "false"
         },
-        "properties": {
-          "schema-access-strategy": "infer-schema",
-          "csv-reader-csv-parser": "commons-csv",
-          "value-separator": ",",
-          "skip-header-line": "true",
-          "quote-character": "\"",
-          "escape-character": "\\",
-          "character-set": "UTF-8"
-        }
+        "propertyDescriptors": {
+          "Log prefix": {
+            "name": "Log prefix",
+            "displayName": "Log prefix",
+            "identifiesControllerService": false,
+            "sensitive": false,
+            "dynamic": false
+          },
+          "character-set": {
+            "name": "character-set",
+            "displayName": "Character Set",
+            "identifiesControllerService": false,
+            "sensitive": false,
+            "dynamic": false
+          },
+          "Log FlowFile Properties": {
+            "name": "Log FlowFile Properties",
+            "displayName": "Log FlowFile Properties",
+            "identifiesControllerService": false,
+            "sensitive": false,
+            "dynamic": false
+          },
+          "Log Level": {
+            "name": "Log Level",
+            "displayName": "Log Level",
+            "identifiesControllerService": false,
+            "sensitive": false,
+            "dynamic": false
+          },
+          "attributes-to-ignore-regex": {
+            "name": "attributes-to-ignore-regex",
+            "displayName": "Attributes to Ignore by Regular Expression",
+            "identifiesControllerService": false,
+            "sensitive": false,
+            "dynamic": false
+          },
+          "Attributes to Ignore": {
+            "name": "Attributes to Ignore",
+            "displayName": "Attributes to Ignore",
+            "identifiesControllerService": false,
+            "sensitive": false,
+            "dynamic": false
+          },
+          "Attributes to Log": {
+            "name": "Attributes to Log",
+            "displayName": "Attributes to Log",
+            "identifiesControllerService": false,
+            "sensitive": false,
+            "dynamic": false
+          },
+          "attributes-to-log-regex": {
+            "name": "attributes-to-log-regex",
+            "displayName": "Attributes to Log by Regular Expression",
+            "identifiesControllerService": false,
+            "sensitive": false,
+            "dynamic": false
+          },
+          "Output Format": {
+            "name": "Output Format",
+            "displayName": "Output Format",
+            "identifiesControllerService": false,
+            "sensitive": false,
+            "dynamic": false
+          },
+          "Log Payload": {
+            "name": "Log Payload",
+            "displayName": "Log Payload",
+            "identifiesControllerService": false,
+            "sensitive": false,
+            "dynamic": false
+          }
+        },
+        "style": {},
+        "schedulingPeriod": "0 sec",
+        "schedulingStrategy": "TIMER_DRIVEN",
+        "executionNode": "ALL",
+        "penaltyDuration": "30 sec",
+        "yieldDuration": "1 sec",
+        "bulletinLevel": "WARN",
+        "runDurationMillis": 25,
+        "concurrentlySchedulableTaskCount": 1,
+        "autoTerminatedRelationships": [
+          "success"
+        ],
+        "scheduledState": "ENABLED",
+        "retryCount": 10,
+        "retriedRelationships": [],
+        "backoffMechanism": "PENALIZE_FLOWFILE",
+        "maxBackoffPeriod": "10 mins",
+        "componentType": "PROCESSOR",
+        "groupIdentifier": "d1eec782-0b4d-3658-a278-24a6e93d3977"
       },
       {
-        "identifier": "service-csv-writer-01",
-        "name": "CSVRecordSetWriter - Bộ ghi Record chuẩn hóa UTF-8",
-        "type": "org.apache.nifi.csv.CSVRecordSetWriter",
+        "identifier": "f99e61b0-b4ef-30a1-9e4a-5ffce3ac1fdf",
+        "instanceIdentifier": "42d5ed46-01a1-1000-fcb0-5306f9b3220a",
+        "name": "ListFile - Quét tệp mẫu CSV",
+        "comments": "",
+        "position": {
+          "x": 300.0,
+          "y": 50.0
+        },
+        "type": "org.apache.nifi.processors.standard.ListFile",
         "bundle": {
           "group": "org.apache.nifi",
-          "artifact": "nifi-record-serialization-services-nar",
+          "artifact": "nifi-standard-nar",
           "version": "2.0.0"
         },
         "properties": {
-          "schema-access-strategy": "inherit-record-schema",
-          "value-separator": ",",
-          "include-header-line": "true",
-          "quote-character": "\"",
-          "escape-character": "\\",
-          "character-set": "UTF-8"
-        }
+          "Minimum File Age": "0 sec",
+          "et-initial-listing-target": "all",
+          "Maximum File Age": null,
+          "max-listing-time": "3 mins",
+          "record-writer": null,
+          "Maximum File Size": null,
+          "et-time-window": "3 hours",
+          "et-node-identifier": "${hostname()}",
+          "Recurse Subdirectories": "true",
+          "File Filter": "steam_reviews_sample_10k\\.csv",
+          "Path Filter": null,
+          "Include File Attributes": "true",
+          "Input Directory Location": "Local",
+          "listing-strategy": "timestamps",
+          "Input Directory": "/opt/nifi/data/sample",
+          "target-system-timestamp-precision": "auto-detect",
+          "track-performance": "false",
+          "max-performance-metrics": "100000",
+          "Minimum File Size": "0 B",
+          "Ignore Hidden Files": "true",
+          "et-state-cache": null,
+          "max-operation-time": "10 secs"
+        },
+        "propertyDescriptors": {
+          "Minimum File Age": {
+            "name": "Minimum File Age",
+            "displayName": "Minimum File Age",
+            "identifiesControllerService": false,
+            "sensitive": false,
+            "dynamic": false
+          },
+          "et-initial-listing-target": {
+            "name": "et-initial-listing-target",
+            "displayName": "Entity Tracking Initial Listing Target",
+            "identifiesControllerService": false,
+            "sensitive": false,
+            "dynamic": false
+          },
+          "Maximum File Age": {
+            "name": "Maximum File Age",
+            "displayName": "Maximum File Age",
+            "identifiesControllerService": false,
+            "sensitive": false,
+            "dynamic": false
+          },
+          "max-listing-time": {
+            "name": "max-listing-time",
+            "displayName": "Max Directory Listing Time",
+            "identifiesControllerService": false,
+            "sensitive": false,
+            "dynamic": false
+          },
+          "record-writer": {
+            "name": "record-writer",
+            "displayName": "Record Writer",
+            "identifiesControllerService": true,
+            "sensitive": false,
+            "dynamic": false
+          },
+          "Maximum File Size": {
+            "name": "Maximum File Size",
+            "displayName": "Maximum File Size",
+            "identifiesControllerService": false,
+            "sensitive": false,
+            "dynamic": false
+          },
+          "et-time-window": {
+            "name": "et-time-window",
+            "displayName": "Entity Tracking Time Window",
+            "identifiesControllerService": false,
+            "sensitive": false,
+            "dynamic": false
+          },
+          "et-node-identifier": {
+            "name": "et-node-identifier",
+            "displayName": "Entity Tracking Node Identifier",
+            "identifiesControllerService": false,
+            "sensitive": false,
+            "dynamic": false
+          },
+          "Recurse Subdirectories": {
+            "name": "Recurse Subdirectories",
+            "displayName": "Recurse Subdirectories",
+            "identifiesControllerService": false,
+            "sensitive": false,
+            "dynamic": false
+          },
+          "File Filter": {
+            "name": "File Filter",
+            "displayName": "File Filter",
+            "identifiesControllerService": false,
+            "sensitive": false,
+            "dynamic": false
+          },
+          "Path Filter": {
+            "name": "Path Filter",
+            "displayName": "Path Filter",
+            "identifiesControllerService": false,
+            "sensitive": false,
+            "dynamic": false
+          },
+          "Include File Attributes": {
+            "name": "Include File Attributes",
+            "displayName": "Include File Attributes",
+            "identifiesControllerService": false,
+            "sensitive": false,
+            "dynamic": false
+          },
+          "Input Directory Location": {
+            "name": "Input Directory Location",
+            "displayName": "Input Directory Location",
+            "identifiesControllerService": false,
+            "sensitive": false,
+            "dynamic": false
+          },
+          "listing-strategy": {
+            "name": "listing-strategy",
+            "displayName": "Listing Strategy",
+            "identifiesControllerService": false,
+            "sensitive": false,
+            "dynamic": false
+          },
+          "Input Directory": {
+            "name": "Input Directory",
+            "displayName": "Input Directory",
+            "identifiesControllerService": false,
+            "sensitive": false,
+            "dynamic": false
+          },
+          "target-system-timestamp-precision": {
+            "name": "target-system-timestamp-precision",
+            "displayName": "Target System Timestamp Precision",
+            "identifiesControllerService": false,
+            "sensitive": false,
+            "dynamic": false
+          },
+          "track-performance": {
+            "name": "track-performance",
+            "displayName": "Track Performance",
+            "identifiesControllerService": false,
+            "sensitive": false,
+            "dynamic": false
+          },
+          "max-performance-metrics": {
+            "name": "max-performance-metrics",
+            "displayName": "Maximum Number of Files to Track",
+            "identifiesControllerService": false,
+            "sensitive": false,
+            "dynamic": false
+          },
+          "Minimum File Size": {
+            "name": "Minimum File Size",
+            "displayName": "Minimum File Size",
+            "identifiesControllerService": false,
+            "sensitive": false,
+            "dynamic": false
+          },
+          "Ignore Hidden Files": {
+            "name": "Ignore Hidden Files",
+            "displayName": "Ignore Hidden Files",
+            "identifiesControllerService": false,
+            "sensitive": false,
+            "dynamic": false
+          },
+          "et-state-cache": {
+            "name": "et-state-cache",
+            "displayName": "Entity Tracking State Cache",
+            "identifiesControllerService": true,
+            "sensitive": false,
+            "dynamic": false
+          },
+          "max-operation-time": {
+            "name": "max-operation-time",
+            "displayName": "Max Disk Operation Time",
+            "identifiesControllerService": false,
+            "sensitive": false,
+            "dynamic": false
+          }
+        },
+        "style": {},
+        "schedulingPeriod": "1 min",
+        "schedulingStrategy": "TIMER_DRIVEN",
+        "executionNode": "ALL",
+        "penaltyDuration": "30 sec",
+        "yieldDuration": "1 sec",
+        "bulletinLevel": "WARN",
+        "runDurationMillis": 0,
+        "concurrentlySchedulableTaskCount": 1,
+        "autoTerminatedRelationships": [],
+        "scheduledState": "ENABLED",
+        "retryCount": 10,
+        "retriedRelationships": [],
+        "backoffMechanism": "PENALIZE_FLOWFILE",
+        "maxBackoffPeriod": "10 mins",
+        "componentType": "PROCESSOR",
+        "groupIdentifier": "d1eec782-0b4d-3658-a278-24a6e93d3977"
       }
     ],
+    "inputPorts": [],
+    "outputPorts": [],
     "connections": [
       {
-        "identifier": "conn-01",
-        "name": "ListFile -> FetchFile",
-        "source": { "id": "proc-list-file-01", "type": "PROCESSOR" },
-        "destination": { "id": "proc-fetch-file-02", "type": "PROCESSOR" },
-        "selectedRelationships": ["success"],
+        "identifier": "90623732-886f-3155-89a6-81a851abcb14",
+        "instanceIdentifier": "42d5eedc-01a1-1000-945a-b7693266d908",
+        "name": "lỗi đọc tệp",
+        "source": {
+          "id": "c14ca0e4-4c5f-352a-9a1f-47f6f1ddca0c",
+          "type": "PROCESSOR",
+          "groupId": "d1eec782-0b4d-3658-a278-24a6e93d3977",
+          "name": "FetchFile - Nạp nội dung tệp",
+          "comments": "",
+          "instanceIdentifier": "42d5ed84-01a1-1000-6b36-f7f55a4f3122"
+        },
+        "destination": {
+          "id": "3f55fd15-f7f8-38da-ac2a-c25caef891ff",
+          "type": "PROCESSOR",
+          "groupId": "d1eec782-0b4d-3658-a278-24a6e93d3977",
+          "name": "LogAttribute - Cách ly bản ghi lỗi (Quarantine)",
+          "comments": "",
+          "instanceIdentifier": "42d5ee31-01a1-1000-8f1c-eda8c375903a"
+        },
+        "labelIndex": 1,
+        "zIndex": 0,
+        "selectedRelationships": [
+          "failure",
+          "permission.denied",
+          "not.found"
+        ],
         "backPressureObjectThreshold": 10000,
-        "backPressureDataSizeThreshold": "1 GB"
+        "backPressureDataSizeThreshold": "1 GB",
+        "flowFileExpiration": "0 sec",
+        "prioritizers": [],
+        "bends": [],
+        "loadBalanceStrategy": "DO_NOT_LOAD_BALANCE",
+        "loadBalanceCompression": "DO_NOT_COMPRESS",
+        "componentType": "CONNECTION",
+        "groupIdentifier": "d1eec782-0b4d-3658-a278-24a6e93d3977"
       },
       {
-        "identifier": "conn-02",
-        "name": "FetchFile -> SplitRecord",
-        "source": { "id": "proc-fetch-file-02", "type": "PROCESSOR" },
-        "destination": { "id": "proc-split-record-03", "type": "PROCESSOR" },
-        "selectedRelationships": ["success"],
+        "identifier": "2e61348c-5db2-32c6-84ab-a563089a8bc3",
+        "instanceIdentifier": "42d5ee69-01a1-1000-d523-937f5929434e",
+        "name": "success",
+        "source": {
+          "id": "f99e61b0-b4ef-30a1-9e4a-5ffce3ac1fdf",
+          "type": "PROCESSOR",
+          "groupId": "d1eec782-0b4d-3658-a278-24a6e93d3977",
+          "name": "ListFile - Quét tệp mẫu CSV",
+          "comments": "",
+          "instanceIdentifier": "42d5ed46-01a1-1000-fcb0-5306f9b3220a"
+        },
+        "destination": {
+          "id": "c14ca0e4-4c5f-352a-9a1f-47f6f1ddca0c",
+          "type": "PROCESSOR",
+          "groupId": "d1eec782-0b4d-3658-a278-24a6e93d3977",
+          "name": "FetchFile - Nạp nội dung tệp",
+          "comments": "",
+          "instanceIdentifier": "42d5ed84-01a1-1000-6b36-f7f55a4f3122"
+        },
+        "labelIndex": 1,
+        "zIndex": 0,
+        "selectedRelationships": [
+          "success"
+        ],
         "backPressureObjectThreshold": 10000,
-        "backPressureDataSizeThreshold": "1 GB"
+        "backPressureDataSizeThreshold": "1 GB",
+        "flowFileExpiration": "0 sec",
+        "prioritizers": [],
+        "bends": [],
+        "loadBalanceStrategy": "DO_NOT_LOAD_BALANCE",
+        "loadBalanceCompression": "DO_NOT_COMPRESS",
+        "componentType": "CONNECTION",
+        "groupIdentifier": "d1eec782-0b4d-3658-a278-24a6e93d3977"
       },
       {
-        "identifier": "conn-03",
-        "name": "SplitRecord -> UpdateAttribute (Các lô thành công)",
-        "source": { "id": "proc-split-record-03", "type": "PROCESSOR" },
-        "destination": { "id": "proc-update-attr-04", "type": "PROCESSOR" },
-        "selectedRelationships": ["splits"],
+        "identifier": "8d693d16-84ac-38f0-a397-12f8300e46d7",
+        "instanceIdentifier": "42d5eea3-01a1-1000-b950-c64ea578412f",
+        "name": "success",
+        "source": {
+          "id": "c14ca0e4-4c5f-352a-9a1f-47f6f1ddca0c",
+          "type": "PROCESSOR",
+          "groupId": "d1eec782-0b4d-3658-a278-24a6e93d3977",
+          "name": "FetchFile - Nạp nội dung tệp",
+          "comments": "",
+          "instanceIdentifier": "42d5ed84-01a1-1000-6b36-f7f55a4f3122"
+        },
+        "destination": {
+          "id": "ad5fbdb2-3a86-3849-bd0a-5ea0b56f3b89",
+          "type": "PROCESSOR",
+          "groupId": "d1eec782-0b4d-3658-a278-24a6e93d3977",
+          "name": "SplitText - Phân lô 5000 dòng",
+          "comments": "",
+          "instanceIdentifier": "42d5edbe-01a1-1000-56bd-aed90f40803b"
+        },
+        "labelIndex": 1,
+        "zIndex": 0,
+        "selectedRelationships": [
+          "success"
+        ],
         "backPressureObjectThreshold": 10000,
-        "backPressureDataSizeThreshold": "1 GB"
+        "backPressureDataSizeThreshold": "1 GB",
+        "flowFileExpiration": "0 sec",
+        "prioritizers": [],
+        "bends": [],
+        "loadBalanceStrategy": "DO_NOT_LOAD_BALANCE",
+        "loadBalanceCompression": "DO_NOT_COMPRESS",
+        "componentType": "CONNECTION",
+        "groupIdentifier": "d1eec782-0b4d-3658-a278-24a6e93d3977"
       },
       {
-        "identifier": "conn-04",
-        "name": "SplitRecord -> Quarantine (Bản ghi lỗi phân tích cú pháp)",
-        "source": { "id": "proc-split-record-03", "type": "PROCESSOR" },
-        "destination": { "id": "proc-log-quarantine-06", "type": "PROCESSOR" },
-        "selectedRelationships": ["failure"],
-        "backPressureObjectThreshold": 1000
-      },
-      {
-        "identifier": "conn-05",
-        "name": "UpdateAttribute -> InvokeHTTP (WebHDFS)",
-        "source": { "id": "proc-update-attr-04", "type": "PROCESSOR" },
-        "destination": { "id": "proc-invoke-http-05", "type": "PROCESSOR" },
-        "selectedRelationships": ["success"],
+        "identifier": "bd13407f-1a35-328c-8628-95711003dcd5",
+        "instanceIdentifier": "42d5ef8c-01a1-1000-3c9a-7f9f2818a118",
+        "name": "lỗi HDFS",
+        "source": {
+          "id": "a090ac60-ec1a-367a-809f-8253b9badd0f",
+          "type": "PROCESSOR",
+          "groupId": "d1eec782-0b4d-3658-a278-24a6e93d3977",
+          "name": "InvokeHTTP - Đẩy vào HDFS WebHDFS",
+          "comments": "",
+          "instanceIdentifier": "42d5edf8-01a1-1000-85d1-d9e833b22077"
+        },
+        "destination": {
+          "id": "3f55fd15-f7f8-38da-ac2a-c25caef891ff",
+          "type": "PROCESSOR",
+          "groupId": "d1eec782-0b4d-3658-a278-24a6e93d3977",
+          "name": "LogAttribute - Cách ly bản ghi lỗi (Quarantine)",
+          "comments": "",
+          "instanceIdentifier": "42d5ee31-01a1-1000-8f1c-eda8c375903a"
+        },
+        "labelIndex": 1,
+        "zIndex": 0,
+        "selectedRelationships": [
+          "No Retry",
+          "Failure"
+        ],
         "backPressureObjectThreshold": 10000,
-        "backPressureDataSizeThreshold": "1 GB"
+        "backPressureDataSizeThreshold": "1 GB",
+        "flowFileExpiration": "0 sec",
+        "prioritizers": [],
+        "bends": [],
+        "loadBalanceStrategy": "DO_NOT_LOAD_BALANCE",
+        "loadBalanceCompression": "DO_NOT_COMPRESS",
+        "componentType": "CONNECTION",
+        "groupIdentifier": "d1eec782-0b4d-3658-a278-24a6e93d3977"
       },
       {
-        "identifier": "conn-06",
-        "name": "InvokeHTTP -> Quarantine (Lỗi khi gửi HTTP)",
-        "source": { "id": "proc-invoke-http-05", "type": "PROCESSOR" },
-        "destination": { "id": "proc-log-quarantine-06", "type": "PROCESSOR" },
-        "selectedRelationships": ["failure", "no-retry"],
-        "backPressureObjectThreshold": 1000
+        "identifier": "8ad316e5-b189-3b18-a84e-eb38cb59959c",
+        "instanceIdentifier": "42d5ef53-01a1-1000-b7a5-59e545df7f2a",
+        "name": "lỗi phân chia",
+        "source": {
+          "id": "ad5fbdb2-3a86-3849-bd0a-5ea0b56f3b89",
+          "type": "PROCESSOR",
+          "groupId": "d1eec782-0b4d-3658-a278-24a6e93d3977",
+          "name": "SplitText - Phân lô 5000 dòng",
+          "comments": "",
+          "instanceIdentifier": "42d5edbe-01a1-1000-56bd-aed90f40803b"
+        },
+        "destination": {
+          "id": "3f55fd15-f7f8-38da-ac2a-c25caef891ff",
+          "type": "PROCESSOR",
+          "groupId": "d1eec782-0b4d-3658-a278-24a6e93d3977",
+          "name": "LogAttribute - Cách ly bản ghi lỗi (Quarantine)",
+          "comments": "",
+          "instanceIdentifier": "42d5ee31-01a1-1000-8f1c-eda8c375903a"
+        },
+        "labelIndex": 1,
+        "zIndex": 0,
+        "selectedRelationships": [
+          "failure"
+        ],
+        "backPressureObjectThreshold": 10000,
+        "backPressureDataSizeThreshold": "1 GB",
+        "flowFileExpiration": "0 sec",
+        "prioritizers": [],
+        "bends": [],
+        "loadBalanceStrategy": "DO_NOT_LOAD_BALANCE",
+        "loadBalanceCompression": "DO_NOT_COMPRESS",
+        "componentType": "CONNECTION",
+        "groupIdentifier": "d1eec782-0b4d-3658-a278-24a6e93d3977"
+      },
+      {
+        "identifier": "3698893b-ff0f-3dec-bc46-cde2151f4d07",
+        "instanceIdentifier": "42d5ef18-01a1-1000-a208-79fbfc6dd47e",
+        "name": "splits (từng lô)",
+        "source": {
+          "id": "ad5fbdb2-3a86-3849-bd0a-5ea0b56f3b89",
+          "type": "PROCESSOR",
+          "groupId": "d1eec782-0b4d-3658-a278-24a6e93d3977",
+          "name": "SplitText - Phân lô 5000 dòng",
+          "comments": "",
+          "instanceIdentifier": "42d5edbe-01a1-1000-56bd-aed90f40803b"
+        },
+        "destination": {
+          "id": "a090ac60-ec1a-367a-809f-8253b9badd0f",
+          "type": "PROCESSOR",
+          "groupId": "d1eec782-0b4d-3658-a278-24a6e93d3977",
+          "name": "InvokeHTTP - Đẩy vào HDFS WebHDFS",
+          "comments": "",
+          "instanceIdentifier": "42d5edf8-01a1-1000-85d1-d9e833b22077"
+        },
+        "labelIndex": 1,
+        "zIndex": 0,
+        "selectedRelationships": [
+          "splits"
+        ],
+        "backPressureObjectThreshold": 10000,
+        "backPressureDataSizeThreshold": "1 GB",
+        "flowFileExpiration": "0 sec",
+        "prioritizers": [],
+        "bends": [],
+        "loadBalanceStrategy": "DO_NOT_LOAD_BALANCE",
+        "loadBalanceCompression": "DO_NOT_COMPRESS",
+        "componentType": "CONNECTION",
+        "groupIdentifier": "d1eec782-0b4d-3658-a278-24a6e93d3977"
       }
-    ]
-  }
+    ],
+    "labels": [],
+    "funnels": [],
+    "controllerServices": [],
+    "defaultFlowFileExpiration": "0 sec",
+    "defaultBackPressureObjectThreshold": 10000,
+    "defaultBackPressureDataSizeThreshold": "1 GB",
+    "scheduledState": "ENABLED",
+    "executionEngine": "INHERITED",
+    "maxConcurrentTasks": 1,
+    "statelessFlowTimeout": "1 min",
+    "flowFileConcurrency": "UNBOUNDED",
+    "flowFileOutboundPolicy": "STREAM_WHEN_AVAILABLE",
+    "componentType": "PROCESS_GROUP"
+  },
+  "externalControllerServices": {},
+  "parameterContexts": {},
+  "flowEncodingVersion": "1.0",
+  "parameterProviders": {},
+  "latest": false
 }
