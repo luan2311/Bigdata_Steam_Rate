@@ -59,18 +59,21 @@ def export_snapshot(
 
     split_file = metrics_dir / "split_manifest.json"
     split_json = load_json(split_file)
-    split_counts = split_json.get("summary", {}).get("counts", {})
+    split_counts = split_json.get("summary", {}).get("rows", split_json.get("summary", {}).get("counts", {}))
 
     error_file = metrics_dir / "test_error_examples.json"
     error_json = load_json(error_file)
     raw_errors = error_json.get("examples", [])
     sample_errors = []
     for err in raw_errors[:30]:
+        actual = err.get("actual", err.get("label", 0))
+        predicted = int(err.get("predicted", err.get("prediction", 0)))
+        error_type = err.get("error_type", "False Positive" if predicted == 1 and actual == 0 else "False Negative")
         sample_errors.append({
             "review_text": str(err.get("review_text", "")),
-            "actual_label": int(err.get("actual", 0)),
-            "predicted_label": int(err.get("predicted", 0)),
-            "error_type": str(err.get("error_type", "False Positive / Negative")),
+            "actual_label": int(actual),
+            "predicted_label": int(predicted),
+            "error_type": str(error_type),
         })
 
     model_metrics = {
@@ -108,10 +111,18 @@ def export_snapshot(
     try:
         import pandas as pd
         
+        def _norm_df(df):
+            renames = {
+                "review_count": "total_reviews",
+                "recommended_rate": "recommendation_rate",
+                "created_month": "year_month",
+            }
+            return df.rename(columns={k: v for k, v in renames.items() if k in df.columns})
+
         # Game summary
         game_path = gold_dir / "game_summary"
         if game_path.exists():
-            df_game = pd.read_parquet(game_path)
+            df_game = _norm_df(pd.read_parquet(game_path))
             for _, r in df_game.iterrows():
                 game_summary.append({
                     "app_id": str(r["app_id"]),
@@ -124,7 +135,7 @@ def export_snapshot(
         # Monthly summary
         month_path = gold_dir / "monthly_summary"
         if month_path.exists():
-            df_month = pd.read_parquet(month_path)
+            df_month = _norm_df(pd.read_parquet(month_path))
             # Gom theo year_month tổng thể
             df_grouped = df_month.groupby("year_month").agg({"total_reviews": "sum", "recommended_count": "sum"}).reset_index()
             df_grouped["recommendation_rate"] = df_grouped["recommended_count"] / df_grouped["total_reviews"]
@@ -141,7 +152,9 @@ def export_snapshot(
         # Language summary
         lang_path = gold_dir / "language_summary"
         if lang_path.exists():
-            df_lang = pd.read_parquet(lang_path)
+            df_lang = _norm_df(pd.read_parquet(lang_path))
+            if "total_reviews" not in df_lang.columns and "review_count" in df_lang.columns:
+                df_lang["total_reviews"] = df_lang["review_count"]
             for _, r in df_lang.sort_values("total_reviews", ascending=False).iterrows():
                 language_summary.append({
                     "language": str(r["language"]),
@@ -152,7 +165,7 @@ def export_snapshot(
         # Playtime summary
         play_path = gold_dir / "playtime_summary"
         if play_path.exists():
-            df_play = pd.read_parquet(play_path)
+            df_play = _norm_df(pd.read_parquet(play_path))
             # Gom theo playtime_bucket
             df_play_grp = df_play.groupby("playtime_bucket").agg({"total_reviews": "sum", "recommended_count": "sum"}).reset_index()
             df_play_grp["recommendation_rate"] = df_play_grp["recommended_count"] / df_play_grp["total_reviews"]

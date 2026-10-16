@@ -1,0 +1,146 @@
+{
+  "run_id": "core-cluster-01",
+  "baseline_validation": {
+    "model": "baseline_majority",
+    "split": "validation",
+    "rows": 313,
+    "precision": {
+      "1": 0.9744408945686901,
+      "0": 0.0
+    },
+    "recall": {
+      "1": 1.0,
+      "0": 0.0
+    },
+    "f1": {
+      "0": 0.0,
+      "1": 0.9870550161812297
+    },
+    "macro_f1": 0.49352750809061485,
+    "accuracy": 0.9744408945686901,
+    "pr_auc_positive": 0.9744408945686901,
+    "confusion": {
+      "tp": 305,
+      "fp": 8,
+      "tn": 0,
+      "fn": 0
+    }
+  },
+  "validation": {
+    "lr_reg001": {
+      "model": "lr_reg001",
+      "split": "validation",
+      "rows": 313,
+      "precision": {
+        "1": 0.9774193548387097,
+        "0": 0.3333333333333333
+      },
+      "recall": {
+        "1": 0.9934426229508196,
+        "0": 0.125
+      },
+      "f1": {
+        "0": 0.18181818181818182,
+        "1": 0.9853658536585366
+      },
+      "macro_f1": 0.5835920177383592,
+      "accuracy": 0.9712460063897763,
+      "pr_auc_positive": 0.9957495786584344,
+      "confusion": {
+        "tp": 303,
+        "fp": 7,
+        "tn": 1,
+        "fn": 2
+      }
+    },
+    "lr_reg01": {
+      "model": "lr_reg01",
+      "split": "validation",
+      "rows": 313,
+      "precision": {
+        "1": 0.9743589743589743,
+        "0": 0.0
+      },
+      "recall": {
+        "1": 0.9967213114754099,
+        "0": 0.0
+      },
+      "f1": {
+        "0": 0.0,
+        "1": 0.9854132901134521
+      },
+      "macro_f1": 0.49270664505672607,
+      "accuracy": 0.9712460063897763,
+      "pr_auc_positive": 0.9981049444644676,
+      "confusion": {
+        "tp": 304,
+        "fp": 8,
+        "tn": 0,
+        "fn": 1
+      }
+    },
+    "lr_reg001_weighted": {
+      "model": "lr_reg001_weighted",
+      "split": "validation",
+      "rows": 313,
+      "precision": {
+        "1": 0.9773462783171522,
+        "0": 0.25
+      },
+      "recall": {
+        "1": 0.9901639344262295,
+        "0": 0.125
+      },
+      "f1": {
+        "0": 0.16666666666666666,
+        "1": 0.9837133550488599
+      },
+      "macro_f1": 0.5751900108577633,
+      "accuracy": 0.9680511182108626,
+      "pr_auc_positive": 0.9850060183415873,
+      "confusion": {
+        "tp": 302,
+        "fp": 7,
+        "tn": 1,
+        "fn": 3
+      }
+    },
+    "lr_reg01_weighted": {
+      "model": "lr_reg01_weighted",
+      "split": "validation",
+      "rows": 313,
+      "precision": {
+        "1": 0.9774193548387097,
+        "0": 0.3333333333333333
+      },
+      "recall": {
+        "1": 0.9934426229508196,
+        "0": 0.125
+      },
+      "f1": {
+        "0": 0.18181818181818182,
+        "1": 0.9853658536585366
+      },
+      "macro_f1": 0.5835920177383592,
+      "accuracy": 0.9712460063897763,
+      "pr_auc_positive": 0.98507079413988,
+      "confusion": {
+        "tp": 303,
+        "fp": 7,
+        "tn": 1,
+        "fn": 2
+      }
+    }
+  },
+  "selected": {
+    "config": {
+      "name": "lr_reg001",
+      "num_features": 65536,
+      "max_iter": 30,
+      "reg_param": 0.01,
+      "class_weighting": false
+    },
+    "model_uri": "C:/code/Bigdata/artifacts/models/core-cluster-01/lr_reg001"
+  },
+  "majority_label": 1
+}

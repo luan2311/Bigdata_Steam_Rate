@@ -1,0 +1,35 @@
+{
+  "config": {
+    "name": "lr_reg01",
+    "num_features": 65536,
+    "max_iter": 30,
+    "reg_param": 0.1,
+    "class_weighting": false
+  },
+  "metrics": {
+    "model": "lr_reg01",
+    "split": "validation",
+    "rows": 313,
+    "precision": {
+      "1": 0.9743589743589743,
+      "0": 0.0
+    },
+    "recall": {
+      "1": 0.9967213114754099,
+      "0": 0.0
+    },
+    "f1": {
+      "0": 0.0,
+      "1": 0.9854132901134521
+    },
+    "macro_f1": 0.49270664505672607,
+    "accuracy": 0.9712460063897763,
+    "pr_auc_positive": 0.9981049444644676,
+    "confusion": {
+      "tp": 304,
+      "fp": 8,
+      "tn": 0,
+      "fn": 1
+    }
+  }
+}

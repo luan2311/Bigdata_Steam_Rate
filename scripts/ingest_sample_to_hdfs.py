@@ -13,6 +13,14 @@ import csv
 import io
 import os
 import sys
+
+if sys.platform == "win32":
+    try:
+        sys.stdout.reconfigure(encoding="utf-8")
+        sys.stderr.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
+
 import requests
 
 WEBHDFS_BASE = os.getenv("WEBHDFS_URL", "http://localhost:9870/webhdfs/v1")
@@ -75,13 +83,13 @@ def upload_to_webhdfs(hdfs_path: str, data_bytes: bytes, base_url: str = WEBHDFS
         
         res2 = requests.put(redirect_url, data=data_bytes, headers={"Content-Type": "application/octet-stream"}, timeout=60)
         if res2.status_code in [200, 201]:
-            print(f"[+] Nạp thành công {len(data_bytes):,} bytes vào HDFS: {hdfs_path}")
+            print(f"[+] Nạp thành công vào HDFS: {hdfs_path}")
             return True
         else:
             print(f"[-] Lỗi bước 2 tại DataNode: HTTP {res2.status_code} - {res2.text}")
             return False
     elif res1.status_code in [200, 201]:
-        print(f"[+] Nạp trực tiếp thành công: {hdfs_path}")
+        print(f"[+] Nạp thành công vào HDFS: {hdfs_path}")
         return True
     else:
         print(f"[-] Lỗi bước 1 tại NameNode: HTTP {res1.status_code} - {res1.text}")
@@ -100,7 +108,7 @@ def verify_hdfs_content(hdfs_path: str, base_url: str = WEBHDFS_BASE):
         reader = csv.reader(io.StringIO(content))
         header = next(reader)
         count = sum(1 for _ in reader)
-        print(f"[+] Kiểm chứng khớp: {count:,} logical records trong {hdfs_path}")
+        print(f"[+] Đọc thành công {count:,} records từ {hdfs_path}")
         return count
     else:
         print(f"[-] Không thể đọc tệp từ HDFS: HTTP {res.status_code}")
@@ -116,6 +124,7 @@ def main():
     print(f"[*] Đã chia thành {len(batches)} lô (mỗi lô tối đa {BATCH_SIZE} records)")
     
     total_uploaded = 0
+    uploaded_paths = []
     for idx, (header, rows) in enumerate(batches, start=1):
         hdfs_target = f"/steam/bronze/sample/batch_{idx:02d}.csv"
         csv_bytes = batch_to_csv_bytes(header, rows)
@@ -124,11 +133,24 @@ def main():
             ok = upload_to_webhdfs(hdfs_target, csv_bytes)
             if ok:
                 total_uploaded += len(rows)
+                uploaded_paths.append(hdfs_target)
         except Exception as e:
             print(f"[-] Ngoại lệ kết nối tới WebHDFS: {e}")
             print("[!] Lưu ý: Cụm HDFS cần đang ở trạng thái chạy để thực hiện nạp.")
             
     print(f"\n[*] Tổng số records đã nạp: {total_uploaded:,} records.")
+
+    print("\n--- Kiểm chứng ngược lại qua WebHDFS (OPEN) ---")
+    total_verified = 0
+    for path in uploaded_paths:
+        count = verify_hdfs_content(path)
+        if count >= 0:
+            total_verified += count
+            
+    if total_verified == total_uploaded and total_uploaded > 0:
+        print(f"[+] Kiểm chứng khớp: {total_verified:,} logical records trong HDFS")
+    else:
+        print(f"[-] Kiểm chứng không khớp: {total_verified:,} != {total_uploaded:,}")
 
 if __name__ == "__main__":
     main()

@@ -1,2 +1,5 @@
 # Fixtures contain line breaks inside quoted CSV fields; keep bytes exact.
 tests/fixtures/*.csv -text
+
+# Shell scripts must always use LF line endings for Linux containers
+*.sh text eol=lf

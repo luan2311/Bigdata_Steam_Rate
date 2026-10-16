@@ -1,0 +1,24 @@
+{
+  "source": {
+    "uri": "C:/code/Bigdata/data/sample/steam_reviews_sample_10k.csv",
+    "dataset_version": "v1",
+    "level": "core",
+    "sha256": "a54d589df95b3c2da5127df71311154736922f12e5f9f7950a55880db44b0fcd"
+  },
+  "result": {
+    "run_id": "core-cluster-01",
+    "silver_uri": "C:/code/Bigdata/data/lake/silver/core-cluster-01",
+    "quarantine_uri": "C:/code/Bigdata/data/lake/quarantine/core-cluster-01",
+    "counts": {
+      "rows_parsed": 10000,
+      "invalid_by_reason": {},
+      "valid_pre_dedup": 10000,
+      "duplicates_removed": 0,
+      "silver_rows": 10000,
+      "blank_text": 42,
+      "missing_created_at": 0,
+      "missing_playtime_at_review": 0
+    }
+  },
+  "errors": []
+}

@@ -1,3 +1,5 @@
+name: bigdata
+
 services:
   # ============================================================================
   # HADOOP HDFS CLUSTER (1 NameNode + 2 DataNodes)

@@ -1,0 +1,12 @@
+{
+  "run_id": "core-cluster-01",
+  "gold_uri": "C:/code/Bigdata/data/lake/gold/core-cluster-01",
+  "table_rows": {
+    "game_summary": 1,
+    "monthly_summary": 49,
+    "language_summary": 28,
+    "playtime_summary": 123,
+    "quality_summary": 8
+  },
+  "check_errors": []
+}

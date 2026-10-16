@@ -1,0 +1,67 @@
+{
+  "selected_config": {
+    "name": "lr_reg001",
+    "num_features": 65536,
+    "max_iter": 30,
+    "reg_param": 0.01,
+    "class_weighting": false
+  },
+  "model_uri": "C:/code/Bigdata/artifacts/models/core-cluster-01/lr_reg001",
+  "result": {
+    "run_id": "core-cluster-01",
+    "baseline_test": {
+      "model": "baseline_majority",
+      "split": "test",
+      "rows": 387,
+      "precision": {
+        "1": 0.9638242894056848,
+        "0": 0.0
+      },
+      "recall": {
+        "1": 1.0,
+        "0": 0.0
+      },
+      "f1": {
+        "0": 0.0,
+        "1": 0.9815789473684211
+      },
+      "macro_f1": 0.49078947368421055,
+      "accuracy": 0.9638242894056848,
+      "pr_auc_positive": 0.9638242894056848,
+      "confusion": {
+        "tp": 373,
+        "fp": 14,
+        "tn": 0,
+        "fn": 0
+      }
+    },
+    "model_test": {
+      "model": "lr_reg001",
+      "split": "test",
+      "rows": 387,
+      "precision": {
+        "1": 0.966321243523316,
+        "0": 1.0
+      },
+      "recall": {
+        "1": 1.0,
+        "0": 0.07142857142857142
+      },
+      "f1": {
+        "0": 0.13333333333333333,
+        "1": 0.9828722002635046
+      },
+      "macro_f1": 0.558102766798419,
+      "accuracy": 0.9664082687338501,
+      "pr_auc_positive": 0.9703713472547694,
+      "confusion": {
+        "tp": 373,
+        "fp": 13,
+        "tn": 1,
+        "fn": 0
+      }
+    },
+    "error_examples_uri": "C:/code/Bigdata/artifacts/metrics/core-cluster-01/test_error_examples.json",
+    "notes": []
+  }
+}

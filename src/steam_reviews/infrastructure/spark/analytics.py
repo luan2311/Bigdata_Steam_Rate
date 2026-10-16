@@ -68,7 +68,8 @@ def build_tables(silver: DataFrame, request: AnalyticsRequest) -> dict[str, Data
                ("missing_created_at", c.missing_created_at),
                ("missing_playtime_at_review", c.missing_playtime_at_review)]
     metrics += [(f"invalid_{reason}", n) for reason, n in c.invalid_by_reason.items()]
-    quality = spark.createDataFrame(metrics, "metric string, value long")
+    select_parts = [f"SELECT '{m}' AS metric, CAST({v} AS BIGINT) AS value" for m, v in metrics]
+    quality = spark.sql(" UNION ALL ".join(select_parts))
 
     tables = {"game_summary": game, "monthly_summary": monthly, "language_summary": language,
               "playtime_summary": playtime, "quality_summary": quality}
