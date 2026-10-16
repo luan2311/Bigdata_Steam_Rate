@@ -7,7 +7,7 @@ from steam_reviews.application.dto.dashboard_dto import DashboardSnapshotDTO
 
 
 def render_playtime_quality_page(st: Any, snapshot: DashboardSnapshotDTO) -> None:
-    st.header("⏳ Thời gian Chơi & Báo cáo Chất lượng Dữ liệu")
+    st.header("Thời gian Chơi & Báo cáo Chất lượng Dữ liệu")
 
     st.subheader("1. Đối soát Chất lượng Tiền xử lý Dữ liệu (Pipeline Audit)")
     q = snapshot.quality_summary

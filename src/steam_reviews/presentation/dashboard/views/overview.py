@@ -8,7 +8,7 @@ from steam_reviews.application.dto.dashboard_dto import DashboardSnapshotDTO
 
 def render_overview_page(st: Any, snapshot: DashboardSnapshotDTO) -> None:
     meta = snapshot.metadata
-    st.header("📊 Tổng quan Tập dữ liệu Đánh giá Trò chơi trên Steam")
+    st.header("Tổng quan Tập dữ liệu Đánh giá Trò chơi trên Steam")
     st.markdown(
         f"**Phiên bản dữ liệu:** `{meta.dataset_version}` | "
         f"**Run ID:** `{meta.run_id}` | "
@@ -16,7 +16,7 @@ def render_overview_page(st: Any, snapshot: DashboardSnapshotDTO) -> None:
     )
 
     if meta.is_fixture:
-        st.info("ℹ️ **Lưu ý:** Dashboard đang hiển thị dữ liệu fixture kiểm thử minh họa (TV3-D02/D03).")
+        st.info("**Lưu ý:** Dashboard đang hiển thị dữ liệu fixture kiểm thử minh họa.")
 
     # Hàng KPI
     col1, col2, col3 = st.columns(3)
@@ -32,7 +32,7 @@ def render_overview_page(st: Any, snapshot: DashboardSnapshotDTO) -> None:
     st.markdown("---")
 
     # Phân bố Ngôn ngữ & Top Game
-    st.subheader("🌐 Phân bố Ngôn ngữ Đánh giá (Top Languages)")
+    st.subheader("Phân bố Ngôn ngữ Đánh giá (Top Languages)")
     st.markdown(
         "*Ghi chú phương pháp: Giữ nguyên nhóm `unknown` cho bản ghi khuyết ngôn ngữ; "
         "không suy đoán ngôn ngữ thành quốc tịch người chơi.*"

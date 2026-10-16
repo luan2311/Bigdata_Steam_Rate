@@ -1,0 +1,14 @@
+{
+  "dataset_name": "steam-reviews-2021",
+  "source_path": "C:\\code\\Bigdata\\data\\landing\\steam_reviews.csv",
+  "source_size_bytes": 8171787229,
+  "hdfs_target_directory": "/steam/bronze/full",
+  "batch_size": 100000,
+  "total_batches": 218,
+  "total_records": 21747371,
+  "total_bytes_uploaded": 8171867102,
+  "elapsed_seconds": 756.7,
+  "completed_at_utc": "2026-10-16T02:41:38.910352+00:00",
+  "verified": true,
+  "status": "SUCCESS"
+}

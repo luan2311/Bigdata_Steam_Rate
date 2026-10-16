@@ -1,0 +1,12 @@
+{
+  "run_id": "full-cluster-01",
+  "gold_uri": "C:/code/Bigdata/data/lake/gold/full-cluster-01",
+  "table_rows": {
+    "game_summary": 315,
+    "monthly_summary": 269405,
+    "language_summary": 28,
+    "playtime_summary": 37184,
+    "quality_summary": 8
+  },
+  "check_errors": []
+}

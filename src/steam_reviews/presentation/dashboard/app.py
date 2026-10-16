@@ -28,7 +28,6 @@ def main() -> None:
     st.set_page_layout = getattr(st, "set_page_config", lambda **kw: None)
     st.set_page_config(
         page_title="Steam Reviews Big Data Dashboard",
-        page_icon="🎮",
         layout="wide",
         initial_sidebar_state="expanded",
     )
@@ -38,7 +37,7 @@ def main() -> None:
     snapshot = use_case.execute()
 
     # Thanh điều hướng Sidebar
-    st.sidebar.title("🎮 Steam Analytics")
+    st.sidebar.title("Steam Analytics")
     st.sidebar.markdown(f"**Run ID:** `{snapshot.metadata.run_id}`")
     st.sidebar.markdown(f"**Bản ghi:** `{snapshot.metadata.total_valid_reviews:,}`")
 
@@ -52,8 +51,7 @@ def main() -> None:
     selection = st.sidebar.radio("Chọn màn hình phân tích:", list(pages.keys()))
 
     st.sidebar.markdown("---")
-    st.sidebar.markdown("**Nhóm thực hiện:** Big Data Team")
-    st.sidebar.markdown("**Phụ trách UI/Hồ sơ:** TV3 (Trần Nhật Hào)")
+    st.sidebar.markdown("**Nhóm thực hiện:** 8")
 
     # Render màn hình được chọn
     render_func = pages[selection]

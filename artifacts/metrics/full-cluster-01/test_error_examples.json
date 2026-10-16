@@ -1,0 +1,244 @@
+{
+  "examples": [
+    {
+      "review_id": "56448209",
+      "app_id": "517630",
+      "label": 1,
+      "prediction": 0.0,
+      "p_recommended": 0.3594115860821865,
+      "review_text": "i got the gold edition for 22 dollars. if your looking for a game to just screw around in id recommend this game if not than dont play it. AND GET IT ON SALE."
+    },
+    {
+      "review_id": "23037695",
+      "app_id": "346110",
+      "label": 0,
+      "prediction": 1.0,
+      "p_recommended": 0.5203182732876677,
+      "review_text": "I honestly do not really like the changes done to the game, it used to be fun with people being weak and dinos being strong and used for raids, now it's just that dinos are used for transport or harvest, raids are no longer fun, the new weapons changes can kill a dino almost instantly, the game has definitely changed quite a lot, some positive, some negative. To me, it feels like the games ideals are gone."
+    },
+    {
+      "review_id": "64575276",
+      "app_id": "107410",
+      "label": 0,
+      "prediction": 1.0,
+      "p_recommended": 0.6460062285300652,
+      "review_text": "Eh wasn’t that fun"
+    },
+    {
+      "review_id": "22849309",
+      "app_id": "218620",
+      "label": 1,
+      "prediction": 0.0,
+      "p_recommended": 0.0737406953019667,
+      "review_text": "To counter all the negative reviews: I personally believe Payday 2 is a good game. Is it perfect? No. Should the playerbase forget about the addition of microtransactions? Should the playerbase be upset at the state of balance? Yes. Should the playerbase be upset about the obvious nickel-and-diming of the DLC business plan? Yes.\n\nBut with all of that being said, the game is still a good game. It's fun, it handles well despite a few quirks, and it's particularly engaging with a group of friends. It's got a deep weapon system, a lot of customization with skill trees and mask customization, and the amount of content in the game is staggering... if you buy the DLC.\n\nAnd I personally believe most of the DLC is well worth the money. I've played many, many hours of this game, and I have no problem supporting developers that continue to pump out content. No, not all the DLC is worth what they're charging. Yes, if you have a friend with the heist DLC, you can play those heists with them. Characters don't add much aside from some voice lines. But the fact that the developers care enough to make such a variety of content even after the playerbase seems to have abandoned them shows that they very seriously care about the state of their game.\n\nIf you buy Payday 2, you will absolutely have a good time. No, you don't have to buy any of the DLC. Yes, you can sell the safes and drills that you get randomly on the marketplace to get a few cents. The fact remains that it's fun to play, especially with a group of friends."
+    },
+    {
+      "review_id": "37752708",
+      "app_id": "578080",
+      "label": 1,
+      "prediction": 0.0,
+      "p_recommended": 0.462743213452637,
+      "review_text": "zzzzzz"
+    },
+    {
+      "review_id": "64075529",
+      "app_id": "105600",
+      "label": 0,
+      "prediction": 1.0,
+      "p_recommended": 0.7679607130872081,
+      "review_text": "This game, is basically minecraft but 2D why would you ever want to play this\nRevision: this post was comedy, terraria is a great game as is minecraft."
+    },
+    {
+      "review_id": "84704838",
+      "app_id": "4000",
+      "label": 1,
+      "prediction": 0.0,
+      "p_recommended": 0.38068553538232386,
+      "review_text": "Bought it years ago and never played it because it seemed boring... Started playing it recently with the VR mod to play halflife 2 in VR, 100% worth it even if it is buggy and nauseating."
+    },
+    {
+      "review_id": "40097776",
+      "app_id": "227300",
+      "label": 0,
+      "prediction": 1.0,
+      "p_recommended": 0.6122313011345443,
+      "review_text": "     yes"
+    },
+    {
+      "review_id": "17568431",
+      "app_id": "322330",
+      "label": 1,
+      "prediction": 0.0,
+      "p_recommended": 0.38397166437768027,
+      "review_text": "WANTT A STORY OR ADVENTRUE MOD OR AT LEASTT A MOD WHICH ADDS THAT. i understand its still in beta but PLZZZ"
+    },
+    {
+      "review_id": "56159393",
+      "app_id": "578080",
+      "label": 0,
+      "prediction": 1.0,
+      "p_recommended": 0.5494870402148652,
+      "review_text": "d sync issues never fixed"
+    },
+    {
+      "review_id": "28918415",
+      "app_id": "4000",
+      "label": 0,
+      "prediction": 1.0,
+      "p_recommended": 0.5120500943989896,
+      "review_text": "no one plays this game unless they just run around or just sit there and rp is u huge part of this game so you need other players in all modes unless you play sandbox"
+    },
+    {
+      "review_id": "46795065",
+      "app_id": "377160",
+      "label": 0,
+      "prediction": 1.0,
+      "p_recommended": 0.5616804377026637,
+      "review_text": "I nominated this for \"Best Alternative History\" award because I like to pretend it doesn't exist.\n\nGameplay was good, story and character interaction is garbage. Go play Fallout New Vegas or Fallout 3.\n......\n\nWith that being said I do like pretending to be Donald Trump and build walls to keep out the raiders."
+    },
+    {
+      "review_id": "67999623",
+      "app_id": "578080",
+      "label": 1,
+      "prediction": 0.0,
+      "p_recommended": 0.494796474262043,
+      "review_text": "Nice.... Owesome.."
+    },
+    {
+      "review_id": "29709387",
+      "app_id": "346110",
+      "label": 0,
+      "prediction": 1.0,
+      "p_recommended": 0.7216612929281184,
+      "review_text": "The game APPEARS that it could be fun - however the crippling and game-breaking lag on OFFICIAL servers ruins any possible entertainment that could be eked out. The developers don't appear to be invested in making the game perform any  better, only to add apparent depth to gameplay - further exacerbating the problem. I cannot recommend this game."
+    },
+    {
+      "review_id": "63361732",
+      "app_id": "367520",
+      "label": 1,
+      "prediction": 0.0,
+      "p_recommended": 0.48381832462898056,
+      "review_text": "games good\ncooper cant understand\nbrain to small to comprehend \nif it aint fps to much for him\nbut its still good game"
+    },
+    {
+      "review_id": "16208001",
+      "app_id": "252490",
+      "label": 0,
+      "prediction": 1.0,
+      "p_recommended": 0.670879562235053,
+      "review_text": "It's good."
+    },
+    {
+      "review_id": "46223927",
+      "app_id": "359550",
+      "label": 1,
+      "prediction": 0.0,
+      "p_recommended": 0.42541350458666116,
+      "review_text": "i bought the starter edition thinking i would save money but spent 400 dollars , at least my pulse has hair. 10/10 would buy again"
+    },
+    {
+      "review_id": "54639023",
+      "app_id": "275850",
+      "label": 1,
+      "prediction": 0.0,
+      "p_recommended": 0.46958988527956114,
+      "review_text": "I'm happy I didn't refund this game"
+    },
+    {
+      "review_id": "62407187",
+      "app_id": "381210",
+      "label": 0,
+      "prediction": 1.0,
+      "p_recommended": 0.567574812812713,
+      "review_text": "NO"
+    },
+    {
+      "review_id": "43676926",
+      "app_id": "284160",
+      "label": 0,
+      "prediction": 1.0,
+      "p_recommended": 0.8001733337383025,
+      "review_text": "If you like wet bars of soap sliding down a lubed up water slide this games for you...\n\nPicked it up for the soft body sim, found out all the cars drive like shit on Keyboard, Controller, and Racing wheel. Car's tires seem to be bald, when flooring the gas pedal the car only recognizes the input about 5 seconds later, oof.\n\nWill pick up wreckfest on sale instead."
+    },
+    {
+      "review_id": "69067553",
+      "app_id": "644930",
+      "label": 0,
+      "prediction": 1.0,
+      "p_recommended": 0.8118595996396061,
+      "review_text": "harder than dank soulz"
+    },
+    {
+      "review_id": "27624496",
+      "app_id": "275850",
+      "label": 0,
+      "prediction": 1.0,
+      "p_recommended": 0.891742529124251,
+      "review_text": "Pros:\n- Seemingless never ending world.\n- Endless farming if you like that.\n- Amazing first few hours\n- Interesting looking ships.\n\nCons:\n- Endless farming if you don't like that.\n- Similar planets after the third / fourth one\n- Nothing new after a few hours."
+    },
+    {
+      "review_id": "78912951",
+      "app_id": "701160",
+      "label": 1,
+      "prediction": 0.0,
+      "p_recommended": 0.4932689345408492,
+      "review_text": "This game is fun, I like that archers can now shoot animals even if the archers are in the towers. Watch out for winter on the third island, because money is hard and the boat is not merciful in parts"
+    },
+    {
+      "review_id": "60785923",
+      "app_id": "292030",
+      "label": 0,
+      "prediction": 1.0,
+      "p_recommended": 0.8655553315123417,
+      "review_text": "I played for 10 hours.  Didn't understand why it was so highly rated/reviewed.\nI played for 20 hours waiting for the amazing to show up.  Didn't understand why it was so highly rated/reviewed.\nI played for 30 hours thinking: \"the reason everyone says this is the best game ever made must be right around the corner...\"\n\nOpinions vary.  I don't get it.  The only thing I can glean from the contrast of my opinions to the vast majority of positive reviews is that people who love this game really like story and some apparently undefinable \"feel\" of the world.  Gameplay is probably king for me, and this, in my opinion, is quite underwhelming in the game.  Combat is pretty lousy.  I do enjoy an immersive world, which can be found through the graphical environment, solid AI, and story elements such as backstory, purpose, interesting characters/lore/etc.  On the surface, this should strike all those chords, but for me it doesn't.\n\nIn the end, I guess it just felt like a graphical depiction of a choose-your-own-adventure book where each choice (turn to p. XX) was a horse ride to some other place on the map.  It just didn't resonate with me at all.\n\nI have tried to ask friends and internet strangers alike what they like so much about it to understand what it is I'm missing.  Every person says something like: Story + Feel.  I guess I'm just not \"feeling\" it.\n\nIt does feel like I'm missing out on this \"amazing experience\" I hear about.  Every once in a while I throw a few more sessions at it to see if clicks any differently with me, and it hasn't yet.  ...Opinions vary... I don't get it..."
+    },
+    {
+      "review_id": "49042809",
+      "app_id": "552500",
+      "label": 1,
+      "prediction": 0.0,
+      "p_recommended": 0.20995981893066484,
+      "review_text": "I LOVE this game! Sure, after beating the vanilla content and the \"eh\" DLC... I still find the game fun. The devs have really put their foot forward in the right direction by teasing us with new content such as the versus and the Winds of Magic expansion.\n\nIf you do not like Left 4 Dead or any game like L4D/World War Z... Contagion... or in general a hack n' slash horde based game, then don't get this one! \n\nThe game has beautiful graphics (Set on high or better), has fun mechanics when it comes to boss fights. The enemies are semi-intelligent when it comes to coming after you and your mates. The hordes that come to ruin your sanity can be fun and frustrating pushing you out of your comfort zone, or just straight pissing you off.\n\nThe only problem I and my group have been facing is the Backend error. (Kicking us out of the game completely) No matter what changes we do within the game, outside of the game on our PCs or even to our routers, the error will appear randomly out of no where with no warning. We even had a day where it would give us the error before even getting to the main menu.\n\nOther than the one error, we have dumped over 100 hours into the game and will probably dump 100+ more due to the expansion and versus. Plus, we have to still beat the Legend difficulty on the vanilla and two DLC that are currently out and then level all characters to 30, and THEN beat Skittergate on Legend.... Oh the pain train..."
+    },
+    {
+      "review_id": "53034278",
+      "app_id": "359550",
+      "label": 0,
+      "prediction": 1.0,
+      "p_recommended": 0.567574812812713,
+      "review_text": "No"
+    },
+    {
+      "review_id": "8048410",
+      "app_id": "40800",
+      "label": 1,
+      "prediction": 0.0,
+      "p_recommended": 0.4888754475151509,
+      "review_text": "Not for the faint of hearth since there is a lot of blood in this game as you play as a piece of meat. This game is really difficult, so you will like it if you like some challenge."
+    },
+    {
+      "review_id": "64473425",
+      "app_id": "581320",
+      "label": 0,
+      "prediction": 1.0,
+      "p_recommended": 0.7570556031796642,
+      "review_text": "I never post reviews, but please someone tell me what can be the justification for a 30 Euro game running this s.h.i.t.ty!? Being this unacceptably unoptimized 1 and a half years after release??? I was playing it on my GTX 1060 and now on my RTX 2070 - independent of the settings and quality it runs like S.H.I.T! It is fascinating what people will spit on when reviewing games, but Insurgency Sandstorm has amazing ratings even though being almost unplayable....Yeah the gameplay is amazing, the game itself is great - BUT THERE CANNOT BE A SINGLE JUSTIFICATION FACTOR FOR RUNNING HORRIBLE AS IT DOES!"
+    },
+    {
+      "review_id": "25827756",
+      "app_id": "275850",
+      "label": 1,
+      "prediction": 0.0,
+      "p_recommended": 0.41541181612669575,
+      "review_text": "READ THIS FIRST BEFORE YOU DOWN VOTE FOR GRAPHICS\nI have found that the system setting for grapics and the Games grapics are 2 seprate things ( unlike skyrim were they are the same) Setting your screen to its lowest resoulution will do wonders for the game. I was runiing at 5 frames a sec now i run at 40."
+    },
+    {
+      "review_id": "31854794",
+      "app_id": "489830",
+      "label": 1,
+      "prediction": 0.0,
+      "p_recommended": 0.027125257070550912,
+      "review_text": "[h1] NOTE: I am aware this review needs an edit. I will do it ASAP [/h1]\n\nThere are so many reviews of Skyrim, so you probably know what it's about.\n\nThe real question is: Should you buy this or the original Skyrim?\nHere are some key points to consider:\n\n-It is much cheaper than Skyrim with DLC's\n\n-It comes bundled with ALL the DLC's from the original Skyrim\n\n-Comes with a built-in mod manager intended to be used by mods from Bethesda.net\n\n-Saves are reworked - you get seperate save files for each character you create, and there are seperate saves for modded characters, so it is easy to revert back to a time when you didn't break skyrim with mods!\n\n-It is (as of writing this review) LESS modable than the original Skyrim. SKSE has not yet been updated for a 64-bit version and is a dependancy for a lot of the more complex mods.\n\n-The old 3.3GB ram restricion has been removed causing fewer crashes due to running out of memory and boosting the FPS in large battles.\n\n-Stable Alt+Tab! It no longer puts your mouse pointer on-screen after an Alt-Tab (like in the original Skyrim), resulting in fewer restarts and less annoyance.\n\n-Updated to 64bit, much more stable in general and a boon to mods in the long run.\n\n-Rain and snow now don't pass through rocks and other scenery, increasing a bit of immersion and making the terrain feel more \"real\".\n\n-Added God Rays, forrests look much prettier now.\n\n-Depth of field, can be a little annoying in open areas, but makes conversations with NPC's a look lot nicer.\n\n-Sleek black new launcher, removed the 'Data Files' option and moved it to the main menu.\n\n-Slightly better looking bethesda logo on startup.\n\n-The poor sound quality was fixed in a patch, the music sounds the same as the original Skyrim (which is in this case, a good thing).\n\n\nSo, do I recommend it? \n\nIf you have never played/owned a version of skyrim before, there is no reason not to buy it. It's cheaper ($5 for all the DLC's) and is more stable.\n\nIf you own Skyrim and all the DLC's, there is not much reason to buy this for full price - wait for a sale if you want it (unless money isn't a big deal to you, in that case, buy away!).\n\nIf you own the original Skyrim but with no DLC's, then I reccomend it because it is cheaper than buying all the DLC's for it.\n\nThank you for reading my review! I'm new to this kind of thing, suggest some things I can do better in the comments!"
+    }
+  ]
+}

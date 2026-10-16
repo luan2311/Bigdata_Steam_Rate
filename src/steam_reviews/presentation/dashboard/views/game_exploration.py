@@ -7,7 +7,7 @@ from steam_reviews.application.dto.dashboard_dto import DashboardSnapshotDTO
 
 
 def render_game_exploration_page(st: Any, snapshot: DashboardSnapshotDTO) -> None:
-    st.header("🎮 Khám phá & Xếp hạng Trò chơi")
+    st.header("Khám phá & Xếp hạng Trò chơi")
     st.markdown(
         "Xếp hạng các trò chơi theo tỷ lệ người chơi khuyến nghị (`recommendation_rate`). "
         "Chỉ áp dụng xếp hạng cho các trò chơi thỏa mãn ngưỡng số lượng đánh giá tối thiểu."
@@ -24,7 +24,7 @@ def render_game_exploration_page(st: Any, snapshot: DashboardSnapshotDTO) -> Non
     col_filter2.metric("Số trò chơi thỏa mãn ngưỡng", len(filtered_games))
 
     if not filtered_games:
-        st.warning(f"⚠️ Không có trò chơi nào có trên {threshold} lượt đánh giá. Vui lòng hạ ngưỡng lọc!")
+        st.warning(f"Không có trò chơi nào có trên {threshold} lượt đánh giá. Vui lòng hạ ngưỡng lọc!")
         return
 
     # Hiển thị bảng xếp hạng
@@ -39,12 +39,12 @@ def render_game_exploration_page(st: Any, snapshot: DashboardSnapshotDTO) -> Non
         }
         for idx, g in enumerate(filtered_games)
     ]
-    st.subheader(rf"🏆 Bảng Xếp Hạng Top Games (Ngưỡng $\ge$ {threshold} reviews)")
+    st.subheader(rf"Bảng Xếp Hạng Top Games (Ngưỡng $\ge$ {threshold} reviews)")
     st.dataframe(table_data, use_container_width=True)
 
     # Hiển thị xu hướng theo tháng
     st.markdown("---")
-    st.subheader("📈 Xu hướng Đánh giá theo Thời gian (UTC)")
+    st.subheader("Xu hướng Đánh giá theo Thời gian (UTC)")
     st.markdown("*Dữ liệu tổng hợp theo từng tháng đối với các bản ghi có nhãn thời gian hợp lệ.*")
     monthly_data = [
         {

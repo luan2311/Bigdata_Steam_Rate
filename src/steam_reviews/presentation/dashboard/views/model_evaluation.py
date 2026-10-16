@@ -7,7 +7,7 @@ from steam_reviews.application.dto.dashboard_dto import DashboardSnapshotDTO
 
 
 def render_model_evaluation_page(st: Any, snapshot: DashboardSnapshotDTO) -> None:
-    st.header("🤖 Hiệu năng Mô hình Máy học (Spark MLlib)")
+    st.header("Hiệu năng Mô hình Máy học (Spark MLlib)")
     st.markdown(
         "**Bài toán:** Phân loại nhị phân đánh giá người chơi (`recommended` 1/0) dựa trên văn bản tiếng Anh (`review_text`).  \n"
         "**Quy trình phân chia:** Hash-based Split cố định seed: 70% Train / 15% Validation / 15% Test (Chống rò rỉ dữ liệu qua văn bản trùng)."
