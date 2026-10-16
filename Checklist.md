@@ -102,10 +102,10 @@
 - [ ] **TV3-W10 — Hỗ trợ nộp hồ sơ GĐ1:** Cùng TV1 & TV2 hoàn thiện và nộp hồ sơ Báo cáo tiến độ Giai đoạn 1 đúng hạn (Tuần 6–7).
 
 ### Giai đoạn 2: Hoàn thiện ứng dụng, Đánh giá & Báo cáo hoàn chỉnh (Tuần 8–9) — Chiếm 70% điểm đồ án
-- [ ] **TV3-W11 — Đối soát toàn diện số liệu Gold & Dashboard:** Thực thi các truy vấn độc lập trên Parquet Gold, so sánh ít nhất 3 tổ hợp filter với Dashboard; ghi lại kết quả đối soát vào `artifacts/metrics/`. **Đạt khi:** Không có sai lệch số liệu giữa Dashboard và kết quả Spark SQL.
-- [ ] **TV3-W12 — Hỗ trợ Error Analysis:** Cùng TV2 phân tích định tính ~30 mẫu dự đoán sai; soạn bảng tổng hợp theo loại lỗi (mỉa mai, ngắn, tiếng lóng). **Đầu ra:** Bảng phân tích lỗi trong báo cáo Word.
-- [ ] **TV3-W13 — Soạn thảo mục Kết luận & Định hướng phát triển:** Viết mục Kết luận (tổng kết kết quả, đối chiếu mục tiêu, bài học kinh nghiệm) và mục Định hướng phát triển (mở rộng dữ liệu, cải thiện mô hình, scale-out). **Đầu ra:** Bản thảo 2 mục đã hoàn chỉnh.
-- [ ] **TV3-W14 — Soạn thảo Tài liệu tham khảo & Phụ lục:** Tổng hợp đầy đủ tài liệu tham khảo (format chuẩn APA/IEEE); viết Phụ lục hướng dẫn cài đặt và chạy hệ thống từ đầu. **Đầu ra:** Mục 9 (Tài liệu tham khảo) và Mục 10 (Phụ lục) trong báo cáo Word.
+- [x] **TV3-W11 — Đối soát toàn diện số liệu Gold & Dashboard:** Thực thi các truy vấn độc lập trên Parquet Gold, so sánh ít nhất 3 tổ hợp filter với Dashboard; ghi lại kết quả đối soát vào `artifacts/metrics/`. **Đạt khi:** Không có sai lệch số liệu giữa Dashboard và kết quả Spark SQL.
+- [x] **TV3-W12 — Hỗ trợ Error Analysis:** Cùng TV2 phân tích định tính ~30 mẫu dự đoán sai; soạn bảng tổng hợp theo loại lỗi (mỉa mai, ngắn, tiếng lóng). **Đầu ra:** Bảng phân tích lỗi trong báo cáo Word.
+- [x] **TV3-W13 — Soạn thảo mục Kết luận & Định hướng phát triển:** Viết mục Kết luận (tổng kết kết quả, đối chiếu mục tiêu, bài học kinh nghiệm) và mục Định hướng phát triển (mở rộng dữ liệu, cải thiện mô hình, scale-out). **Đầu ra:** Bản thảo 2 mục đã hoàn chỉnh.
+- [x] **TV3-W14 — Soạn thảo Tài liệu tham khảo & Phụ lục:** Tổng hợp đầy đủ tài liệu tham khảo (format chuẩn APA/IEEE); viết Phụ lục hướng dẫn cài đặt và chạy hệ thống từ đầu. **Đầu ra:** Mục 9 (Tài liệu tham khảo) và Mục 10 (Phụ lục) trong báo cáo Word.
 - [ ] **TV3-W15 — Rà soát toàn bộ báo cáo Word 10 mục & Nộp bài GĐ2:** Kiểm tra báo cáo Word đảm bảo đúng thứ tự 10 mục bắt buộc, không lỗi chính tả, số liệu nhất quán giữa các mục; cùng TV1 & TV2 nộp bài trên Classroom đúng hạn Tuần 9. **Đạt khi:** Hồ sơ nộp đầy đủ và báo cáo đạt chuẩn trình bày.
 
 ### Tuần 10: Thuyết trình & Demo sản phẩm
